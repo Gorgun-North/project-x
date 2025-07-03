@@ -12,6 +12,9 @@ size = Vector2(3335, 20)
 
 [node name="root" type="Node2D"]
 
+[node name="Player" parent="." instance=ExtResource("1_xcykd")]
+position = Vector2(295, 302)
+
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 physics_material_override = SubResource("PhysicsMaterial_bypkh")
 
@@ -28,9 +31,6 @@ position = Vector2(3316, 813)
 shape = SubResource("RectangleShape2D_mugcj")
 debug_color = Color(0.877567, 1.80009e-05, 0.599327, 0.42)
 
-[node name="Player" parent="StaticBody2D/StaticBody2D" instance=ExtResource("1_xcykd")]
-position = Vector2(295, 302)
-
 [node name="StaticBody2D2" type="StaticBody2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
@@ -44,3 +44,9 @@ debug_color = Color(0.878431, 0, 0.6, 0.419608)
 position = Vector2(1658, 1620)
 shape = SubResource("RectangleShape2D_bypkh")
 debug_color = Color(0.878431, 0, 0.6, 0.419608)
+
+[node name="floor" type="ColorRect" parent="."]
+z_index = -95
+offset_right = 3329.0
+offset_bottom = 1632.0
+color = Color(0, 0.350197, 0.353548, 1)
