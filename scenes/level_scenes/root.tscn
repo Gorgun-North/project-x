@@ -1,0 +1,46 @@
+[gd_scene load_steps=5 format=3 uid="uid://fm5rcpucimsy"]
+
+[ext_resource type="PackedScene" uid="uid://c8bibno0p31yd" path="res://scenes/object_scenes/player.tscn" id="1_xcykd"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_bypkh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mugcj"]
+size = Vector2(24, 1621)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bypkh"]
+size = Vector2(3335, 20)
+
+[node name="root" type="Node2D"]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+physics_material_override = SubResource("PhysicsMaterial_bypkh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(2, 809.5)
+shape = SubResource("RectangleShape2D_mugcj")
+debug_color = Color(0.877567, 1.80009e-05, 0.599327, 0.42)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="StaticBody2D"]
+physics_material_override = SubResource("PhysicsMaterial_bypkh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D/StaticBody2D"]
+position = Vector2(3316, 813)
+shape = SubResource("RectangleShape2D_mugcj")
+debug_color = Color(0.877567, 1.80009e-05, 0.599327, 0.42)
+
+[node name="Player" parent="StaticBody2D/StaticBody2D" instance=ExtResource("1_xcykd")]
+position = Vector2(295, 302)
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+position = Vector2(1657.5, 0)
+shape = SubResource("RectangleShape2D_bypkh")
+debug_color = Color(0.878431, 0, 0.6, 0.419608)
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="StaticBody2D2"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2/StaticBody2D2"]
+position = Vector2(1658, 1620)
+shape = SubResource("RectangleShape2D_bypkh")
+debug_color = Color(0.878431, 0, 0.6, 0.419608)

@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://c8bibno0p31yd"]
+
+[ext_resource type="Texture2D" uid="uid://dnsew7nd2l33f" path="res://icon.svg" id="1_xjjvf"]
+[ext_resource type="Script" uid="uid://wg4kyxho2lon" path="res://scripts/player_scripts/player_move.gd" id="2_gfahr"]
+[ext_resource type="Script" uid="uid://bxrfkv7bc6ydf" path="res://scripts/player_scripts/player_state_controller.gd" id="3_gfahr"]
+[ext_resource type="Script" uid="uid://db4to3nv4681q" path="res://scripts/player_scripts/player_idle.gd" id="4_7vqky"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7vqky"]
+size = Vector2(94, 86)
+
+[node name="Player" type="CharacterBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-3, 2)
+scale = Vector2(0.726562, 0.671875)
+texture = ExtResource("1_xjjvf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-3, 2)
+shape = SubResource("RectangleShape2D_7vqky")
+debug_color = Color(0, 0.6, 0.701961, 0)
+
+[node name="State_controller" type="Node" parent="." node_paths=PackedStringArray("characterbody", "initial_state")]
+script = ExtResource("3_gfahr")
+characterbody = NodePath("..")
+initial_state = NodePath("Idle")
+
+[node name="Move" type="Node" parent="State_controller"]
+script = ExtResource("2_gfahr")
+player_speed = 800.0
+
+[node name="Dodge" type="Node" parent="State_controller"]
+
+[node name="Idle" type="Node" parent="State_controller"]
+script = ExtResource("4_7vqky")
+decelaration = 6000.0
+
+[node name="player_camera" type="Camera2D" parent="."]
+zoom = Vector2(0.5, 0.5)
