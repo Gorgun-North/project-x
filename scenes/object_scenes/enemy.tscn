@@ -1,0 +1,45 @@
+[gd_scene load_steps=6 format=3 uid="uid://oa3qkjuqwrp0"]
+
+[ext_resource type="Texture2D" uid="uid://dnsew7nd2l33f" path="res://icon.svg" id="1_rrwef"]
+[ext_resource type="Script" uid="uid://bxrfkv7bc6ydf" path="res://scripts/state_scripts/state_controller.gd" id="2_21n3x"]
+[ext_resource type="Script" uid="uid://dy5sreqcaen4y" path="res://scripts/enemy_scripts/enemy_idle.gd" id="3_4wdx0"]
+[ext_resource type="Script" uid="uid://b4dv7k0e31r3t" path="res://scripts/enemy_scripts/enemy_move.gd" id="4_vssxo"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rrwef"]
+radius = 80.0
+
+[node name="Enemy" type="CharacterBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 0.300051, 0.236805, 1)
+rotation = 1.5708
+scale = Vector2(0.726562, 0.671875)
+texture = ExtResource("1_rrwef")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 0.5)
+rotation = 1.5708
+scale = Vector2(0.726562, 0.671875)
+shape = SubResource("CircleShape2D_rrwef")
+debug_color = Color(0, 0.6, 0.701961, 0)
+
+[node name="state_machine_controller" type="Node" parent="." node_paths=PackedStringArray("characterbody", "initial_state")]
+script = ExtResource("2_21n3x")
+characterbody = NodePath("..")
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="state_machine_controller"]
+script = ExtResource("3_4wdx0")
+
+[node name="Move" type="Node" parent="state_machine_controller" node_paths=PackedStringArray("nav")]
+script = ExtResource("4_vssxo")
+speed = 200.0
+nav = NodePath("../../NavigationAgent2D")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+radius = 80.0
+debug_enabled = true
+debug_use_custom = true
+debug_path_custom_color = Color(0.577629, 0.459409, 0, 1)
+
+[connection signal="velocity_computed" from="NavigationAgent2D" to="state_machine_controller/Move" method="_on_navigation_agent_2d_velocity_computed"]

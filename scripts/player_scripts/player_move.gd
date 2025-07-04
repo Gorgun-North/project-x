@@ -1,4 +1,4 @@
-extends player_states
+extends states
 class_name player_move
 
 #Exported values for speed and such for quick adjustments

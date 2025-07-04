@@ -1,16 +1,16 @@
 extends Node
 
 @export var characterbody: CharacterBody2D #Gain access to the characterbody2D functions
-var current_state : player_states #Make the player state script an object
+var current_state : states #Make the player state script an object
 var states : Dictionary = {} #Get all states as a dictionary
 
-@export var initial_state : player_states
+@export var initial_state : states
 
 
 func _ready() -> void:
 	#Initialize all available states and save them in the dictionary
 	for child in get_children():
-		if child is player_states:
+		if child is states:
 			states[child.name.to_lower()] = child
 			child.Transitioned.connect(on_child_transitioned)
 			
@@ -25,13 +25,14 @@ func _physics_process(delta: float) -> void:
 		current_state.Physics_Update(delta)
 		
 	characterbody.move_and_slide()
+	#print(states)
 
 func _process(delta: float) -> void:
 	if current_state:
 		current_state.Update(delta)
 
 #Signal for when the state transitiones to another.
-func on_child_transitioned(state: player_states, new_state_name: String) -> void:
+func on_child_transitioned(state: states, new_state_name: String) -> void:
 	if state != current_state:
 		return
 		

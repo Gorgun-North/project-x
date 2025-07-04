@@ -1,5 +1,5 @@
 extends Node
-class_name player_states
+class_name states
 
 signal Transitioned
 

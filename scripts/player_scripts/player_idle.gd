@@ -1,4 +1,4 @@
-extends player_states
+extends states
 class_name player_idle
 
 @export var decelaration: float
