@@ -8,13 +8,13 @@ class_name enemy_move
 
 var target: Vector2 = Vector2.ZERO
 
-#Current bug, the new position is equal to the last pos reached and the game breaks
-
 #Variable for when the target finds the distance to the nav target acceptable
 @export var target_reached_distance: float 
 
 var min_random_target_distance: float = -1000
 var max_random_target_distance: float = 1000
+
+var rng = RandomNumberGenerator.new()
 
 signal set_new_nav_destination
 
@@ -23,9 +23,6 @@ func Entered():
 	set_new_nav_destination.connect(on_new_nav_destination)
 	set_new_nav_destination.emit()
 	
-
-
-var rng = RandomNumberGenerator.new()
 
 #Function to initialize the destination coordinates
 func init_dest_coords(min_coords: float, max_coords: float) -> Vector2:

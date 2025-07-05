@@ -30,7 +30,7 @@ initial_state = NodePath("Idle")
 
 [node name="Move" type="Node" parent="State_controller"]
 script = ExtResource("2_gfahr")
-player_speed = 800.0
+player_speed = 400.0
 
 [node name="Dodge" type="Node" parent="State_controller"]
 

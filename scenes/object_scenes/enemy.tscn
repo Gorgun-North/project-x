@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://dnsew7nd2l33f" path="res://icon.svg" id="1_rrwef"]
 [ext_resource type="Script" uid="uid://bxrfkv7bc6ydf" path="res://scripts/state_scripts/state_controller.gd" id="2_21n3x"]
 [ext_resource type="Script" uid="uid://dy5sreqcaen4y" path="res://scripts/enemy_scripts/enemy_idle.gd" id="3_4wdx0"]
-[ext_resource type="Script" uid="uid://b4dv7k0e31r3t" path="res://scripts/enemy_scripts/enemy_move.gd" id="4_vssxo"]
+[ext_resource type="Script" uid="uid://bj1pgmrbpmil3" path="res://scripts/enemy_scripts/enemy_move_2.gd" id="4_rrwef"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rrwef"]
 radius = 80.0
@@ -31,12 +31,10 @@ initial_state = NodePath("Idle")
 [node name="Idle" type="Node" parent="state_machine_controller"]
 script = ExtResource("3_4wdx0")
 
-[node name="Move" type="Node" parent="state_machine_controller" node_paths=PackedStringArray("nav", "move_dest_ray")]
-script = ExtResource("4_vssxo")
-speed = 200.0
+[node name="Move" type="Node" parent="state_machine_controller" node_paths=PackedStringArray("nav")]
+script = ExtResource("4_rrwef")
+max_speed = 200.0
 nav = NodePath("../../NavigationAgent2D")
-move_dest_ray = NodePath("../../move_destination_raycast")
-target_reached_distance = 150.0
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 radius = 80.0
@@ -44,7 +42,7 @@ debug_enabled = true
 debug_use_custom = true
 debug_path_custom_color = Color(0.577629, 0.459409, 0, 1)
 
-[node name="move_destination_raycast" type="RayCast2D" parent="."]
+[node name="move_destination_raycast (deprecated)" type="RayCast2D" parent="."]
 top_level = true
 hit_from_inside = true
 
