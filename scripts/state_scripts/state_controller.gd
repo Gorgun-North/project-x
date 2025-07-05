@@ -23,9 +23,8 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	if current_state:
 		current_state.Physics_Update(delta)
-		
+	
 	characterbody.move_and_slide()
-	#print(states)
 
 func _process(delta: float) -> void:
 	if current_state:

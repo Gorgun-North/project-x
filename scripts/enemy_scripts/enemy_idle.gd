@@ -11,3 +11,4 @@ func Entered():
 func Update(_delta):
 	if target:
 		Transitioned.emit(self, "Move")
+		

@@ -31,15 +31,21 @@ initial_state = NodePath("Idle")
 [node name="Idle" type="Node" parent="state_machine_controller"]
 script = ExtResource("3_4wdx0")
 
-[node name="Move" type="Node" parent="state_machine_controller" node_paths=PackedStringArray("nav")]
+[node name="Move" type="Node" parent="state_machine_controller" node_paths=PackedStringArray("nav", "move_dest_ray")]
 script = ExtResource("4_vssxo")
 speed = 200.0
 nav = NodePath("../../NavigationAgent2D")
+move_dest_ray = NodePath("../../move_destination_raycast")
+target_reached_distance = 150.0
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 radius = 80.0
 debug_enabled = true
 debug_use_custom = true
 debug_path_custom_color = Color(0.577629, 0.459409, 0, 1)
+
+[node name="move_destination_raycast" type="RayCast2D" parent="."]
+top_level = true
+hit_from_inside = true
 
 [connection signal="velocity_computed" from="NavigationAgent2D" to="state_machine_controller/Move" method="_on_navigation_agent_2d_velocity_computed"]
