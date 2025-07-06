@@ -34,10 +34,15 @@ initial_state = NodePath("Idle")
 script = ExtResource("2_gfahr")
 player_speed = 400.0
 
-[node name="Dodge" type="Node" parent="State_controller"]
+[node name="Dodge" type="Node" parent="State_controller" node_paths=PackedStringArray("dodge_cooldown_timer")]
 script = ExtResource("4_rerrf")
 dodge_speed = 900.0
 dodge_duration = 0.5
+dodge_cooldown_timer = NodePath("dodge_cooldown_timer")
+dodge_cooldown = 1.0
+
+[node name="dodge_cooldown_timer" type="Timer" parent="State_controller/Dodge"]
+one_shot = true
 
 [node name="Idle" type="Node" parent="State_controller"]
 script = ExtResource("4_7vqky")
