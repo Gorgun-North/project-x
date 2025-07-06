@@ -6,7 +6,6 @@ extends Node
 
 func _input(event: InputEvent) -> void:
 	#Checks if the body is selected and if so, lets the characterbody2d look at the mouse
-	#googoogaagaa
 	
 	if Input.is_action_just_pressed("LMB"):
 		if body:
