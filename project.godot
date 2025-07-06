@@ -13,7 +13,7 @@ config_version=5
 config/name="project-x"
 run/main_scene="uid://fm5rcpucimsy"
 config/features=PackedStringArray("4.4", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="res://assets/test_assets/icon.svg"
 
 [dotnet]
 
