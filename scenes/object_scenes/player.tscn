@@ -56,6 +56,11 @@ zoom = Vector2(0.5, 0.5)
 script = ExtResource("5_u2ccb")
 body = NodePath("..")
 
-[node name="Attack" type="Node" parent="." node_paths=PackedStringArray("body")]
+[node name="Attack" type="Node" parent="." node_paths=PackedStringArray("body", "attack_cooldown_timer")]
 script = ExtResource("7_8iuoe")
 body = NodePath("..")
+rate_of_fire = 0.5
+attack_cooldown_timer = NodePath("Attack_cooldown_timer")
+
+[node name="Attack_cooldown_timer" type="Timer" parent="Attack"]
+one_shot = true
