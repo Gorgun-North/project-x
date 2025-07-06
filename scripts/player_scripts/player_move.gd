@@ -16,8 +16,11 @@ func Physics_Update(_delta) -> void:
 	input_vector = input_vector.normalized() 
 	
 	body.velocity = input_vector * player_speed
+	
+	if Input.is_action_just_pressed("SPACEBAR"):
+		Transitioned.emit(self, "dodge")
 
-	if input_vector == Vector2.ZERO:
+	elif input_vector == Vector2.ZERO:
 		Transitioned.emit(self, "idle")
 	else:
 		last_input_vector = input_vector #Keep the last input up to date until the state changes

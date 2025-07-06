@@ -1,7 +1,7 @@
 extends states
 class_name enemy_move2
 
-@export var max_speed     : float = 80.0
+@export var max_speed     : float = 400.0
 @export var arrive_radius : float = 4.0
 @export var pause_seconds : float = 0.3
 

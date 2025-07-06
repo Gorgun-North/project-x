@@ -1,15 +1,17 @@
-[gd_scene load_steps=7 format=3 uid="uid://c8bibno0p31yd"]
+[gd_scene load_steps=8 format=3 uid="uid://c8bibno0p31yd"]
 
 [ext_resource type="Texture2D" uid="uid://dnsew7nd2l33f" path="res://icon.svg" id="1_xjjvf"]
 [ext_resource type="Script" uid="uid://wg4kyxho2lon" path="res://scripts/player_scripts/player_move.gd" id="2_gfahr"]
 [ext_resource type="Script" uid="uid://bxrfkv7bc6ydf" path="res://scripts/state_scripts/state_controller.gd" id="3_gfahr"]
 [ext_resource type="Script" uid="uid://db4to3nv4681q" path="res://scripts/player_scripts/player_idle.gd" id="4_7vqky"]
+[ext_resource type="Script" uid="uid://d1l0ieqx84tnc" path="res://scripts/player_scripts/player_dodge.gd" id="4_rerrf"]
 [ext_resource type="Script" uid="uid://cne6cycqyygxn" path="res://scripts/player_scripts/player_mouse_look.gd" id="5_u2ccb"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_u2ccb"]
 radius = 56.0892
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
+safe_margin = 8.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(-3, 2)
@@ -33,6 +35,9 @@ script = ExtResource("2_gfahr")
 player_speed = 400.0
 
 [node name="Dodge" type="Node" parent="State_controller"]
+script = ExtResource("4_rerrf")
+dodge_speed = 900.0
+dodge_duration = 0.5
 
 [node name="Idle" type="Node" parent="State_controller"]
 script = ExtResource("4_7vqky")

@@ -14,5 +14,7 @@ func Physics_Update(_delta) -> void:
 		#Smoothly stops the movement of the player once they stop moving.
 		body.velocity = body.velocity.move_toward(Vector2.ZERO, decelaration * _delta)
 	
-	if input_vector != Vector2.ZERO:
+	if Input.is_action_just_pressed("SPACEBAR"):
+		Transitioned.emit(self, "dodge")
+	elif input_vector != Vector2.ZERO:
 		Transitioned.emit(self, "move")

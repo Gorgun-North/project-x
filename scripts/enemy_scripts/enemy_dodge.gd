@@ -1,5 +1,5 @@
 extends states
-class_name enemy_move
+class_name enemy_dodge
 
 @export var speed: float
 
@@ -11,8 +11,8 @@ var target: Vector2 = Vector2.ZERO
 #Variable for when the target finds the distance to the nav target acceptable
 @export var target_reached_distance: float 
 
-var min_random_target_distance: float = -1000
-var max_random_target_distance: float = 1000
+var min_random_target_distance: float = -300
+var max_random_target_distance: float = 300
 
 var rng = RandomNumberGenerator.new()
 
