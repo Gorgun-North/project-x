@@ -31,7 +31,6 @@ func Exit() -> void:
 	if dodge_cooldown_timer.is_stopped():
 		dodge_cooldown_timer.start()
 
-func _physics_process(delta: float) -> void:
-	print(dodge_cooldown_timer.time_left)
+func _physics_process(_delta: float) -> void:
 	if !dodge_cooldown_timer.is_stopped():
 		Transitioned.emit(self, "Idle")

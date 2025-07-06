@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://c8bibno0p31yd"]
+[gd_scene load_steps=9 format=3 uid="uid://c8bibno0p31yd"]
 
 [ext_resource type="Texture2D" uid="uid://dnsew7nd2l33f" path="res://icon.svg" id="1_xjjvf"]
 [ext_resource type="Script" uid="uid://wg4kyxho2lon" path="res://scripts/player_scripts/player_move.gd" id="2_gfahr"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://db4to3nv4681q" path="res://scripts/player_scripts/player_idle.gd" id="4_7vqky"]
 [ext_resource type="Script" uid="uid://d1l0ieqx84tnc" path="res://scripts/player_scripts/player_dodge.gd" id="4_rerrf"]
 [ext_resource type="Script" uid="uid://cne6cycqyygxn" path="res://scripts/player_scripts/player_mouse_look.gd" id="5_u2ccb"]
+[ext_resource type="Script" uid="uid://bbtb6daq4omy7" path="res://scripts/player_scripts/player_attack.gd" id="7_8iuoe"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_u2ccb"]
 radius = 56.0892
@@ -19,7 +20,7 @@ rotation = 1.5708
 scale = Vector2(0.726562, 0.671875)
 texture = ExtResource("1_xjjvf")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="player_hitbox" type="CollisionShape2D" parent="."]
 position = Vector2(-3, 2)
 rotation = 1.5708
 shape = SubResource("CircleShape2D_u2ccb")
@@ -53,4 +54,8 @@ zoom = Vector2(0.5, 0.5)
 
 [node name="Mouse_look" type="Node" parent="." node_paths=PackedStringArray("body")]
 script = ExtResource("5_u2ccb")
+body = NodePath("..")
+
+[node name="Attack" type="Node" parent="." node_paths=PackedStringArray("body")]
+script = ExtResource("7_8iuoe")
 body = NodePath("..")

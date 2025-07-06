@@ -19,7 +19,7 @@ rotation = 1.5708
 scale = Vector2(0.726562, 0.671875)
 texture = ExtResource("1_rrwef")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="enemy_hitbox" type="CollisionShape2D" parent="."]
 position = Vector2(-0.5, 0.5)
 rotation = 1.5708
 scale = Vector2(0.726562, 0.671875)
