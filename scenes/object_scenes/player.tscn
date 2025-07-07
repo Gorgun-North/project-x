@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://c8bibno0p31yd"]
+[gd_scene load_steps=10 format=3 uid="uid://c8bibno0p31yd"]
 
+[ext_resource type="Script" uid="uid://dr011ckt1s7li" path="res://scripts/support_scripts/entity.gd" id="1_j2f7r"]
 [ext_resource type="Texture2D" uid="uid://dnsew7nd2l33f" path="res://assets/test_assets/icon.svg" id="1_xjjvf"]
 [ext_resource type="Script" uid="uid://wg4kyxho2lon" path="res://scripts/player_scripts/player_move.gd" id="2_gfahr"]
-[ext_resource type="Script" uid="uid://bxrfkv7bc6ydf" path="res://scripts/state_scripts/state_controller.gd" id="3_gfahr"]
+[ext_resource type="Script" uid="uid://bxrfkv7bc6ydf" path="res://scripts/support_scripts/state_controller.gd" id="3_gfahr"]
 [ext_resource type="Script" uid="uid://db4to3nv4681q" path="res://scripts/player_scripts/player_idle.gd" id="4_7vqky"]
 [ext_resource type="Script" uid="uid://d1l0ieqx84tnc" path="res://scripts/player_scripts/player_dodge.gd" id="4_rerrf"]
 [ext_resource type="Script" uid="uid://cne6cycqyygxn" path="res://scripts/player_scripts/player_mouse_look.gd" id="5_u2ccb"]
@@ -13,6 +14,7 @@ radius = 56.0892
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 safe_margin = 8.0
+script = ExtResource("1_j2f7r")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(-3, 2)

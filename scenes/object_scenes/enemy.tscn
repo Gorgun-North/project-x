@@ -1,10 +1,12 @@
-[gd_scene load_steps=8 format=3 uid="uid://oa3qkjuqwrp0"]
+[gd_scene load_steps=10 format=3 uid="uid://oa3qkjuqwrp0"]
 
+[ext_resource type="Script" uid="uid://dr011ckt1s7li" path="res://scripts/support_scripts/entity.gd" id="1_8bhn2"]
 [ext_resource type="Texture2D" uid="uid://dnsew7nd2l33f" path="res://assets/test_assets/icon.svg" id="1_rrwef"]
-[ext_resource type="Script" uid="uid://bxrfkv7bc6ydf" path="res://scripts/state_scripts/state_controller.gd" id="2_21n3x"]
+[ext_resource type="Script" uid="uid://bxrfkv7bc6ydf" path="res://scripts/support_scripts/state_controller.gd" id="2_21n3x"]
 [ext_resource type="Script" uid="uid://dy5sreqcaen4y" path="res://scripts/enemy_scripts/enemy_idle.gd" id="3_4wdx0"]
 [ext_resource type="Script" uid="uid://bj1pgmrbpmil3" path="res://scripts/enemy_scripts/enemy_move_2.gd" id="4_rrwef"]
 [ext_resource type="Script" uid="uid://b4dv7k0e31r3t" path="res://scripts/enemy_scripts/enemy_dodge.gd" id="5_4wdx0"]
+[ext_resource type="Script" uid="uid://ck872vrb6hyd8" path="res://scripts/enemy_scripts/enemy_attack.gd" id="6_8bhn2"]
 [ext_resource type="Script" uid="uid://be7w5hi4ld6f7" path="res://scripts/enemy_scripts/enemy_look_at_player.gd" id="6_vssxo"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rrwef"]
@@ -12,6 +14,7 @@ radius = 80.0
 
 [node name="Enemy" type="CharacterBody2D"]
 safe_margin = 15.0
+script = ExtResource("1_8bhn2")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(1, 0.300051, 0.236805, 1)
@@ -34,15 +37,27 @@ initial_state = NodePath("Idle")
 [node name="Idle" type="Node" parent="state_machine_controller"]
 script = ExtResource("3_4wdx0")
 
-[node name="Move" type="Node" parent="state_machine_controller" node_paths=PackedStringArray("nav")]
+[node name="Move" type="Node" parent="state_machine_controller" node_paths=PackedStringArray("nav", "state_machine_controller_node")]
 script = ExtResource("4_rrwef")
 max_speed = 200.0
+min_speed = 100.0
 nav = NodePath("../../NavigationAgent2D")
+state_machine_controller_node = NodePath("..")
 
 [node name="Dodge" type="Node" parent="state_machine_controller" node_paths=PackedStringArray("nav", "move_dest_ray")]
 script = ExtResource("5_4wdx0")
+speed = 1000.0
 nav = NodePath("../../NavigationAgent2D")
 move_dest_ray = NodePath("../../move_destination_raycast")
+target_reached_distance = 150.0
+
+[node name="knockback" type="Node" parent="state_machine_controller"]
+
+[node name="Attack" type="Node" parent="state_machine_controller" node_paths=PackedStringArray("state_machine_controller_node", "enemy_to_player_ray")]
+script = ExtResource("6_8bhn2")
+state_machine_controller_node = NodePath("..")
+enemy_to_player_ray = NodePath("../../enemy_to_player_ray")
+go_to_shoot_state_timer = 2.5
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 radius = 80.0
@@ -56,6 +71,7 @@ hit_from_inside = true
 
 [node name="enemy_to_player_ray" type="RayCast2D" parent="."]
 modulate = Color(0.99226, 0, 0.364457, 1)
+top_level = true
 
 [node name="Look_at_player" type="Node" parent="." node_paths=PackedStringArray("body", "enemy_to_player_ray")]
 script = ExtResource("6_vssxo")

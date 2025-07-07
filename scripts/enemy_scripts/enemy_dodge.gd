@@ -11,8 +11,8 @@ var target: Vector2 = Vector2.ZERO
 #Variable for when the target finds the distance to the nav target acceptable
 @export var target_reached_distance: float 
 
-var min_random_target_distance: float = -300
-var max_random_target_distance: float = 300
+var min_random_target_distance: float = -600
+var max_random_target_distance: float = 600
 
 var rng = RandomNumberGenerator.new()
 
@@ -36,11 +36,8 @@ func init_dest_coords(min_coords: float, max_coords: float) -> Vector2:
 func Physics_Update(_delta: float) -> void:
 	if target != Vector2.ZERO:
 		
-		print(body.global_transform.origin.distance_to(target))
 		if body.global_transform.origin.distance_to(target) < target_reached_distance:
-			
-			body.velocity = Vector2.ZERO
-			set_new_nav_destination.emit()
+			Transitioned.emit(self, "Move")
 		
 		var current_agent_pos = body.global_transform.origin
 		var next_path_pos = nav.get_next_path_position()

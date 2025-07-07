@@ -9,10 +9,13 @@ var bullet_spawn_point_multiplier: float = 1.2
 @export var rate_of_fire: float = 1.0
 @export var attack_cooldown_timer: Timer
 
+var targetbody: CharacterBody2D
+
 func _ready() -> void:
+	targetbody = get_tree().get_first_node_in_group("Enemy")
 	attack_cooldown_timer.wait_time = rate_of_fire
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	
 	if !attack_cooldown_timer.is_stopped():
 		return
@@ -22,7 +25,7 @@ func _process(delta: float) -> void:
 		if body:
 			if attack_cooldown_timer.is_stopped():
 				attack_cooldown_timer.start()
-			var bullet = preload("res://scenes/object_scenes/bullet.tscn").instantiate()
+			var bullet_instance = preload("res://scenes/object_scenes/bullet.tscn").instantiate()
 			
 			var mouse_pos := body.get_global_mouse_position()
 			var shoot_angle : float = (mouse_pos - body.global_position).angle()
@@ -30,12 +33,12 @@ func _process(delta: float) -> void:
 			var bullet_dir: Vector2 = (mouse_pos - body.global_position).normalized()
 			
 			var bullet_spawn_distance : float = player_hitbox_size * bullet_spawn_point_multiplier
-			bullet.global_position = body.global_position + bullet_dir * bullet_spawn_distance
 			
+			bullet_instance.setup(body.get_global_mouse_position(), targetbody)
+			bullet_instance.global_position = body.global_position + bullet_dir * bullet_spawn_distance
+			bullet_instance.rotation = shoot_angle
 			
-			bullet.rotation = shoot_angle
-			
-			get_tree().root.add_child(bullet)
+			get_tree().root.add_child(bullet_instance)
 			
 		else:
 			print("body is not selected, attach it to this node: ", self)
