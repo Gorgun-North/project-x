@@ -39,9 +39,8 @@ script = ExtResource("3_4wdx0")
 
 [node name="Move" type="Node" parent="state_machine_controller" node_paths=PackedStringArray("nav", "state_machine_controller_node")]
 script = ExtResource("4_rrwef")
-max_speed = 200.0
-min_speed = 100.0
 nav = NodePath("../../NavigationAgent2D")
+go_to_dodge_timer = 2.0
 state_machine_controller_node = NodePath("..")
 
 [node name="Dodge" type="Node" parent="state_machine_controller" node_paths=PackedStringArray("nav", "move_dest_ray")]
@@ -57,7 +56,8 @@ target_reached_distance = 150.0
 script = ExtResource("6_8bhn2")
 state_machine_controller_node = NodePath("..")
 enemy_to_player_ray = NodePath("../../enemy_to_player_ray")
-go_to_shoot_state_timer = 2.5
+go_to_shoot_state_timer = 0.5
+attack_windup_timer_duration = 0.01
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 radius = 80.0

@@ -11,8 +11,8 @@ var target: Vector2 = Vector2.ZERO
 #Variable for when the target finds the distance to the nav target acceptable
 @export var target_reached_distance: float 
 
-var min_random_target_distance: float = -600
-var max_random_target_distance: float = 600
+var min_random_target_distance: float = -800
+var max_random_target_distance: float = 800
 
 var rng = RandomNumberGenerator.new()
 

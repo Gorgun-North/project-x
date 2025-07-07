@@ -11,6 +11,9 @@ class_name player_dodge
 var dodge_direction: Vector2
 var dodge_timer: float = 0.0
 
+@export var input_mode: mouse_look
+@export var aim_ray: RayCast2D
+
 func _ready() -> void:
 	dodge_cooldown_timer.wait_time = dodge_cooldown
 
@@ -18,7 +21,11 @@ func Entered() -> void:
 	
 	dodge_timer = dodge_duration
 	var mouse_pos = body.get_global_mouse_position()
-	dodge_direction = (mouse_pos - body.global_position).normalized()
+	
+	if input_mode.mouse_look_mode == "mouse":
+		dodge_direction = (mouse_pos - body.global_position).normalized()
+	if input_mode.mouse_look_mode == "controller":
+		dodge_direction = (aim_ray.get_collision_point()- body.global_position).normalized()
 	
 func Physics_Update(delta) -> void:
 	if dodge_direction != Vector2.ZERO:

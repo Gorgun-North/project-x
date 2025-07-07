@@ -13,12 +13,10 @@ var shoot_state_timer: float
 var attack_windup_timer: float
 
 var target    : Vector2
-var targetbody: CharacterBody2D
 var bullet_spawn_point_multiplier: float = 1.2
 
 func _ready() -> void:
 	shoot_state_timer = go_to_shoot_state_timer
-	targetbody = get_tree().get_first_node_in_group("Player")
 
 func _physics_process(delta: float) -> void:
 	var to_player_ray = enemy_to_player_ray.get_collider()
@@ -47,7 +45,7 @@ func Entered() -> void:
 		target = collider.global_position
 	
 	
-	body.look_at(target)
+	#body.look_at(target)
 	body.velocity = Vector2.ZERO
 	attack_windup_timer = attack_windup_timer_duration
 	
@@ -62,7 +60,7 @@ func Physics_Update(delta) -> void:
 		
 		var bullet_spawn_distance : float = enemy_hitbox_size * bullet_spawn_point_multiplier
 		
-		bullet_instance.setup(target, targetbody)
+		bullet_instance.setup(target)
 		bullet_instance.global_position = body.global_position + bullet_dir * bullet_spawn_distance
 		bullet_instance.rotation = shoot_angle
 		get_tree().root.add_child(bullet_instance)

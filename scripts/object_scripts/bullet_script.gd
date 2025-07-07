@@ -8,11 +8,10 @@ var dir: Vector2
 var target: Vector2
 var targetbody: entity
 
-@export var bullet_damage: int = 25
+@export var bullet_damage: int = 10
 
-func setup(set_target: Vector2, set_targetbody: entity) -> void:
+func setup(set_target: Vector2) -> void:
 	target = set_target
-	targetbody = set_targetbody
 
 func _ready() -> void:
 	if target != null:
@@ -26,12 +25,13 @@ func _physics_process(delta: float) -> void:
 	
 	if self.has_overlapping_bodies():
 		for i in self.get_overlapping_bodies():
-			if i == targetbody:
+			if i.name.begins_with("Player") or i.name.begins_with("Enemy"):
+				targetbody = i
+				
 				targetbody.take_damage(bullet_damage)
 				print(targetbody, ": ", targetbody.health)
 				
-		if targetbody.name.begins_with("Player"):
-			if targetbody.health == 0:
-				get_tree().quit()
+				if targetbody.health == 0 and targetbody.name.begins_with("Player"):
+					get_tree().quit()
 		
 		self.queue_free()

@@ -68,7 +68,7 @@ func _physics_process(delta: float) -> void:
 		
 	to_dodge_timer -= delta
 	if to_dodge_timer <= 0.0:
-		var maximum_new_dodge_time: float = 10.0
+		var maximum_new_dodge_time: float = 5.0
 		var new_dodge_time = rng.randf_range(to_dodge_timer, maximum_new_dodge_time)
 		
 		to_dodge_timer = new_dodge_time

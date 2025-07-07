@@ -1,4 +1,4 @@
-extends Node
+extends CharacterBody2D
 class_name entity
 
 var health: int = 100

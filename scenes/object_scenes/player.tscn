@@ -37,12 +37,14 @@ initial_state = NodePath("Idle")
 script = ExtResource("2_gfahr")
 player_speed = 400.0
 
-[node name="Dodge" type="Node" parent="State_controller" node_paths=PackedStringArray("dodge_cooldown_timer")]
+[node name="Dodge" type="Node" parent="State_controller" node_paths=PackedStringArray("dodge_cooldown_timer", "input_mode", "aim_ray")]
 script = ExtResource("4_rerrf")
 dodge_speed = 900.0
 dodge_duration = 0.5
 dodge_cooldown_timer = NodePath("dodge_cooldown_timer")
 dodge_cooldown = 1.0
+input_mode = NodePath("../../Mouse_look")
+aim_ray = NodePath("../../Aim_raycast")
 
 [node name="dodge_cooldown_timer" type="Timer" parent="State_controller/Dodge"]
 one_shot = true
@@ -58,11 +60,17 @@ zoom = Vector2(0.5, 0.5)
 script = ExtResource("5_u2ccb")
 body = NodePath("..")
 
-[node name="Attack" type="Node" parent="." node_paths=PackedStringArray("body", "attack_cooldown_timer")]
+[node name="Attack" type="Node" parent="." node_paths=PackedStringArray("body", "aim_ray", "attack_cooldown_timer", "input_mode")]
 script = ExtResource("7_8iuoe")
 body = NodePath("..")
+aim_ray = NodePath("../Aim_raycast")
 rate_of_fire = 0.5
 attack_cooldown_timer = NodePath("Attack_cooldown_timer")
+input_mode = NodePath("../Mouse_look")
 
 [node name="Attack_cooldown_timer" type="Timer" parent="Attack"]
 one_shot = true
+
+[node name="Aim_raycast" type="RayCast2D" parent="."]
+position = Vector2(61, 0)
+target_position = Vector2(10000, 0)
