@@ -29,9 +29,7 @@ func _physics_process(delta: float) -> void:
 				targetbody = i
 				
 				targetbody.take_damage(bullet_damage)
+				targetbody.got_hit.emit(dir)
 				print(targetbody, ": ", targetbody.health)
-				
-				if targetbody.health == 0 and targetbody.name.begins_with("Player"):
-					get_tree().quit()
 		
 		self.queue_free()

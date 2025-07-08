@@ -15,7 +15,6 @@ func _ready() -> void:
 	attack_cooldown_timer.wait_time = rate_of_fire
 
 func _process(_delta: float) -> void:
-	print(input_mode.mouse_look_mode)
 	
 	if !attack_cooldown_timer.is_stopped():
 		return

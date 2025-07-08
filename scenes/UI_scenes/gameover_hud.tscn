@@ -1,0 +1,88 @@
+[gd_scene load_steps=3 format=3 uid="uid://cvx33pw0eccp4"]
+
+[ext_resource type="Script" uid="uid://byqmjjofua1qm" path="res://scripts/ui_scripts/game_over_UI_script.gd" id="1_vglf5"]
+[ext_resource type="Script" uid="uid://cpmy62l7r8ql0" path="res://scripts/ui_scripts/initiate_game_over.gd" id="2_nskwx"]
+
+[node name="Gameover_hud" type="Control"]
+process_mode = 2
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_vglf5")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+clip_contents = true
+custom_minimum_size = Vector2(3.255, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.88
+anchor_right = 0.5
+anchor_bottom = 0.9
+offset_left = -250.0
+offset_top = -321.04
+offset_right = 250.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 100
+alignment = 1
+
+[node name="TextEdit" type="RichTextLabel" parent="PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(200, 72.17)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+size_flags_stretch_ratio = 3.2
+text = "wdwdwadwadwwdawadwadwadwadwwadwadwa"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Restart" type="Button" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+focus_neighbor_top = NodePath("../Quit")
+focus_neighbor_bottom = NodePath("../Quit")
+text = "Restart"
+
+[node name="Quit" type="Button" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+focus_neighbor_top = NodePath("../Restart")
+focus_neighbor_bottom = NodePath("../Restart")
+text = "Quit"
+
+[node name="VBoxContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.25
+anchor_top = 0.088
+anchor_right = 0.75
+anchor_bottom = 0.088
+offset_left = -34.0
+offset_right = 34.0
+offset_bottom = 40.0
+grow_horizontal = 2
+
+[node name="LineEdit" type="RichTextLabel" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 32
+text = "You Died!"
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Initiate_game_over" type="Node" parent="." node_paths=PackedStringArray("gameover_hud")]
+process_mode = 1
+script = ExtResource("2_nskwx")
+gameover_hud = NodePath("..")
+
+[connection signal="pressed" from="PanelContainer/VBoxContainer/Restart" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]

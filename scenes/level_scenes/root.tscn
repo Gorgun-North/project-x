@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=4 uid="uid://fm5rcpucimsy"]
+[gd_scene load_steps=12 format=4 uid="uid://fm5rcpucimsy"]
 
 [ext_resource type="PackedScene" uid="uid://c8bibno0p31yd" path="res://scenes/object_scenes/player.tscn" id="1_xcykd"]
 [ext_resource type="PackedScene" uid="uid://oa3qkjuqwrp0" path="res://scenes/object_scenes/enemy.tscn" id="2_0h2vv"]
 [ext_resource type="Texture2D" uid="uid://bhdt8jow0wpvf" path="res://assets/test_assets/greybox_01.png" id="3_8ngge"]
 [ext_resource type="Texture2D" uid="uid://gwjtea5yup1c" path="res://assets/test_assets/greybox_02.png" id="4_56p8p"]
 [ext_resource type="PackedScene" uid="uid://bbpvhvlitgexu" path="res://scenes/UI_scenes/pause_game_hud.tscn" id="5_56p8p"]
+[ext_resource type="PackedScene" uid="uid://cvx33pw0eccp4" path="res://scenes/UI_scenes/gameover_hud.tscn" id="6_r3hiv"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_56p8p"]
 vertices = PackedVector2Array(400, 1296, 2768, 1360, -784, 1360, -112, 1296, 2480, 1072, 1840, 1072, 2768, -80, 2480, 592, 1616, 688, 1616, 144, 1840, 592, 1008, 688, 400, 816, 16, 432, 1008, 144, -112, 816, -464, 432, 16, 16, -784, -80, -464, 16)
@@ -39,10 +40,10 @@ sources/0 = SubResource("TileSetAtlasSource_r3hiv")
 [node name="root" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_xcykd")]
-position = Vector2(295, 302)
+position = Vector2(-597, 232)
 
 [node name="Enemy" parent="." groups=["Enemy"] instance=ExtResource("2_0h2vv")]
-position = Vector2(904, 505)
+position = Vector2(2621, 878)
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 navigation_polygon = SubResource("NavigationPolygon_56p8p")
@@ -59,3 +60,7 @@ tile_set = SubResource("TileSet_wc2xo")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="PauseGameHud" parent="CanvasLayer" instance=ExtResource("5_56p8p")]
+visible = false
+
+[node name="Gameover_hud" parent="CanvasLayer" instance=ExtResource("6_r3hiv")]
+visible = false

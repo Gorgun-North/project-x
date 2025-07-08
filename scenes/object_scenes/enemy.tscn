@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://oa3qkjuqwrp0"]
+[gd_scene load_steps=11 format=3 uid="uid://oa3qkjuqwrp0"]
 
 [ext_resource type="Script" uid="uid://dr011ckt1s7li" path="res://scripts/support_scripts/entity.gd" id="1_8bhn2"]
 [ext_resource type="Texture2D" uid="uid://dnsew7nd2l33f" path="res://assets/test_assets/icon.svg" id="1_rrwef"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://b4dv7k0e31r3t" path="res://scripts/enemy_scripts/enemy_dodge.gd" id="5_4wdx0"]
 [ext_resource type="Script" uid="uid://ck872vrb6hyd8" path="res://scripts/enemy_scripts/enemy_attack.gd" id="6_8bhn2"]
 [ext_resource type="Script" uid="uid://be7w5hi4ld6f7" path="res://scripts/enemy_scripts/enemy_look_at_player.gd" id="6_vssxo"]
+[ext_resource type="Script" uid="uid://boqdar6ds0u3b" path="res://scripts/player_scripts/player_knockback.gd" id="8_dkigd"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rrwef"]
 radius = 80.0
@@ -39,18 +40,18 @@ script = ExtResource("3_4wdx0")
 
 [node name="Move" type="Node" parent="state_machine_controller" node_paths=PackedStringArray("nav", "state_machine_controller_node")]
 script = ExtResource("4_rrwef")
+max_speed = 800.0
+min_speed = 600.0
 nav = NodePath("../../NavigationAgent2D")
 go_to_dodge_timer = 2.0
 state_machine_controller_node = NodePath("..")
 
 [node name="Dodge" type="Node" parent="state_machine_controller" node_paths=PackedStringArray("nav", "move_dest_ray")]
 script = ExtResource("5_4wdx0")
-speed = 1000.0
+speed = 1500.0
 nav = NodePath("../../NavigationAgent2D")
 move_dest_ray = NodePath("../../move_destination_raycast")
 target_reached_distance = 150.0
-
-[node name="knockback" type="Node" parent="state_machine_controller"]
 
 [node name="Attack" type="Node" parent="state_machine_controller" node_paths=PackedStringArray("state_machine_controller_node", "enemy_to_player_ray")]
 script = ExtResource("6_8bhn2")
@@ -59,9 +60,15 @@ enemy_to_player_ray = NodePath("../../enemy_to_player_ray")
 go_to_shoot_state_timer = 0.5
 attack_windup_timer_duration = 0.01
 
+[node name="knockback" type="Node" parent="state_machine_controller" node_paths=PackedStringArray("entity_instance", "state_machine_controller_instance")]
+script = ExtResource("8_dkigd")
+entity_instance = NodePath("../..")
+state_machine_controller_instance = NodePath("..")
+knockback = 400.0
+knockback_duration = 0.15
+
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 radius = 80.0
-debug_enabled = true
 debug_use_custom = true
 debug_path_custom_color = Color(0.577629, 0.459409, 0, 1)
 

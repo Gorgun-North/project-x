@@ -27,7 +27,7 @@ func Entered() -> void:
 	if input_mode.mouse_look_mode == "controller":
 		dodge_direction = (aim_ray.get_collision_point()- body.global_position).normalized()
 	
-func Physics_Update(delta) -> void:
+func Physics_Update(delta) -> void: 
 	if dodge_direction != Vector2.ZERO:
 		dodge_timer -= delta
 		body.velocity = dodge_direction * dodge_speed

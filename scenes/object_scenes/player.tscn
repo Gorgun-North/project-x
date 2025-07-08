@@ -5,9 +5,9 @@
 [ext_resource type="Script" uid="uid://wg4kyxho2lon" path="res://scripts/player_scripts/player_move.gd" id="2_gfahr"]
 [ext_resource type="Script" uid="uid://bxrfkv7bc6ydf" path="res://scripts/support_scripts/state_controller.gd" id="3_gfahr"]
 [ext_resource type="Script" uid="uid://db4to3nv4681q" path="res://scripts/player_scripts/player_idle.gd" id="4_7vqky"]
-[ext_resource type="Script" uid="uid://d1l0ieqx84tnc" path="res://scripts/player_scripts/player_dodge.gd" id="4_rerrf"]
 [ext_resource type="Script" uid="uid://cne6cycqyygxn" path="res://scripts/player_scripts/player_mouse_look.gd" id="5_u2ccb"]
 [ext_resource type="Script" uid="uid://bbtb6daq4omy7" path="res://scripts/player_scripts/player_attack.gd" id="7_8iuoe"]
+[ext_resource type="Script" uid="uid://boqdar6ds0u3b" path="res://scripts/player_scripts/player_knockback.gd" id="7_tx6aq"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_u2ccb"]
 radius = 56.0892
@@ -15,6 +15,7 @@ radius = 56.0892
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 safe_margin = 8.0
 script = ExtResource("1_j2f7r")
+health = 50
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(-3, 2)
@@ -35,16 +36,9 @@ initial_state = NodePath("Idle")
 
 [node name="Move" type="Node" parent="State_controller"]
 script = ExtResource("2_gfahr")
-player_speed = 400.0
+player_speed = 700.0
 
-[node name="Dodge" type="Node" parent="State_controller" node_paths=PackedStringArray("dodge_cooldown_timer", "input_mode", "aim_ray")]
-script = ExtResource("4_rerrf")
-dodge_speed = 900.0
-dodge_duration = 0.5
-dodge_cooldown_timer = NodePath("dodge_cooldown_timer")
-dodge_cooldown = 1.0
-input_mode = NodePath("../../Mouse_look")
-aim_ray = NodePath("../../Aim_raycast")
+[node name="Dodge" type="Node" parent="State_controller"]
 
 [node name="dodge_cooldown_timer" type="Timer" parent="State_controller/Dodge"]
 one_shot = true
@@ -52,6 +46,12 @@ one_shot = true
 [node name="Idle" type="Node" parent="State_controller"]
 script = ExtResource("4_7vqky")
 decelaration = 6000.0
+
+[node name="Knockback" type="Node" parent="State_controller" node_paths=PackedStringArray("entity_instance", "state_machine_controller_instance")]
+script = ExtResource("7_tx6aq")
+entity_instance = NodePath("../..")
+state_machine_controller_instance = NodePath("..")
+knockback = 400.0
 
 [node name="player_camera" type="Camera2D" parent="."]
 zoom = Vector2(0.5, 0.5)
@@ -74,3 +74,5 @@ one_shot = true
 [node name="Aim_raycast" type="RayCast2D" parent="."]
 position = Vector2(61, 0)
 target_position = Vector2(10000, 0)
+
+[connection signal="got_hit" from="." to="State_controller/Knockback" method="_on_player_got_hit"]
