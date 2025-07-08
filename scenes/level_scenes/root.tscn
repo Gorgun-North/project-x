@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=4 uid="uid://fm5rcpucimsy"]
+[gd_scene load_steps=13 format=4 uid="uid://fm5rcpucimsy"]
 
 [ext_resource type="PackedScene" uid="uid://c8bibno0p31yd" path="res://scenes/object_scenes/player.tscn" id="1_xcykd"]
 [ext_resource type="PackedScene" uid="uid://oa3qkjuqwrp0" path="res://scenes/object_scenes/enemy.tscn" id="2_0h2vv"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://gwjtea5yup1c" path="res://assets/test_assets/greybox_02.png" id="4_56p8p"]
 [ext_resource type="PackedScene" uid="uid://bbpvhvlitgexu" path="res://scenes/UI_scenes/pause_game_hud.tscn" id="5_56p8p"]
 [ext_resource type="PackedScene" uid="uid://cvx33pw0eccp4" path="res://scenes/UI_scenes/gameover_hud.tscn" id="6_r3hiv"]
+[ext_resource type="PackedScene" uid="uid://co3wyad1fl2fj" path="res://scenes/UI_scenes/in_game_hud.tscn" id="7_wc2xo"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_56p8p"]
 vertices = PackedVector2Array(400, 1296, 2768, 1360, -784, 1360, -112, 1296, 2480, 1072, 1840, 1072, 2768, -80, 2480, 592, 1616, 688, 1616, 144, 1840, 592, 1008, 688, 400, 816, 16, 432, 1008, 144, -112, 816, -464, 432, 16, 16, -784, -80, -464, 16)
@@ -64,3 +65,6 @@ visible = false
 
 [node name="Gameover_hud" parent="CanvasLayer" instance=ExtResource("6_r3hiv")]
 visible = false
+
+[node name="in_game_hud" parent="CanvasLayer" instance=ExtResource("7_wc2xo")]
+anchors_preset = 15

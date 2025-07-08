@@ -4,7 +4,7 @@ var player: entity
 @export var gameover_hud: Control
 
 var game_over_text: Array = [
-	"Looks like you're at till lunch...",
+	"Looks like you're out till lunch...",
 	"No gamer time for you",
 	"Skill issue",
 	"Why don't you try again :)"

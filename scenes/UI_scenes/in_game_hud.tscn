@@ -1,0 +1,73 @@
+[gd_scene load_steps=2 format=3 uid="uid://co3wyad1fl2fj"]
+
+[ext_resource type="Script" uid="uid://dyxygh0q8qmfu" path="res://scripts/ui_scripts/healthbar_script.gd" id="1_ff0op"]
+
+[node name="in_game_hud" type="Control" node_paths=PackedStringArray("player_healthbar", "enemy_healthbar")]
+process_mode = 3
+layout_mode = 3
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ff0op")
+player_healthbar = NodePath("Control/VBoxContainer/player_healthbar")
+enemy_healthbar = NodePath("Control/VBoxContainer2/enemy_healthbar")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 1
+anchor_left = 0.05
+anchor_top = 0.05
+anchor_right = 0.95
+anchor_bottom = 0.95
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
+layout_mode = 0
+offset_right = 360.0
+offset_bottom = 61.0
+
+[node name="text" type="RichTextLabel" parent="Control/VBoxContainer"]
+custom_minimum_size = Vector2(1.22, 30)
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 3.61
+bbcode_enabled = true
+text = "Player
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="player_healthbar" type="ProgressBar" parent="Control/VBoxContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+step = 1.0
+value = 100.0
+rounded = true
+show_percentage = false
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -360.0
+offset_bottom = 61.0
+grow_horizontal = 0
+
+[node name="text" type="RichTextLabel" parent="Control/VBoxContainer2"]
+custom_minimum_size = Vector2(1.22, 30)
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 3.61
+bbcode_enabled = true
+text = "Enemy"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="enemy_healthbar" type="ProgressBar" parent="Control/VBoxContainer2"]
+clip_contents = true
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+step = 1.0
+value = 100.0
+show_percentage = false
