@@ -37,5 +37,7 @@ func _physics_process(delta: float) -> void:
 					targetbody.got_hit.emit(dir, knockback_force, knockback_duration_player)
 				elif targetbody.name.begins_with("Enemy"):
 					targetbody.got_hit.emit(dir, knockback_force, knockback_duration_enemy)
+				else:
+					targetbody.got_hit.emit(dir, knockback_force, knockback_duration_player)
 					
 		self.queue_free()
