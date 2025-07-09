@@ -10,8 +10,8 @@ size = Vector2(32, 32)
 
 [node name="Destructable_object" parent="." instance=ExtResource("1_ofxa7")]
 scale = Vector2(4, 4)
+safe_margin = 5.0
 mass = 200.0
-health = 20
 
 [node name="Sprite2D" parent="Destructable_object" index="0"]
 texture_filter = 1
