@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://bt3ohyhrodcv7"]
+
+[ext_resource type="Script" uid="uid://2wh2slyt8db8" path="res://scripts/object_scripts/exploding_barrel.gd" id="1_ukqj3"]
+[ext_resource type="Texture2D" uid="uid://d22dxy2s18wdl" path="res://assets/test_assets/exploding_barrel_concept.png" id="2_as2wr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s5uuy"]
+size = Vector2(26, 48.3333)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ukqj3"]
+radius = 338.0
+
+[node name="exploding_barrel" type="CharacterBody2D" node_paths=PackedStringArray("explosion_radius")]
+script = ExtResource("1_ukqj3")
+explosion_radius = NodePath("explosion_radius")
+health = 10
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(3, 3)
+texture = ExtResource("2_as2wr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 3.5)
+scale = Vector2(3, 3)
+shape = SubResource("RectangleShape2D_s5uuy")
+
+[node name="explosion_radius" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="explosion_radius"]
+shape = SubResource("CircleShape2D_ukqj3")

@@ -15,7 +15,8 @@ func _ready() -> void:
 	
 func _process(_delta: float) -> void:
 	player_healthbar.value = player.health
-	enemy_healthbar.value = enemy.health
+	if enemy:
+		enemy_healthbar.value = enemy.health
 	
 	if player.health <= 0.0:
 		self.hide()

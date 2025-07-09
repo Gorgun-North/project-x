@@ -4,8 +4,7 @@ class_name player_knockback
 @export var entity_instance: entity
 @export var state_machine_controller_instance: state_machine_controller
 
-@export var knockback: float = 800.0
-@export var knockback_duration: float = 0.3
+var knockback_duration_instance: float
 
 var knockback_timer: float = 0.0
 
@@ -14,7 +13,9 @@ func _ready() -> void:
 		entity_instance.got_hit.connect(_on_player_got_hit)
 		
 func Entered() -> void:
-	knockback_timer = knockback_duration
+	
+	
+	knockback_timer = knockback_duration_instance
 		
 func Physics_Update(delta) -> void:
 	knockback_timer -= delta
@@ -23,10 +24,11 @@ func Physics_Update(delta) -> void:
 		Transitioned.emit(self, "Idle")
 	
 
-func _on_player_got_hit(hit_direction: Vector2) -> void:
+func _on_player_got_hit(hit_direction: Vector2, knockback_force: float, knockback_duration: float) -> void:
 	if state_machine_controller_instance:
-		Transitioned.emit(state_machine_controller_instance.current_state, "Knockback")
+		knockback_duration_instance = knockback_duration
 		
-		entity_instance.velocity = hit_direction.normalized() * knockback
+		entity_instance.velocity = hit_direction.normalized() * knockback_force
+		Transitioned.emit(state_machine_controller_instance.current_state, "Knockback")
 		#var calc_angle = (entity_instance.global_position - hit_direction).normalized()
 		#entity_instance.velocity = calc_angle * knockback

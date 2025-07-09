@@ -4,6 +4,9 @@ class_name bullet
 @export var bullet_speed: float = 500.0
 
 var dir: Vector2
+var knockback_force: float = 400.0
+var knockback_duration_player: float = 0.3
+var knockback_duration_enemy: float = 0.15
 
 var target: Vector2
 var targetbody: entity
@@ -25,11 +28,14 @@ func _physics_process(delta: float) -> void:
 	
 	if self.has_overlapping_bodies():
 		for i in self.get_overlapping_bodies():
-			if i.name.begins_with("Player") or i.name.begins_with("Enemy"):
+			print(i)
+			if i is entity:
 				targetbody = i
 				
 				targetbody.take_damage(bullet_damage)
-				targetbody.got_hit.emit(dir)
-				print(targetbody, ": ", targetbody.health)
-		
+				if targetbody.name.begins_with("Player"):
+					targetbody.got_hit.emit(dir, knockback_force, knockback_duration_player)
+				elif targetbody.name.begins_with("Enemy"):
+					targetbody.got_hit.emit(dir, knockback_force, knockback_duration_enemy)
+					
 		self.queue_free()

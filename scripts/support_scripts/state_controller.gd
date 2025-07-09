@@ -28,6 +28,7 @@ func _physics_process(delta: float) -> void:
 	characterbody.move_and_slide()
 
 func _process(delta: float) -> void:
+	#print(Engine.get_frames_per_second())
 	if current_state:
 		current_state.Update(delta)
 
