@@ -1,0 +1,368 @@
+[gd_scene load_steps=7 format=3 uid="uid://dkg43tju8bni3"]
+
+[ext_resource type="PackedScene" uid="uid://cr3ie5dxjc2h7" path="res://object_prefabs/base_navregion.tscn" id="1_6uaw7"]
+[ext_resource type="TileSet" uid="uid://dvkemy70073op" path="res://object_prefabs/test_tileset_werkt_niet.tres" id="1_h3pg1"]
+[ext_resource type="Script" uid="uid://srym53hdohls" path="res://scripts/support_scripts/game_controller.gd" id="1_nqllb"]
+[ext_resource type="PackedScene" uid="uid://c8bibno0p31yd" path="res://scenes/object_scenes/player.tscn" id="3_p5v8p"]
+[ext_resource type="PackedScene" uid="uid://bt3ohyhrodcv7" path="res://scenes/object_scenes/exploding_barrel.tscn" id="4_qakpw"]
+[ext_resource type="PackedScene" uid="uid://cos8u35tx6sc1" path="res://scenes/object_scenes/crate.tscn" id="5_bn3tp"]
+
+[node name="Micheal_bay_level" type="Node2D" node_paths=PackedStringArray("navmesh")]
+script = ExtResource("1_nqllb")
+navmesh = NodePath("NavigationRegion2D")
+
+[node name="NavigationRegion2D" parent="." instance=ExtResource("1_6uaw7")]
+
+[node name="TileMapLayer" type="TileMapLayer" parent="NavigationRegion2D"]
+tile_set = ExtResource("1_h3pg1")
+
+[node name="exploding_barrel" parent="NavigationRegion2D" instance=ExtResource("4_qakpw")]
+position = Vector2(4432, 2888)
+
+[node name="exploding_barrel2" parent="NavigationRegion2D" instance=ExtResource("4_qakpw")]
+position = Vector2(4559, 2885)
+
+[node name="exploding_barrel3" parent="NavigationRegion2D" instance=ExtResource("4_qakpw")]
+position = Vector2(4668, 2885)
+
+[node name="exploding_barrel4" parent="NavigationRegion2D" instance=ExtResource("4_qakpw")]
+position = Vector2(4773, 2885)
+
+[node name="exploding_barrel5" parent="NavigationRegion2D" instance=ExtResource("4_qakpw")]
+position = Vector2(4885, 2885)
+
+[node name="exploding_barrel6" parent="NavigationRegion2D" instance=ExtResource("4_qakpw")]
+position = Vector2(5005, 2881)
+
+[node name="exploding_barrel7" parent="NavigationRegion2D" instance=ExtResource("4_qakpw")]
+position = Vector2(5114, 2881)
+
+[node name="exploding_barrel8" parent="NavigationRegion2D" instance=ExtResource("4_qakpw")]
+position = Vector2(5228, 2877)
+
+[node name="exploding_barrel9" parent="NavigationRegion2D" instance=ExtResource("4_qakpw")]
+position = Vector2(5335, 2871)
+
+[node name="exploding_barrel10" parent="NavigationRegion2D" instance=ExtResource("4_qakpw")]
+position = Vector2(5462, 2868)
+
+[node name="exploding_barrel11" parent="NavigationRegion2D" instance=ExtResource("4_qakpw")]
+position = Vector2(5571, 2868)
+
+[node name="exploding_barrel12" parent="NavigationRegion2D" instance=ExtResource("4_qakpw")]
+position = Vector2(5676, 2868)
+
+[node name="exploding_barrel13" parent="NavigationRegion2D" instance=ExtResource("4_qakpw")]
+position = Vector2(5788, 2868)
+
+[node name="exploding_barrel14" parent="NavigationRegion2D" instance=ExtResource("4_qakpw")]
+position = Vector2(5908, 2864)
+
+[node name="exploding_barrel15" parent="NavigationRegion2D" instance=ExtResource("4_qakpw")]
+position = Vector2(6017, 2864)
+
+[node name="exploding_barrel16" parent="NavigationRegion2D" instance=ExtResource("4_qakpw")]
+position = Vector2(6131, 2860)
+
+[node name="exploding_barrel17" parent="NavigationRegion2D" instance=ExtResource("4_qakpw")]
+position = Vector2(6223, 2859)
+
+[node name="exploding_barrel18" parent="NavigationRegion2D" instance=ExtResource("4_qakpw")]
+position = Vector2(6335, 2859)
+
+[node name="exploding_barrel19" parent="NavigationRegion2D" instance=ExtResource("4_qakpw")]
+position = Vector2(6455, 2855)
+
+[node name="exploding_barrel20" parent="NavigationRegion2D" instance=ExtResource("4_qakpw")]
+position = Vector2(6564, 2855)
+
+[node name="Crate" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(4287, 3046)
+
+[node name="Crate2" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(4446, 3044)
+
+[node name="Crate3" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(4598, 3038)
+
+[node name="Crate4" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(4742, 3036)
+
+[node name="Crate5" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(4887, 3029)
+
+[node name="Crate6" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(5037, 3027)
+
+[node name="Crate7" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(5192, 3025)
+
+[node name="Crate8" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(5351, 3023)
+
+[node name="Crate9" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(5503, 3017)
+
+[node name="Crate10" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(5647, 3015)
+
+[node name="Crate11" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(5792, 3008)
+
+[node name="Crate12" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(5942, 3006)
+
+[node name="Crate13" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(6086, 3009)
+
+[node name="Crate14" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(6245, 3007)
+
+[node name="Crate15" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(6397, 3001)
+
+[node name="Crate16" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(6541, 2999)
+
+[node name="Crate17" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(4295, 3190)
+
+[node name="Crate18" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(4454, 3188)
+
+[node name="Crate19" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(4606, 3182)
+
+[node name="Crate20" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(4750, 3180)
+
+[node name="Crate21" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(4895, 3173)
+
+[node name="Crate22" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(5045, 3171)
+
+[node name="Crate23" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(5200, 3169)
+
+[node name="Crate24" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(5359, 3167)
+
+[node name="Crate25" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(5511, 3161)
+
+[node name="Crate26" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(5655, 3159)
+
+[node name="Crate27" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(5800, 3152)
+
+[node name="Crate28" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(5950, 3150)
+
+[node name="Crate29" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(6094, 3153)
+
+[node name="Crate30" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(6253, 3151)
+
+[node name="Crate31" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(6405, 3145)
+
+[node name="Crate32" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(6549, 3143)
+
+[node name="Crate33" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(4296, 3344)
+
+[node name="Crate34" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(4455, 3342)
+
+[node name="Crate35" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(4607, 3336)
+
+[node name="Crate36" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(4751, 3334)
+
+[node name="Crate37" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(4896, 3327)
+
+[node name="Crate38" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(5046, 3325)
+
+[node name="Crate39" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(5201, 3323)
+
+[node name="Crate40" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(5360, 3321)
+
+[node name="Crate41" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(5512, 3315)
+
+[node name="Crate42" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(5656, 3313)
+
+[node name="Crate43" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(5801, 3306)
+
+[node name="Crate44" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(5951, 3304)
+
+[node name="Crate45" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(6095, 3307)
+
+[node name="Crate46" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(6254, 3305)
+
+[node name="Crate47" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(6406, 3299)
+
+[node name="Crate48" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(6550, 3297)
+
+[node name="Crate49" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(4287, 2745)
+
+[node name="Crate50" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(4446, 2743)
+
+[node name="Crate51" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(4598, 2737)
+
+[node name="Crate52" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(4742, 2735)
+
+[node name="Crate53" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(4887, 2728)
+
+[node name="Crate54" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(5037, 2726)
+
+[node name="Crate55" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(5192, 2724)
+
+[node name="Crate56" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(5351, 2722)
+
+[node name="Crate57" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(5503, 2716)
+
+[node name="Crate58" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(5647, 2714)
+
+[node name="Crate59" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(5792, 2707)
+
+[node name="Crate60" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(5942, 2705)
+
+[node name="Crate61" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(6086, 2708)
+
+[node name="Crate62" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(6245, 2706)
+
+[node name="Crate63" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(6397, 2700)
+
+[node name="Crate64" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(6541, 2698)
+
+[node name="Crate65" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(4248, 2590)
+
+[node name="Crate66" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(4407, 2588)
+
+[node name="Crate67" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(4559, 2582)
+
+[node name="Crate68" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(4703, 2580)
+
+[node name="Crate69" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(4848, 2573)
+
+[node name="Crate70" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(4998, 2571)
+
+[node name="Crate71" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(5153, 2569)
+
+[node name="Crate72" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(5312, 2567)
+
+[node name="Crate73" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(5464, 2561)
+
+[node name="Crate74" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(5608, 2559)
+
+[node name="Crate75" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(5753, 2552)
+
+[node name="Crate76" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(5903, 2550)
+
+[node name="Crate77" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(6047, 2553)
+
+[node name="Crate78" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(6206, 2551)
+
+[node name="Crate79" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(6358, 2545)
+
+[node name="Crate80" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(6502, 2543)
+
+[node name="Crate81" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(4274, 2426)
+
+[node name="Crate82" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(4433, 2424)
+
+[node name="Crate83" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(4585, 2418)
+
+[node name="Crate84" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(4729, 2416)
+
+[node name="Crate85" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(4874, 2409)
+
+[node name="Crate86" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(5024, 2407)
+
+[node name="Crate87" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(5179, 2405)
+
+[node name="Crate88" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(5338, 2403)
+
+[node name="Crate89" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(5490, 2397)
+
+[node name="Crate90" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(5634, 2395)
+
+[node name="Crate91" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(5779, 2388)
+
+[node name="Crate92" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(5929, 2386)
+
+[node name="Crate93" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(6073, 2389)
+
+[node name="Crate94" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(6232, 2387)
+
+[node name="Crate95" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(6384, 2381)
+
+[node name="Crate96" parent="NavigationRegion2D" instance=ExtResource("5_bn3tp")]
+position = Vector2(6528, 2379)
+
+[node name="Player" parent="." instance=ExtResource("3_p5v8p")]
+position = Vector2(3595, 2885)

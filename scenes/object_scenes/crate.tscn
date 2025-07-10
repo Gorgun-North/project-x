@@ -12,6 +12,7 @@ size = Vector2(32, 32)
 scale = Vector2(4, 4)
 safe_margin = 5.0
 mass = 200.0
+health = 30000
 
 [node name="Sprite2D" parent="Destructable_object" index="0"]
 texture_filter = 1
@@ -23,6 +24,6 @@ shape = SubResource("RectangleShape2D_2tos3")
 [node name="NavigationObstacle2D" parent="Destructable_object" index="2"]
 position = Vector2(0.25, 0)
 scale = Vector2(1.01891, 1.45)
-vertices = PackedVector2Array(23.33, 15.94, 23.35, -15.985, -24.315, -15.965, -24.035, 16.08)
+vertices = PackedVector2Array(32.3876, 20.8621, 32.3876, -20.8621, -28.7071, -20.6897, -28.7071, 20.8621)
 
 [editable path="Destructable_object"]

@@ -21,8 +21,8 @@ func _physics_process(delta: float) -> void:
 	elif knockback_duration_instance > 0.0:
 		knockback_duration_instance -= delta
 		knockback_finished_flag = false
+		self.move_and_slide()
 		
-	self.move_and_slide()
 
 func _ready() -> void:
 	got_hit.connect(_on_got_hit)

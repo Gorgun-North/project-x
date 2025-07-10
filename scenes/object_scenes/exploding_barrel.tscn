@@ -28,3 +28,10 @@ shape = SubResource("RectangleShape2D_s5uuy")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="explosion_radius"]
 shape = SubResource("CircleShape2D_ukqj3")
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
+position = Vector2(0.25, 0)
+scale = Vector2(1.01891, 1.45)
+vertices = PackedVector2Array(64.5297, 70.3448, 66.4926, -64.1379, -58.1504, -64.8276, -60.1133, 72.4138)
+affect_navigation_mesh = true
+carve_navigation_mesh = true

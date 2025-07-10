@@ -66,6 +66,8 @@ entity_instance = NodePath("../..")
 state_machine_controller_instance = NodePath("..")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+target_desired_distance = 50.0
+path_max_distance = 50.0
 radius = 80.0
 debug_use_custom = true
 debug_path_custom_color = Color(0.577629, 0.459409, 0, 1)

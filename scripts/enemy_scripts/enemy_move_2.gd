@@ -3,7 +3,6 @@ class_name enemy_move2
 
 @export var max_speed     : float = 400.0
 @export var min_speed     : float = 300
-@export var arrive_radius : float = 4.0
 @export var pause_seconds : float = 0.3
 
 @export var nav: NavigationAgent2D
@@ -35,7 +34,7 @@ func Physics_Update(delta: float) -> void:
 	var steer_target: Vector2 = nav.get_next_path_position()
 	body.look_at(nav.get_next_path_position())
 	var dir: Vector2 = (steer_target - body.global_position).normalized()
-
+	
 	body.velocity = dir * max_speed
 
 
@@ -43,15 +42,15 @@ func _pick_new_destination() -> void:
 	
 	speed = rng.randf_range(min_speed, max_speed)
 	var map_rid: RID = nav.get_navigation_map()
-
+	
 	# NavigationServer2D can hand us a genuine point ON the mesh:
-	var random_point := NavigationServer2D.map_get_random_point(
-		map_rid,
-		1,          # navigation layer mask (default “1”)
-		false       # fast random pick; set true for perfect uniformity
-	)
+	while true:
+		var random_point := NavigationServer2D.map_get_random_point(map_rid, 1, true)
+		nav.set_target_position(random_point)
+		
+		if nav.is_target_reachable():
+			break
 
-	nav.set_target_position(random_point)
 	_pause_timer = pause_seconds
 
 func _ready() -> void:

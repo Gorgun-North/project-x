@@ -22,6 +22,7 @@ func _ready() -> void:
 		current_state = initial_state
 			
 func _physics_process(delta: float) -> void:
+	
 	if current_state:
 		current_state.Physics_Update(delta)
 	
