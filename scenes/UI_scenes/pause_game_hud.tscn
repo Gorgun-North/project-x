@@ -1,17 +1,51 @@
-[gd_scene load_steps=3 format=3 uid="uid://bbpvhvlitgexu"]
+[gd_scene load_steps=2 format=3 uid="uid://bbpvhvlitgexu"]
 
-[ext_resource type="Script" uid="uid://c5py1v404x4bt" path="res://scripts/ui_scripts/pause_menu_script.gd" id="1_137s6"]
-[ext_resource type="Script" uid="uid://cvagaxo832wvp" path="res://scripts/ui_scripts/go_to_pause_menu_script.gd" id="2_boc6r"]
+[sub_resource type="GDScript" id="GDScript_hh6xy"]
+script/source = "extends Control
+class_name pausemenu
+
+func _process(delta: float) -> void:
+	if Input.is_action_just_pressed(\"ESC\"):
+		if get_tree().paused == false: 
+			pause()
+		elif get_tree().paused == true:
+			resume()
+
+func _ready() -> void:
+	self.hide()
+
+func resume() -> void:
+	self.hide()
+	get_tree().paused = false
+	
+func pause() -> void:
+	get_tree().paused = true
+	self.show()
+	$PanelContainer/VBoxContainer/Resume.grab_focus()
+	
+
+func _on_resume_pressed() -> void:
+	resume()
+
+
+func _on_restart_pressed() -> void:
+	resume()
+	get_tree().reload_current_scene()
+
+
+func _on_quit_pressed() -> void:
+	get_tree().quit()
+"
 
 [node name="PauseGameHud" type="Control"]
-process_mode = 2
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_137s6")
+script = SubResource("GDScript_hh6xy")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1
@@ -46,11 +80,6 @@ layout_mode = 2
 focus_neighbor_top = NodePath("../Restart")
 focus_neighbor_bottom = NodePath("../Resume")
 text = "Quit"
-
-[node name="Pausegame" type="Node" parent="." node_paths=PackedStringArray("pausemenu_node")]
-process_mode = 1
-script = ExtResource("2_boc6r")
-pausemenu_node = NodePath("..")
 
 [connection signal="pressed" from="PanelContainer/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/Restart" to="." method="_on_restart_pressed"]

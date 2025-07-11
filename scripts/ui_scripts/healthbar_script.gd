@@ -22,4 +22,8 @@ func _process(_delta: float) -> void:
 			self.hide()
 	if enemy:
 		enemy_healthbar.value = enemy.health
+	if get_tree().paused:
+		self.hide()
+	else:
+		self.show()
 	
