@@ -9,11 +9,9 @@ func resume() -> void:
 	get_tree().paused = false
 	
 func pause() -> void:
-	self.show()
 	get_tree().paused = true
+	self.show()
 	$PanelContainer/VBoxContainer/Resume.grab_focus()
-
-
 
 func _on_resume_pressed() -> void:
 	resume()

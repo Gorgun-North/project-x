@@ -6,6 +6,13 @@ signal got_hit(hit_direction: Vector2, knockback_force: float, knockback_duratio
 @export var health: int = 100
 @export var navobstacle: NavigationObstacle2D
 
+var invulnerable: bool = false
+var picked_up_powerup: String
+var max_health: int
+
+func _ready() -> void:
+	max_health = health
+
 func actions_before_death() -> void:
 	pass
 	
@@ -16,9 +23,12 @@ func rebake_on_movement():
 		root.bake_navmesh.emit()
 
 func take_damage(damage: int):
-	health -= damage
+	if invulnerable == false:
+		health -= damage
 
 func _process(_delta: float) -> void:
+	#if self.name.begins_with("Player"):
+		#print(picked_up_powerup)
 	actions_before_death() 
 	
 	

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://c8bibno0p31yd"]
+[gd_scene load_steps=14 format=3 uid="uid://c8bibno0p31yd"]
 
 [ext_resource type="Script" uid="uid://dr011ckt1s7li" path="res://scripts/support_scripts/entity.gd" id="1_j2f7r"]
 [ext_resource type="Texture2D" uid="uid://dnsew7nd2l33f" path="res://assets/test_assets/icon.svg" id="1_xjjvf"]
@@ -10,13 +10,85 @@
 [ext_resource type="Script" uid="uid://boqdar6ds0u3b" path="res://scripts/player_scripts/player_knockback.gd" id="7_tx6aq"]
 [ext_resource type="Script" uid="uid://h6a8qxbgfsrf" path="res://scripts/player_scripts/player_iframes.gd" id="9_tx6aq"]
 
+[sub_resource type="Animation" id="Animation_tx6aq"]
+resource_name = "Iframes"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.233333, 0.366667, 0.5, 0.633333, 0.766667, 0.933333, 1.1, 1.26667, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [true, false, true, false, true, false, true, false, true, false, true]
+}
+
+[sub_resource type="Animation" id="Animation_nbjol"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8xy1b"]
+_data = {
+&"Iframes": SubResource("Animation_tx6aq"),
+&"RESET": SubResource("Animation_nbjol")
+}
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_u2ccb"]
 radius = 56.0892
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
+collision_layer = 3
+collision_mask = 3
 safe_margin = 8.0
 script = ExtResource("1_j2f7r")
 health = 50
+
+[node name="Iframes" type="Node" parent="." node_paths=PackedStringArray("state_machine_controller_instance", "entity_instance", "knockback_instance", "animplayer")]
+script = ExtResource("9_tx6aq")
+state_machine_controller_instance = NodePath("../State_controller")
+entity_instance = NodePath("..")
+knockback_instance = NodePath("../State_controller/Knockback")
+animplayer = NodePath("AnimationPlayer")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Iframes"]
+root_node = NodePath("../..")
+libraries = {
+&"": SubResource("AnimationLibrary_8xy1b")
+}
+
+[node name="player_camera" type="Camera2D" parent="."]
+zoom = Vector2(0.5, 0.5)
+
+[node name="Attack" type="Node" parent="." node_paths=PackedStringArray("body", "aim_ray", "attack_cooldown_timer", "input_mode")]
+script = ExtResource("7_8iuoe")
+body = NodePath("..")
+aim_ray = NodePath("../Aim_raycast")
+rate_of_fire = 0.5
+attack_cooldown_timer = NodePath("Attack_cooldown_timer")
+input_mode = NodePath("../Mouse_look")
+
+[node name="Attack_cooldown_timer" type="Timer" parent="Attack"]
+one_shot = true
+
+[node name="player_hitbox" type="CollisionShape2D" parent="."]
+position = Vector2(-3, 2)
+rotation = 1.5708
+shape = SubResource("CircleShape2D_u2ccb")
+debug_color = Color(0, 0.6, 0.701961, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(-3, 2)
@@ -24,11 +96,13 @@ rotation = 1.5708
 scale = Vector2(0.726562, 0.671875)
 texture = ExtResource("1_xjjvf")
 
-[node name="player_hitbox" type="CollisionShape2D" parent="."]
-position = Vector2(-3, 2)
-rotation = 1.5708
-shape = SubResource("CircleShape2D_u2ccb")
-debug_color = Color(0, 0.6, 0.701961, 0)
+[node name="Aim_raycast" type="RayCast2D" parent="."]
+position = Vector2(61, 0)
+target_position = Vector2(10000, 0)
+
+[node name="Mouse_look" type="Node" parent="." node_paths=PackedStringArray("body")]
+script = ExtResource("5_u2ccb")
+body = NodePath("..")
 
 [node name="State_controller" type="Node" parent="." node_paths=PackedStringArray("characterbody", "initial_state")]
 script = ExtResource("3_gfahr")
@@ -38,6 +112,8 @@ initial_state = NodePath("Idle")
 [node name="Move" type="Node" parent="State_controller"]
 script = ExtResource("2_gfahr")
 player_speed = 700.0
+powerup_speed = 1800.0
+speed_powerup_timer_duration = 5.0
 
 [node name="Dodge" type="Node" parent="State_controller"]
 
@@ -52,32 +128,5 @@ decelaration = 6000.0
 script = ExtResource("7_tx6aq")
 entity_instance = NodePath("../..")
 state_machine_controller_instance = NodePath("..")
-
-[node name="player_camera" type="Camera2D" parent="."]
-zoom = Vector2(0.5, 0.5)
-
-[node name="Mouse_look" type="Node" parent="." node_paths=PackedStringArray("body")]
-script = ExtResource("5_u2ccb")
-body = NodePath("..")
-
-[node name="Attack" type="Node" parent="." node_paths=PackedStringArray("body", "aim_ray", "attack_cooldown_timer", "input_mode")]
-script = ExtResource("7_8iuoe")
-body = NodePath("..")
-aim_ray = NodePath("../Aim_raycast")
-rate_of_fire = 0.5
-attack_cooldown_timer = NodePath("Attack_cooldown_timer")
-input_mode = NodePath("../Mouse_look")
-
-[node name="Attack_cooldown_timer" type="Timer" parent="Attack"]
-one_shot = true
-
-[node name="Aim_raycast" type="RayCast2D" parent="."]
-position = Vector2(61, 0)
-target_position = Vector2(10000, 0)
-
-[node name="Iframes" type="Node" parent="." node_paths=PackedStringArray("body", "state_machine_controller_instance")]
-script = ExtResource("9_tx6aq")
-body = NodePath("..")
-state_machine_controller_instance = NodePath("../State_controller")
 
 [connection signal="got_hit" from="." to="State_controller/Knockback" method="_on_player_got_hit"]

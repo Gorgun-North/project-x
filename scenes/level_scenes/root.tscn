@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=4 uid="uid://fm5rcpucimsy"]
+[gd_scene load_steps=18 format=4 uid="uid://fm5rcpucimsy"]
 
 [ext_resource type="Script" uid="uid://srym53hdohls" path="res://scripts/support_scripts/game_controller.gd" id="1_5nbfe"]
 [ext_resource type="PackedScene" uid="uid://c8bibno0p31yd" path="res://scenes/object_scenes/player.tscn" id="1_xcykd"]
@@ -7,9 +7,11 @@
 [ext_resource type="Texture2D" uid="uid://gwjtea5yup1c" path="res://assets/test_assets/greybox_02.png" id="4_56p8p"]
 [ext_resource type="PackedScene" uid="uid://bbpvhvlitgexu" path="res://scenes/UI_scenes/pause_game_hud.tscn" id="5_56p8p"]
 [ext_resource type="PackedScene" uid="uid://cvx33pw0eccp4" path="res://scenes/UI_scenes/gameover_hud.tscn" id="6_r3hiv"]
+[ext_resource type="PackedScene" uid="uid://buj7u2v6y0xf3" path="res://scenes/object_scenes/speed_pickup.tscn" id="7_j6gkc"]
 [ext_resource type="PackedScene" uid="uid://co3wyad1fl2fj" path="res://scenes/UI_scenes/in_game_hud.tscn" id="7_wc2xo"]
 [ext_resource type="PackedScene" uid="uid://bt3ohyhrodcv7" path="res://scenes/object_scenes/exploding_barrel.tscn" id="8_fltsy"]
 [ext_resource type="PackedScene" uid="uid://cos8u35tx6sc1" path="res://scenes/object_scenes/crate.tscn" id="9_h7smc"]
+[ext_resource type="PackedScene" uid="uid://we7wpp6c803e" path="res://scenes/object_scenes/health_pickup.tscn" id="11_c2jps"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_56p8p"]
 vertices = PackedVector2Array(643.07, 459.625, 615.508, 459.734, 616.891, 325, 643.07, 325, 8, 718, 549.695, 701, 798.695, 701, 390, 826, -102, 826, 390, 1286, 2778, 1370, -794, 1370, -102, 1286, 489.758, 338, 488.57, 455.406, 340.852, 456, 6, 422, 337.836, 338, 1018, 154, 1018, 678, 892.07, 504, 892.07, 262, 2470, 1062, 1850, 1062, 2778, -90, 2470, 602, 1606, 678, 1606, 154, 1850, 602, -794, -90, -454, 422, 6, 26, 337.836, 97, 773.594, 262.469, 773.594, 83, 340.852, 697, 549.695, 697, 8, 476, -241, 477, 798.695, 504, -241, 718, 524.594, 84, 524.594, 96.2422, -454, 26)
@@ -47,7 +49,7 @@ script = ExtResource("1_5nbfe")
 navmesh = NodePath("NavigationRegion2D")
 
 [node name="Enemy" parent="." groups=["Enemy"] instance=ExtResource("2_0h2vv")]
-position = Vector2(2584.45, 855)
+position = Vector2(3071.42, 771)
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 position = Vector2(3.01218, 0)
@@ -83,6 +85,12 @@ position = Vector2(-125, 597)
 [node name="exploding_barrel" parent="NavigationRegion2D" instance=ExtResource("8_fltsy")]
 position = Vector2(549.221, 386)
 
+[node name="exploding_barrel2" parent="NavigationRegion2D" instance=ExtResource("8_fltsy")]
+position = Vector2(-636.574, 535)
+
+[node name="speed_pickup" parent="NavigationRegion2D" instance=ExtResource("7_j6gkc")]
+position = Vector2(-619.505, 279)
+
 [node name="in-game-UI" type="CanvasLayer" parent="."]
 
 [node name="PauseGameHud" parent="in-game-UI" instance=ExtResource("5_56p8p")]
@@ -109,7 +117,10 @@ go_to_dodge_timer = 10000.0
 go_to_shoot_state_timer = 10000.0
 
 [node name="Player" parent="." instance=ExtResource("1_xcykd")]
-position = Vector2(-577.335, 211)
+position = Vector2(-385.559, 488)
+
+[node name="health_pickup" parent="." instance=ExtResource("11_c2jps")]
+position = Vector2(-612.477, 839)
 
 [editable path="NavigationRegion2D/Crate4"]
 [editable path="NavigationRegion2D/Crate4/Destructable_object"]

@@ -1,37 +1,145 @@
-[gd_scene load_steps=5 format=3 uid="uid://bt3ohyhrodcv7"]
+[gd_scene load_steps=10 format=3 uid="uid://bt3ohyhrodcv7"]
 
 [ext_resource type="Script" uid="uid://2wh2slyt8db8" path="res://scripts/object_scripts/exploding_barrel.gd" id="1_ukqj3"]
+[ext_resource type="Texture2D" uid="uid://rppu7wbng3lk" path="res://assets/test_assets/explosion.png" id="2_050fe"]
 [ext_resource type="Texture2D" uid="uid://d22dxy2s18wdl" path="res://assets/test_assets/exploding_barrel_concept.png" id="2_as2wr"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_s5uuy"]
-size = Vector2(26, 48.3333)
+[ext_resource type="PackedScene" uid="uid://bd4u8oss8w614" path="res://scenes/prefabs/destructable_object.tscn" id="2_s5uuy"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ukqj3"]
 radius = 338.0
 
-[node name="exploding_barrel" type="CharacterBody2D" node_paths=PackedStringArray("explosion_radius")]
+[sub_resource type="Animation" id="Animation_s5uuy"]
+resource_name = "explode"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("explosion_radius/Sprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("explosion_radius/Sprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [1, 2, 3, 4]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("explosion_radius/CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_050fe"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("explosion_radius/Sprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("explosion_radius/Sprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("explosion_radius/CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bjpky"]
+_data = {
+&"RESET": SubResource("Animation_050fe"),
+&"explode": SubResource("Animation_s5uuy")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_050fe"]
+size = Vector2(26, 49.5)
+
+[node name="exploding_barrel" type="Node2D"]
+
+[node name="explosion_radius" type="Area2D" parent="." node_paths=PackedStringArray("root", "object", "animplayer")]
+position = Vector2(-1, 0)
+collision_layer = 3
+collision_mask = 3
 script = ExtResource("1_ukqj3")
-explosion_radius = NodePath("explosion_radius")
+root = NodePath("..")
+object = NodePath("../Destructable_object")
+animplayer = NodePath("AnimationPlayer")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="explosion_radius"]
+position = Vector2(-3, 0)
+shape = SubResource("CircleShape2D_ukqj3")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="explosion_radius"]
+root_node = NodePath("../..")
+libraries = {
+&"": SubResource("AnimationLibrary_bjpky")
+}
+
+[node name="Sprite2D" type="Sprite2D" parent="explosion_radius"]
+visible = false
+z_index = 8
+texture_filter = 1
+scale = Vector2(11, 11)
+texture = ExtResource("2_050fe")
+hframes = 6
+frame = 1
+
+[node name="Destructable_object" parent="." instance=ExtResource("2_s5uuy")]
 health = 10
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" parent="Destructable_object" index="0"]
 texture_filter = 1
 scale = Vector2(3, 3)
 texture = ExtResource("2_as2wr")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 3.5)
+[node name="CollisionShape2D" parent="Destructable_object" index="1"]
+position = Vector2(0, 1.75002)
 scale = Vector2(3, 3)
-shape = SubResource("RectangleShape2D_s5uuy")
+shape = SubResource("RectangleShape2D_050fe")
 
-[node name="explosion_radius" type="Area2D" parent="."]
+[node name="NavigationObstacle2D" parent="Destructable_object" index="2"]
+vertices = PackedVector2Array(64.53, 102.01, 66.493, -92.748, -58.15, -94.043, -60.113, 105.119)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="explosion_radius"]
-shape = SubResource("CircleShape2D_ukqj3")
-
-[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
-position = Vector2(0.25, 0)
-scale = Vector2(1.01891, 1.45)
-vertices = PackedVector2Array(64.5297, 70.3448, 66.4926, -64.1379, -58.1504, -64.8276, -60.1133, 72.4138)
-affect_navigation_mesh = true
-carve_navigation_mesh = true
+[editable path="Destructable_object"]

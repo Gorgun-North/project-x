@@ -17,6 +17,7 @@ func _ready() -> void:
 	rng.randomize()
 	var get_random_index = randi_range(0, game_over_text.size() - 1)
 	$"../PanelContainer/VBoxContainer/TextEdit".text = game_over_text[get_random_index]
+	
 func _process(_delta: float) -> void:
 	if player:
 		if player.health <= 0:

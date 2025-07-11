@@ -22,7 +22,8 @@ func _ready() -> void:
 		current_state = initial_state
 			
 func _physics_process(delta: float) -> void:
-	
+	#if characterbody.name.begins_with("Player"):
+		#print(current_state)
 	if current_state:
 		current_state.Physics_Update(delta)
 	

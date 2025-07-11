@@ -5,7 +5,6 @@ class_name game_controller
 
 signal bake_navmesh
 
-
 func _ready() -> void:
 	bake_navmesh.connect(_on_bake_navmesh)
 	if navmesh:

@@ -48,7 +48,7 @@ focus_neighbor_bottom = NodePath("../Resume")
 text = "Quit"
 
 [node name="Pausegame" type="Node" parent="." node_paths=PackedStringArray("pausemenu_node")]
-process_mode = 3
+process_mode = 1
 script = ExtResource("2_boc6r")
 pausemenu_node = NodePath("..")
 
