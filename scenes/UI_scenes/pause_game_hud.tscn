@@ -4,6 +4,8 @@
 script/source = "extends Control
 class_name pausemenu
 
+var root: game_controller
+
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed(\"ESC\"):
 		if get_tree().paused == false: 
@@ -12,6 +14,7 @@ func _process(delta: float) -> void:
 			resume()
 
 func _ready() -> void:
+	root = get_tree().current_scene
 	self.hide()
 
 func resume() -> void:

@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://buj7u2v6y0xf3"]
 
 [ext_resource type="Script" uid="uid://dlvx31ja8pkim" path="res://scripts/object_scripts/speed_pickup.gd" id="1_jpykm"]
-[ext_resource type="PackedScene" uid="uid://cg46yr3i2k4rs" path="res://scenes/object_scenes/power_up.tscn" id="2_diy65"]
+[ext_resource type="PackedScene" uid="uid://cg46yr3i2k4rs" path="res://scenes/prefabs/power_up.tscn" id="2_diy65"]
 [ext_resource type="Texture2D" uid="uid://dbp4klihnwori" path="res://assets/test_assets/speed_pickup.png" id="3_15b6b"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_14dhj"]

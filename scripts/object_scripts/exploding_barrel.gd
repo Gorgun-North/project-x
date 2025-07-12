@@ -2,6 +2,7 @@ extends Area2D
 @export var root: Node2D
 @export var object: entity
 @export var animplayer: AnimationPlayer
+@export var colshape  : CollisionShape2D
 @export var damage: float = 30.0
 @export var knockback_force: float = 2000.0
 @export var knockback_duration: float = 0.3
@@ -16,6 +17,8 @@ func _physics_process(_delta: float) -> void:
 				var dir = -(self.global_position - i.global_position)
 				i.take_damage(damage)
 				i.got_hit.emit(dir, knockback_force, knockback_duration)
+				colshape.disabled = true
+				print("gwaaag")
 		for i in get_overlapping_areas():
 			if i is power_up:
 				i.queue_free()

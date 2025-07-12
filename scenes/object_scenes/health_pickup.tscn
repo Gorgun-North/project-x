@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://we7wpp6c803e"]
 
 [ext_resource type="Script" uid="uid://1wqqx0k0a1d6" path="res://scripts/object_scripts/health_pickup_script.gd" id="1_44fal"]
-[ext_resource type="PackedScene" uid="uid://cg46yr3i2k4rs" path="res://scenes/object_scenes/power_up.tscn" id="1_e3hdq"]
+[ext_resource type="PackedScene" uid="uid://cg46yr3i2k4rs" path="res://scenes/prefabs/power_up.tscn" id="1_e3hdq"]
 [ext_resource type="Texture2D" uid="uid://r8oc72f5entc" path="res://assets/test_assets/health_pickup.png" id="2_44fal"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bfpnx"]
@@ -11,7 +11,6 @@ radius = 12.0
 scale = Vector2(4, 4)
 script = ExtResource("1_44fal")
 powerup_instance = NodePath("power_up")
-heal_amount = 20.0
 
 [node name="power_up" parent="." instance=ExtResource("1_e3hdq")]
 

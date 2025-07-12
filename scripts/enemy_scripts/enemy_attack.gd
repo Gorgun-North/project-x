@@ -33,7 +33,7 @@ func _physics_process(delta: float) -> void:
 	shoot_state_timer -= delta
 	if shoot_state_timer <= 0.0:
 		
-		if !to_player_ray.name.begins_with("Player"):
+		if to_player_ray and !to_player_ray.name.begins_with("Player"):
 			return
 		
 		shoot_state_timer = go_to_shoot_state_timer

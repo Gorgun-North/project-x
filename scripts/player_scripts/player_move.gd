@@ -20,6 +20,8 @@ func check_speed_powerup() -> void:
 	var player = get_tree().get_first_node_in_group("Player")
 		
 	if player is entity:
+		if player.picked_up_powerup != "":
+			print(player.picked_up_powerup)
 		if player.picked_up_powerup == "speed":
 			currently_using_powerup = true
 			player.picked_up_powerup = ""
@@ -31,6 +33,7 @@ func determine_speed() -> void:
 		
 		if speed_powerup_timer <= 0.0:
 			currently_using_powerup = false
+			speed_powerup_timer = speed_powerup_timer_duration
 	else:
 		current_speed = player_speed
 	

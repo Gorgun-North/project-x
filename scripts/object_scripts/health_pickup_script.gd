@@ -7,7 +7,6 @@ extends Node
 func get_player_hp_back(object: entity, amount: float) -> void:
 	if object.health < object.max_health:
 		object.health += amount
-		object.picked_up_powerup = "health"
 		self.queue_free()
 	
 func _process(delta: float) -> void:

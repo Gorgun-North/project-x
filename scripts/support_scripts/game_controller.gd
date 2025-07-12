@@ -8,6 +8,7 @@ signal bake_navmesh
 func _ready() -> void:
 	bake_navmesh.connect(_on_bake_navmesh)
 	if navmesh:
+		await get_tree().process_frame
 		navmesh.bake_navigation_polygon()
 		
 func _on_bake_navmesh():

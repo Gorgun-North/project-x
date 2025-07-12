@@ -15,6 +15,10 @@ run/main_scene="uid://fm5rcpucimsy"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://assets/test_assets/icon.svg"
 
+[display]
+
+window/stretch/mode="canvas_items"
+
 [dotnet]
 
 project/assembly_name="project-x"

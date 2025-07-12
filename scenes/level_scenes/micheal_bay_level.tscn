@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://cr3ie5dxjc2h7" path="res://object_prefabs/base_navregion.tscn" id="1_6uaw7"]
 [ext_resource type="TileSet" uid="uid://dvkemy70073op" path="res://object_prefabs/test_tileset_werkt_niet.tres" id="1_h3pg1"]
 [ext_resource type="Script" uid="uid://srym53hdohls" path="res://scripts/support_scripts/game_controller.gd" id="1_nqllb"]
-[ext_resource type="PackedScene" uid="uid://c8bibno0p31yd" path="res://scenes/object_scenes/player.tscn" id="3_p5v8p"]
+[ext_resource type="PackedScene" uid="uid://c8bibno0p31yd" path="res://scenes/creature_scenes/player.tscn" id="3_p5v8p"]
 [ext_resource type="PackedScene" uid="uid://bt3ohyhrodcv7" path="res://scenes/object_scenes/exploding_barrel.tscn" id="4_qakpw"]
 [ext_resource type="PackedScene" uid="uid://cos8u35tx6sc1" path="res://scenes/object_scenes/crate.tscn" id="5_bn3tp"]
 

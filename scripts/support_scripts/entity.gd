@@ -27,7 +27,7 @@ func take_damage(damage: int):
 		health -= damage
 
 func _process(_delta: float) -> void:
-	#if self.name.begins_with("Player"):
+	#if self.name.begins_with("Player") and picked_up_powerup != "":
 		#print(picked_up_powerup)
 	actions_before_death() 
 	

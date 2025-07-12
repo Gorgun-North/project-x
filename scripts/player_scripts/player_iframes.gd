@@ -52,14 +52,14 @@ func _ready() -> void:
 	track_health = entity_instance.health
 
 func _process(delta: float) -> void:
-	if entity_instance.picked_up_powerup != "":
+	if entity_instance.picked_up_powerup == "":
 		turn_player_invulnerable(entity_instance)
 		turn_invulnerable(entity_instance, animplayer.get_animation("Iframes").length)
 	else:
 		if animplayer.current_animation == "Iframes":
 			animplayer.stop(true)
 		entity_instance.invulnerable = false
-		entity_instance.picked_up_powerup =  ""
 		track_health = entity_instance.health
+		#entity_instance.picked_up_powerup =  ""
 		
 		

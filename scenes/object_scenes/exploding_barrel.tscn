@@ -98,7 +98,7 @@ size = Vector2(26, 49.5)
 
 [node name="exploding_barrel" type="Node2D"]
 
-[node name="explosion_radius" type="Area2D" parent="." node_paths=PackedStringArray("root", "object", "animplayer")]
+[node name="explosion_radius" type="Area2D" parent="." node_paths=PackedStringArray("root", "object", "animplayer", "colshape")]
 position = Vector2(-1, 0)
 collision_layer = 3
 collision_mask = 3
@@ -106,6 +106,7 @@ script = ExtResource("1_ukqj3")
 root = NodePath("..")
 object = NodePath("../Destructable_object")
 animplayer = NodePath("AnimationPlayer")
+colshape = NodePath("CollisionShape2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="explosion_radius"]
 position = Vector2(-3, 0)
