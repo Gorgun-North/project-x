@@ -1,7 +1,7 @@
 extends states
 class_name enemy_teleport
 
-const TELEPORT_ABILITY_LEVEL_UNLOCK: int = 2
+const TELEPORT_ABILITY_LEVEL_UNLOCK: int = 3
 var track_health: int
 
 @export var teleport_distance: float =  1000.0

@@ -27,6 +27,7 @@ project/assembly_name="project-x"
 
 Player=""
 Enemy=""
+powerup=""
 
 [input]
 

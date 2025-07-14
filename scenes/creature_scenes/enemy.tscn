@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://oa3qkjuqwrp0"]
+[gd_scene load_steps=13 format=3 uid="uid://oa3qkjuqwrp0"]
 
 [ext_resource type="Script" uid="uid://dr011ckt1s7li" path="res://scripts/support_scripts/entity.gd" id="1_8bhn2"]
 [ext_resource type="Texture2D" uid="uid://dnsew7nd2l33f" path="res://assets/test_assets/icon.svg" id="1_rrwef"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://be7w5hi4ld6f7" path="res://scripts/enemy_scripts/enemy_look_at_player.gd" id="6_vssxo"]
 [ext_resource type="Script" uid="uid://boqdar6ds0u3b" path="res://scripts/player_scripts/player_knockback.gd" id="8_dkigd"]
 [ext_resource type="Script" uid="uid://ctji1uhflb465" path="res://scripts/enemy_scripts/enemy_teleport.gd" id="9_60dcw"]
+[ext_resource type="Script" uid="uid://b5a336e5s4x8w" path="res://scripts/enemy_scripts/enemy_pickup_powerup.gd" id="10_6ndrt"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rrwef"]
 radius = 80.0
@@ -84,6 +85,16 @@ collision_mask = 4
 
 [node name="melee_attack" type="Node" parent="state_machine_controller"]
 
+[node name="Pickup_powerup" type="Node" parent="state_machine_controller" node_paths=PackedStringArray("state_machine_controller_instance", "nav")]
+script = ExtResource("10_6ndrt")
+go_pickup_powerup_random_chance = 0.75
+state_machine_controller_instance = NodePath("..")
+nav = NodePath("../../NavigationAgent2D")
+
+[node name="Timer" type="Timer" parent="state_machine_controller/Pickup_powerup"]
+wait_time = 5.0
+autostart = true
+
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 target_desired_distance = 50.0
 radius = 80.0
@@ -104,4 +115,5 @@ body = NodePath("..")
 enemy_to_player_ray = NodePath("../enemy_to_player_ray")
 
 [connection signal="got_hit" from="." to="state_machine_controller/knockback" method="_on_enemy_got_hit"]
+[connection signal="timeout" from="state_machine_controller/Pickup_powerup/Timer" to="state_machine_controller/Pickup_powerup" method="_on_timer_timeout"]
 [connection signal="velocity_computed" from="NavigationAgent2D" to="state_machine_controller/Move" method="_on_navigation_agent_2d_velocity_computed"]
