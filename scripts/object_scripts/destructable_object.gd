@@ -29,7 +29,7 @@ func _ready() -> void:
 	knockback_finished.connect(_on_knockback_finished)
 	
 	
-func _on_got_hit(hit_direction: Vector2, knockback_force: float, knockback_duration: float):
+func _on_got_hit(attacker: entity, hit_direction: Vector2, knockback_force: float, knockback_duration: float):
 	actual_knockback = knockback_force - mass
 		
 	knockback_duration_instance = knockback_duration

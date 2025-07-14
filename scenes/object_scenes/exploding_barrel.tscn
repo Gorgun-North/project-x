@@ -141,6 +141,6 @@ scale = Vector2(3, 3)
 shape = SubResource("RectangleShape2D_050fe")
 
 [node name="NavigationObstacle2D" parent="Destructable_object" index="2"]
-vertices = PackedVector2Array(64.53, 102.01, 66.493, -92.748, -58.15, -94.043, -60.113, 105.119)
+vertices = PackedVector2Array(94.075, 119.015, 93.388, -129.958, -107.4, -130.133, -107.793, 119.414)
 
 [editable path="Destructable_object"]

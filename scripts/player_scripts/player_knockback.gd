@@ -32,7 +32,7 @@ func Exit():
 	knockback_finished = true
 	
 
-func _on_player_got_hit(hit_direction: Vector2, knockback_force: float, knockback_duration: float) -> void:
+func _on_player_got_hit(attacker: entity, hit_direction: Vector2, knockback_force: float, knockback_duration: float) -> void:
 	if state_machine_controller_instance:
 		knockback_dir = hit_direction
 		force = knockback_force

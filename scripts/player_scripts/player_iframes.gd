@@ -6,6 +6,7 @@ extends states
 @export var entity_instance: entity
 @export var knockback_instance: player_knockback
 @export var animplayer: AnimationPlayer
+@export var player_sprite: Sprite2D
 
 
 var invulnerability_timer_start_value: float
@@ -58,8 +59,8 @@ func _process(delta: float) -> void:
 	else:
 		if animplayer.current_animation == "Iframes":
 			animplayer.stop(true)
+			player_sprite.visible = true
 		entity_instance.invulnerable = false
 		track_health = entity_instance.health
-		#entity_instance.picked_up_powerup =  ""
 		
 		

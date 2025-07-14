@@ -8,12 +8,14 @@ var knockback_force: float = 400.0
 var knockback_duration_player: float = 0.3
 var knockback_duration_enemy: float = 0.15
 
+var attacker: entity
 var target: Vector2
 var targetbody: entity
 
 @export var bullet_damage: int = 10
 
-func setup(set_target: Vector2) -> void:
+func setup(set_target: Vector2, set_attacker: entity) -> void:
+	attacker = set_attacker
 	target = set_target
 
 func _ready() -> void:
@@ -34,10 +36,10 @@ func _physics_process(delta: float) -> void:
 				
 				targetbody.take_damage(bullet_damage)
 				if targetbody.name.begins_with("Player"):
-					targetbody.got_hit.emit(dir, knockback_force, knockback_duration_player)
+					targetbody.got_hit.emit(attacker, dir, knockback_force, knockback_duration_player)
 				elif targetbody.name.begins_with("Enemy"):
-					targetbody.got_hit.emit(dir, knockback_force, knockback_duration_enemy)
+					targetbody.got_hit.emit(attacker, dir, knockback_force, knockback_duration_enemy)
 				else:
-					targetbody.got_hit.emit(dir, knockback_force, knockback_duration_player)
+					targetbody.got_hit.emit(attacker, dir, knockback_force, knockback_duration_player)
 					
 		self.queue_free()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://oa3qkjuqwrp0"]
+[gd_scene load_steps=12 format=3 uid="uid://oa3qkjuqwrp0"]
 
 [ext_resource type="Script" uid="uid://dr011ckt1s7li" path="res://scripts/support_scripts/entity.gd" id="1_8bhn2"]
 [ext_resource type="Texture2D" uid="uid://dnsew7nd2l33f" path="res://assets/test_assets/icon.svg" id="1_rrwef"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://ck872vrb6hyd8" path="res://scripts/enemy_scripts/enemy_attack.gd" id="6_8bhn2"]
 [ext_resource type="Script" uid="uid://be7w5hi4ld6f7" path="res://scripts/enemy_scripts/enemy_look_at_player.gd" id="6_vssxo"]
 [ext_resource type="Script" uid="uid://boqdar6ds0u3b" path="res://scripts/player_scripts/player_knockback.gd" id="8_dkigd"]
+[ext_resource type="Script" uid="uid://ctji1uhflb465" path="res://scripts/enemy_scripts/enemy_teleport.gd" id="9_60dcw"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rrwef"]
 radius = 80.0
@@ -38,13 +39,20 @@ initial_state = NodePath("Idle")
 [node name="Idle" type="Node" parent="state_machine_controller"]
 script = ExtResource("3_4wdx0")
 
-[node name="Move" type="Node" parent="state_machine_controller" node_paths=PackedStringArray("nav", "state_machine_controller_node")]
+[node name="Move" type="Node" parent="state_machine_controller" node_paths=PackedStringArray("nav", "point_to_player_ray", "enemy_to_player_ray", "state_machine_controller_node")]
 script = ExtResource("4_rrwef")
 max_speed = 800.0
 min_speed = 600.0
-nav = NodePath("../../NavigationAgent2D")
+pause_seconds = 0.2
 go_to_dodge_timer = 2.0
+nav = NodePath("../../NavigationAgent2D")
+point_to_player_ray = NodePath("random_point_to_player_ray")
+enemy_to_player_ray = NodePath("../../enemy_to_player_ray")
 state_machine_controller_node = NodePath("..")
+
+[node name="random_point_to_player_ray" type="RayCast2D" parent="state_machine_controller/Move"]
+modulate = Color(0, 0.594996, 0.613567, 1)
+top_level = true
 
 [node name="Dodge" type="Node" parent="state_machine_controller" node_paths=PackedStringArray("nav", "move_dest_ray")]
 script = ExtResource("5_4wdx0")
@@ -65,9 +73,19 @@ script = ExtResource("8_dkigd")
 entity_instance = NodePath("../..")
 state_machine_controller_instance = NodePath("..")
 
+[node name="Teleport" type="Node" parent="state_machine_controller" node_paths=PackedStringArray("check_teleport_pos_ray")]
+script = ExtResource("9_60dcw")
+check_teleport_pos_ray = NodePath("check_teleport_position")
+
+[node name="check_teleport_position" type="RayCast2D" parent="state_machine_controller/Teleport"]
+modulate = Color(0, 0.643185, 0.243595, 1)
+self_modulate = Color(2.81565e-06, 0.508903, 0.182553, 1)
+collision_mask = 4
+
+[node name="melee_attack" type="Node" parent="state_machine_controller"]
+
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 target_desired_distance = 50.0
-path_max_distance = 50.0
 radius = 80.0
 debug_use_custom = true
 debug_path_custom_color = Color(0.577629, 0.459409, 0, 1)

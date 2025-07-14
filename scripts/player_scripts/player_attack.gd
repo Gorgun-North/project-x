@@ -21,6 +21,10 @@ func _process(_delta: float) -> void:
 	
 	if Input.is_action_just_pressed("LMB"):
 		
+		if body is entity:
+			if body.invulnerable == true:
+				return
+		
 		if body:
 			if attack_cooldown_timer.is_stopped():
 				attack_cooldown_timer.start()
@@ -37,7 +41,8 @@ func _process(_delta: float) -> void:
 				shoot_angle = (aim_ray.get_collision_point()- body.global_position).angle()
 				bullet_dir = (aim_ray.get_collision_point()- body.global_position).normalized()
 		
-			bullet_instance.setup(aim_ray.get_collision_point())
+			if body is entity:
+				bullet_instance.setup(aim_ray.get_collision_point(), body)
 			bullet_instance.global_position = aim_ray.global_transform.origin
 			bullet_instance.rotation = shoot_angle
 			

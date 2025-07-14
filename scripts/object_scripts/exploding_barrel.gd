@@ -16,9 +16,10 @@ func _physics_process(_delta: float) -> void:
 			if i is entity:
 				var dir = -(self.global_position - i.global_position)
 				i.take_damage(damage)
-				i.got_hit.emit(dir, knockback_force, knockback_duration)
+				
+				#object is null because it is no longer valid
+				i.got_hit.emit(null, dir, knockback_force, knockback_duration)
 				colshape.disabled = true
-				print("gwaaag")
 		for i in get_overlapping_areas():
 			if i is power_up:
 				i.queue_free()

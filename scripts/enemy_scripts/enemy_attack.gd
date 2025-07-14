@@ -33,8 +33,13 @@ func _physics_process(delta: float) -> void:
 	shoot_state_timer -= delta
 	if shoot_state_timer <= 0.0:
 		
+		if to_player_ray and to_player_ray.name.begins_with("exploding"):
+			print("bro really just tried to blow himself up 💀")
+			return
+		
 		if to_player_ray and !to_player_ray.name.begins_with("Player"):
 			return
+			
 		
 		shoot_state_timer = go_to_shoot_state_timer
 		Transitioned.emit(state_machine_controller_node.current_state, "attack")
@@ -60,7 +65,8 @@ func Physics_Update(delta) -> void:
 		
 		var bullet_spawn_distance : float = enemy_hitbox_size * bullet_spawn_point_multiplier
 		
-		bullet_instance.setup(target)
+		if body is entity:
+			bullet_instance.setup(target, body)
 		bullet_instance.global_position = body.global_position + bullet_dir * bullet_spawn_distance
 		bullet_instance.rotation = shoot_angle
 		get_tree().root.add_child(bullet_instance)

@@ -1,7 +1,7 @@
 extends CharacterBody2D
 class_name entity
 
-signal got_hit(hit_direction: Vector2, knockback_force: float, knockback_duration: float)
+signal got_hit(attacker: entity, hit_direction: Vector2, knockback_force: float, knockback_duration: float)
 
 @export var health: int = 100
 @export var navobstacle: NavigationObstacle2D

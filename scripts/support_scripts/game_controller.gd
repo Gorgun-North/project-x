@@ -2,6 +2,7 @@ extends Node
 class_name game_controller
 
 @export var navmesh: NavigationRegion2D
+@export var current_stage: int
 
 signal bake_navmesh
 

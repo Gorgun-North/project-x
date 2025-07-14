@@ -12,7 +12,7 @@
 
 [sub_resource type="Animation" id="Animation_tx6aq"]
 resource_name = "Iframes"
-length = 1.5
+length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -57,12 +57,13 @@ safe_margin = 8.0
 script = ExtResource("1_j2f7r")
 health = 50
 
-[node name="Iframes" type="Node" parent="." node_paths=PackedStringArray("state_machine_controller_instance", "entity_instance", "knockback_instance", "animplayer")]
+[node name="Iframes" type="Node" parent="." node_paths=PackedStringArray("state_machine_controller_instance", "entity_instance", "knockback_instance", "animplayer", "player_sprite")]
 script = ExtResource("9_tx6aq")
 state_machine_controller_instance = NodePath("../State_controller")
 entity_instance = NodePath("..")
 knockback_instance = NodePath("../State_controller/Knockback")
 animplayer = NodePath("AnimationPlayer")
+player_sprite = NodePath("../Sprite2D")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Iframes"]
 root_node = NodePath("../..")
@@ -97,6 +98,7 @@ scale = Vector2(0.726562, 0.671875)
 texture = ExtResource("1_xjjvf")
 
 [node name="Aim_raycast" type="RayCast2D" parent="."]
+modulate = Color(0.388787, 0.499436, 1.92523e-07, 1)
 position = Vector2(61, 0)
 target_position = Vector2(10000, 0)
 
