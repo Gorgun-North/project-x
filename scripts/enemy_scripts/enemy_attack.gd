@@ -26,8 +26,8 @@ func _physics_process(delta: float) -> void:
 		return
 	
 	#If current state is not move, dont go into the dodge state.
-	if state_machine_controller_node.current_state \
-	!= state_machine_controller_node.states_dict.get("move"):
+	if state_machine_controller_node.current_state != state_machine_controller_node.states_dict.get("move") \
+	and state_machine_controller_node.current_state != state_machine_controller_node.states_dict.get("pickup_powerup"):
 		return
 		
 	shoot_state_timer -= delta

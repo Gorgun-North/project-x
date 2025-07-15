@@ -55,7 +55,7 @@ collision_layer = 3
 collision_mask = 3
 safe_margin = 8.0
 script = ExtResource("1_j2f7r")
-health = 50
+health = 50000
 
 [node name="Iframes" type="Node" parent="." node_paths=PackedStringArray("state_machine_controller_instance", "entity_instance", "knockback_instance", "animplayer", "player_sprite")]
 script = ExtResource("9_tx6aq")

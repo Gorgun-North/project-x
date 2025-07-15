@@ -4,7 +4,7 @@ extends Node
 
 @export var heal_amount: float = 10
 
-func get_player_hp_back(object: entity, amount: float) -> void:
+func get_hp_back(object: entity, amount: float) -> void:
 	if object.health < object.max_health:
 		object.health += amount
 		self.queue_free()
@@ -14,8 +14,15 @@ func _process(delta: float) -> void:
 		self.queue_free()
 		return
 	
-	if powerup_instance.check_for_item_pickup():
-		var player = get_tree().get_first_node_in_group("Player")
+	var player = get_tree().get_first_node_in_group("Player")
+	var enemy = get_tree().get_first_node_in_group("Enemy")
+	
+	if player is entity or enemy is entity:
+		var overlapping_entity = powerup_instance.check_for_item_pickup()
 		
-		if player is entity:
-			get_player_hp_back(player, heal_amount)
+		if overlapping_entity == null:
+			return
+		elif overlapping_entity == player:
+			get_hp_back(player, heal_amount)
+		elif overlapping_entity == enemy:
+			get_hp_back(enemy, heal_amount)

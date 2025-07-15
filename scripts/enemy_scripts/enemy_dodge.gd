@@ -37,7 +37,7 @@ func Physics_Update(_delta: float) -> void:
 	if target != Vector2.ZERO:
 		
 		if body.global_transform.origin.distance_to(target) < target_reached_distance:
-			Transitioned.emit(self, "Move")
+			Transitioned.emit(self, "idle")
 		
 		var current_agent_pos = body.global_transform.origin
 		var next_path_pos = nav.get_next_path_position()

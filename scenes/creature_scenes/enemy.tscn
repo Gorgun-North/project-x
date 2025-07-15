@@ -16,6 +16,8 @@
 radius = 80.0
 
 [node name="Enemy" type="CharacterBody2D"]
+collision_layer = 3
+collision_mask = 3
 safe_margin = 15.0
 script = ExtResource("1_8bhn2")
 
@@ -40,12 +42,11 @@ initial_state = NodePath("Idle")
 [node name="Idle" type="Node" parent="state_machine_controller"]
 script = ExtResource("3_4wdx0")
 
-[node name="Move" type="Node" parent="state_machine_controller" node_paths=PackedStringArray("nav", "point_to_player_ray", "enemy_to_player_ray", "state_machine_controller_node")]
+[node name="Move" type="Node" parent="state_machine_controller" node_paths=PackedStringArray("powerup_timer", "nav", "point_to_player_ray", "enemy_to_player_ray", "state_machine_controller_node")]
 script = ExtResource("4_rrwef")
-max_speed = 800.0
-min_speed = 600.0
 pause_seconds = 0.2
 go_to_dodge_timer = 2.0
+powerup_timer = NodePath("speed_powerup_timer")
 nav = NodePath("../../NavigationAgent2D")
 point_to_player_ray = NodePath("random_point_to_player_ray")
 enemy_to_player_ray = NodePath("../../enemy_to_player_ray")
@@ -55,9 +56,14 @@ state_machine_controller_node = NodePath("..")
 modulate = Color(0, 0.594996, 0.613567, 1)
 top_level = true
 
+[node name="speed_powerup_timer" type="Timer" parent="state_machine_controller/Move"]
+process_callback = 0
+wait_time = 5.0
+one_shot = true
+
 [node name="Dodge" type="Node" parent="state_machine_controller" node_paths=PackedStringArray("nav", "move_dest_ray")]
 script = ExtResource("5_4wdx0")
-speed = 1500.0
+speed = 2000.0
 nav = NodePath("../../NavigationAgent2D")
 move_dest_ray = NodePath("../../move_destination_raycast")
 target_reached_distance = 150.0
@@ -85,19 +91,21 @@ collision_mask = 4
 
 [node name="melee_attack" type="Node" parent="state_machine_controller"]
 
-[node name="Pickup_powerup" type="Node" parent="state_machine_controller" node_paths=PackedStringArray("state_machine_controller_instance", "nav")]
+[node name="Pickup_powerup" type="Node" parent="state_machine_controller" node_paths=PackedStringArray("state_machine_controller_instance", "nav", "powerup_timer")]
 script = ExtResource("10_6ndrt")
-go_pickup_powerup_random_chance = 0.75
+go_pickup_powerup_random_chance = 0.99
 state_machine_controller_instance = NodePath("..")
 nav = NodePath("../../NavigationAgent2D")
+powerup_timer = NodePath("powerup_timer")
 
-[node name="Timer" type="Timer" parent="state_machine_controller/Pickup_powerup"]
-wait_time = 5.0
+[node name="powerup_timer" type="Timer" parent="state_machine_controller/Pickup_powerup"]
+wait_time = 10.0
 autostart = true
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 target_desired_distance = 50.0
 radius = 80.0
+debug_enabled = true
 debug_use_custom = true
 debug_path_custom_color = Color(0.577629, 0.459409, 0, 1)
 
@@ -115,5 +123,5 @@ body = NodePath("..")
 enemy_to_player_ray = NodePath("../enemy_to_player_ray")
 
 [connection signal="got_hit" from="." to="state_machine_controller/knockback" method="_on_enemy_got_hit"]
-[connection signal="timeout" from="state_machine_controller/Pickup_powerup/Timer" to="state_machine_controller/Pickup_powerup" method="_on_timer_timeout"]
+[connection signal="timeout" from="state_machine_controller/Pickup_powerup/powerup_timer" to="state_machine_controller/Pickup_powerup" method="_on_timer_timeout"]
 [connection signal="velocity_computed" from="NavigationAgent2D" to="state_machine_controller/Move" method="_on_navigation_agent_2d_velocity_computed"]

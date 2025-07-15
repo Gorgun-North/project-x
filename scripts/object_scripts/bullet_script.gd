@@ -30,7 +30,6 @@ func _physics_process(delta: float) -> void:
 	
 	if self.has_overlapping_bodies():
 		for i in self.get_overlapping_bodies():
-			print(i)
 			if i is entity:
 				targetbody = i
 				

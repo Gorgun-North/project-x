@@ -47,9 +47,6 @@ script = ExtResource("1_5nbfe")
 navmesh = NodePath("NavigationRegion2D")
 current_stage = 2
 
-[node name="Enemy" parent="." groups=["Enemy"] instance=ExtResource("2_0h2vv")]
-position = Vector2(4049.38, 1735)
-
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 position = Vector2(3.01218, 0)
 navigation_polygon = SubResource("NavigationPolygon_56p8p")
@@ -139,25 +136,33 @@ visible = false
 
 [node name="in_game_hud" parent="in-game-UI" instance=ExtResource("7_wc2xo")]
 
-[node name="Enemy_test" parent="." instance=ExtResource("2_0h2vv")]
-position = Vector2(7247.31, 4725)
-health = 10000
+[node name="moving_entities" type="Node" parent="."]
 
-[node name="Sprite2D" parent="Enemy_test" index="0"]
+[node name="Enemy_test" parent="moving_entities" instance=ExtResource("2_0h2vv")]
+position = Vector2(3431, 3015)
+scale = Vector2(0.995956, 1)
+health = 10000
+speed = 0.0
+
+[node name="Sprite2D" parent="moving_entities/Enemy_test" index="0"]
 modulate = Color(0.738996, 0.00244485, 0.949054, 1)
 
-[node name="enemy_hitbox" parent="Enemy_test" index="1"]
+[node name="enemy_hitbox" parent="moving_entities/Enemy_test" index="1"]
 position = Vector2(5043.4, 4103)
 
-[node name="Move" parent="Enemy_test/state_machine_controller" index="1"]
-max_speed = 0.0
-min_speed = 0.0
+[node name="Move" parent="moving_entities/Enemy_test/state_machine_controller" index="1"]
+move_speed = 0.0
 go_to_dodge_timer = 10000.0
 
-[node name="Attack" parent="Enemy_test/state_machine_controller" index="3"]
+[node name="Attack" parent="moving_entities/Enemy_test/state_machine_controller" index="3"]
 go_to_shoot_state_timer = 10000.0
 
-[node name="Player" parent="." instance=ExtResource("1_xcykd")]
-position = Vector2(-1133.58, -408)
+[node name="Player" parent="moving_entities" instance=ExtResource("1_xcykd")]
+position = Vector2(-1129, -408)
+scale = Vector2(0.995956, 1)
 
-[editable path="Enemy_test"]
+[node name="Enemy" parent="moving_entities" groups=["Enemy"] instance=ExtResource("2_0h2vv")]
+position = Vector2(4033, 1735)
+scale = Vector2(0.995956, 1)
+
+[editable path="moving_entities/Enemy_test"]

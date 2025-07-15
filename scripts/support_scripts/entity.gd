@@ -9,6 +9,7 @@ signal got_hit(attacker: entity, hit_direction: Vector2, knockback_force: float,
 var invulnerable: bool = false
 var picked_up_powerup: String
 var max_health: int
+@export var speed: float = 700.0
 
 func _ready() -> void:
 	max_health = health
@@ -27,8 +28,6 @@ func take_damage(damage: int):
 		health -= damage
 
 func _process(_delta: float) -> void:
-	#if self.name.begins_with("Player") and picked_up_powerup != "":
-		#print(picked_up_powerup)
 	actions_before_death() 
 	
 	
