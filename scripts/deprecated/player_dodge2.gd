@@ -21,7 +21,6 @@ func _ready() -> void:
 func Physics_Update(delta) -> void:
 	dodge_timer -= delta
 	
-	print(dodge_timer)
 	body.velocity = input_vector * dodge_speed
 	
 	

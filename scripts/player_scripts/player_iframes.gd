@@ -12,7 +12,7 @@ extends states
 var invulnerability_timer_start_value: float
 var track_health: float
 var invulnerability_timer: float
-var invulnerability_hp: float = 0.0
+var invulnerability_hp: int = 0
 var invulnerability_changed: bool = false
 
 func turn_player_invulnerable(object: entity):
@@ -42,7 +42,7 @@ func turn_invulnerable(object: entity, invulnerable_time: float):
 		
 		if invulnerability_timer <= get_process_delta_time():
 			invulnerability_timer = invulnerable_time
-			invulnerability_hp = 0.0
+			invulnerability_hp = 0
 			track_health = object.health
 	else:
 		track_health = object.health
@@ -52,7 +52,7 @@ func _ready() -> void:
 	invulnerability_timer = animplayer.get_animation("Iframes").length
 	track_health = entity_instance.health
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if entity_instance.picked_up_powerup == "":
 		turn_player_invulnerable(entity_instance)
 		turn_invulnerable(entity_instance, animplayer.get_animation("Iframes").length)

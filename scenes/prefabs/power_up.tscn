@@ -40,7 +40,7 @@ _data = {
 &"powerup_move": SubResource("Animation_2kr4f")
 }
 
-[node name="power_up" type="Area2D" groups=["powerup"]]
+[node name="power_up" type="Area2D"]
 collision_layer = 2
 collision_mask = 2
 script = ExtResource("1_rblg1")

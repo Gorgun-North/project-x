@@ -4,13 +4,14 @@ class_name enemy_teleport
 const TELEPORT_ABILITY_LEVEL_UNLOCK: int = 3
 var track_health: int
 
+@export var state_machine_controller_instance: state_machine_controller
+@export var pickup_powerup_instance: enemy_pickup_powerup
+
 @export var teleport_distance: float =  1000.0
 @export var random_teleport_range: float = 0.75
 @export var check_teleport_pos_ray: RayCast2D 
 
 var rng = RandomNumberGenerator.new()
-
-signal got_hit_teleport
 
 func _ready() -> void:
 	call_deferred("_ready_got_hit")
@@ -18,24 +19,22 @@ func _ready() -> void:
 func _ready_got_hit() -> void:
 	if body is entity:
 		body.got_hit.connect(_on_got_hit)
-	
-
-func Entered() -> void:
-	if body is entity:
-		track_health = body.health
-	
+		
+func _on_got_hit(attacker: entity, hit_dir: Vector2, _knockback_force: float, _knockback_dur: float):
 	var root = get_tree().current_scene
+	print(state_machine_controller_instance.current_state)
 	
-	if root is not game_controller:
-		Transitioned.emit(self, "Idle")
-	
-	if root.current_stage < TELEPORT_ABILITY_LEVEL_UNLOCK:
-		Transitioned.emit(self, "Idle")
-
-
-
-func _on_got_hit(attacker: entity, hit_dir: Vector2, knockback_force: float, knockback_dur: float):
-	var root = get_tree().current_scene
+	if state_machine_controller_instance.current_state == state_machine_controller_instance.states_dict.get("melee_attack"):
+		return
+		
+	if state_machine_controller_instance.current_state == state_machine_controller_instance.states_dict.get("pickup_powerup"):
+		return
+		
+	if state_machine_controller_instance.current_state == state_machine_controller_instance.states_dict.get("dodge"):
+		return
+		
+	if pickup_powerup_instance.is_powerup_picked_up == false:
+		return
 	
 	if !attacker:
 		return
@@ -62,6 +61,7 @@ func _on_got_hit(attacker: entity, hit_dir: Vector2, knockback_force: float, kno
 	
 	check_teleport_pos_ray.force_raycast_update()
 	
+	print("I TELEPORT!")
 	if check_teleport_pos_ray.is_colliding():
 		body.global_position = check_teleport_pos_ray.get_collision_point()
 	else:

@@ -7,7 +7,10 @@ var game_over_text: Array = [
 	"Looks like you're out till lunch...",
 	"No gamer time for you",
 	"Skill issue",
-	"Why don't you try again :)"
+	"Why don't you try again :)",
+	"Oh you almost had him (probably)",
+	"Bro you are on that googoogaagaa mentality, how about you stop that",
+	"You play like a game journalist"
 ]
 
 var rng = RandomNumberGenerator.new()

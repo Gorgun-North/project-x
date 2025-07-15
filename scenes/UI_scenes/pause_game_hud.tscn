@@ -6,7 +6,7 @@ class_name pausemenu
 
 var root: game_controller
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed(\"ESC\"):
 		if get_tree().paused == false: 
 			pause()

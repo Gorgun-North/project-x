@@ -14,6 +14,10 @@ var knockback_timer: float = 0.0
 
 func _ready() -> void:
 	if entity_instance:
+		
+		if entity_instance.got_hit.is_connected(_on_player_got_hit):
+			return
+		
 		entity_instance.got_hit.connect(_on_player_got_hit)
 		
 func Entered() -> void:
@@ -32,7 +36,10 @@ func Exit():
 	knockback_finished = true
 	
 
-func _on_player_got_hit(attacker: entity, hit_direction: Vector2, knockback_force: float, knockback_duration: float) -> void:
+func _on_player_got_hit(_attacker: entity, hit_direction: Vector2, knockback_force: float, knockback_duration: float) -> void:
+	if state_machine_controller_instance.current_state == state_machine_controller_instance.states_dict.get("melee_attack"):
+		return
+	
 	if state_machine_controller_instance:
 		knockback_dir = hit_direction
 		force = knockback_force

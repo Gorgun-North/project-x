@@ -3,7 +3,6 @@ class_name enemy_move2
 
 @export var move_speed: = 700.0
 @export var pause_seconds : float = 0.3
-@export var go_to_dodge_timer: float = 4.0
 @export var acceptable_distance_to_player: float = 1000.0
 @export var powerup_speed_duration: float = 5.0
 @export var powerup_speed : float = 1800.0
@@ -18,9 +17,7 @@ var player: CharacterBody2D
 
 @export var nav: NavigationAgent2D
 @export var point_to_player_ray: RayCast2D
-@export var enemy_to_player_ray: RayCast2D
 @export var state_machine_controller_node: state_machine_controller
-var to_dodge_timer: float
 
 func _Entered() -> void:
 	rng.randomize()
@@ -93,8 +90,6 @@ func _ready() -> void:
 	
 	powerup_timer.timeout.connect(_on_powerup_timeout)
 	
-	to_dodge_timer = go_to_dodge_timer
-	
 	player = get_tree().get_first_node_in_group("Player")
 	
 	call_deferred("_set_move_speed")
@@ -104,7 +99,7 @@ func _set_move_speed():
 	if body is entity:
 		body.speed = move_speed
 		
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	#if !powerup_timer.is_stopped():
 		#print(powerup_timer.time_left)
 	
@@ -117,7 +112,6 @@ func _physics_process(delta: float) -> void:
 			powerup_timer.start()
 			body.speed = powerup_speed
 	
-	#If current state is not move, dont go into the dodge state.
 	if state_machine_controller_node.current_state == state_machine_controller_node.states_dict.get("move") \
 	or state_machine_controller_node.current_state == state_machine_controller_node.states_dict.get("pickup_powerup"):
 		if powerup_timer.paused == true and body.speed == powerup_speed:
@@ -125,19 +119,6 @@ func _physics_process(delta: float) -> void:
 	else:
 		if powerup_timer.paused == false and body.speed == powerup_speed:
 			powerup_timer.paused = true
-		
-	
-	if enemy_to_player_ray.is_colliding():
-		if enemy_to_player_ray.get_collider() != player:
-			return
-	
-	to_dodge_timer -= delta
-	if to_dodge_timer <= 0.0:
-		var maximum_new_dodge_time: float = 5.0
-		var new_dodge_time = rng.randf_range(to_dodge_timer, maximum_new_dodge_time)
-		
-		to_dodge_timer = new_dodge_time
-		Transitioned.emit(self, "dodge")
 
 func _on_powerup_timeout():
 	body.speed = move_speed

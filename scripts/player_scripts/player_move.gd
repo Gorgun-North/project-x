@@ -2,7 +2,6 @@ extends states
 class_name player_move
 
 #Exported values for speed and such for quick adjustments
-@export var player_speed : float
 @export var powerup_speed: float
 @export var speed_powerup_timer_duration: float = 10.0
 
@@ -35,10 +34,10 @@ func determine_speed() -> void:
 			currently_using_powerup = false
 			speed_powerup_timer = speed_powerup_timer_duration
 	else:
-		current_speed = player_speed
+		current_speed = body.speed
 	
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	check_speed_powerup()
 	determine_speed()
 	
@@ -58,6 +57,6 @@ func Physics_Update(_delta) -> void:
 		last_input_vector = input_vector #Keep the last input up to date until the state changes
 		
 func Exit():
-	body.velocity = last_input_vector * player_speed
+	body.velocity = last_input_vector * body.speed
 	
 	

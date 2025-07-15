@@ -53,9 +53,9 @@ radius = 56.0892
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 collision_layer = 3
 collision_mask = 3
-safe_margin = 8.0
+safe_margin = 15.0
 script = ExtResource("1_j2f7r")
-health = 50000
+health = 50
 
 [node name="Iframes" type="Node" parent="." node_paths=PackedStringArray("state_machine_controller_instance", "entity_instance", "knockback_instance", "animplayer", "player_sprite")]
 script = ExtResource("9_tx6aq")
@@ -79,6 +79,7 @@ script = ExtResource("7_8iuoe")
 body = NodePath("..")
 aim_ray = NodePath("../Aim_raycast")
 rate_of_fire = 0.5
+double_damage_time_duration = 10.0
 attack_cooldown_timer = NodePath("Attack_cooldown_timer")
 input_mode = NodePath("../Mouse_look")
 
@@ -113,7 +114,6 @@ initial_state = NodePath("Idle")
 
 [node name="Move" type="Node" parent="State_controller"]
 script = ExtResource("2_gfahr")
-player_speed = 700.0
 powerup_speed = 1800.0
 speed_powerup_timer_duration = 5.0
 

@@ -6,6 +6,9 @@ class_name game_controller
 
 signal bake_navmesh
 
+#func _process(_delta: float) -> void:
+	#print(Engine.get_frames_per_second())
+
 func _ready() -> void:
 	bake_navmesh.connect(_on_bake_navmesh)
 	if navmesh:
@@ -17,10 +20,10 @@ func _on_bake_navmesh():
 		return
 	
 	
-	var navpol: NavigationPolygon = navmesh.navigation_polygon
+	var _navpol: NavigationPolygon = navmesh.navigation_polygon
 	
 	while navmesh.is_baking() == true:
-		if !is_inside_tree():
+		if !is_inside_tree() or !navmesh.is_inside_tree():
 			return
 		
 		await get_tree().process_frame

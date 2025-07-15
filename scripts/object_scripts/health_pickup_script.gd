@@ -2,14 +2,13 @@ extends Node
 
 @export var powerup_instance: power_up
 
-@export var heal_amount: float = 10
+@export var heal_amount: int = 10
 
-func get_hp_back(object: entity, amount: float) -> void:
-	if object.health < object.max_health:
-		object.health += amount
-		self.queue_free()
+func get_hp_back(object: entity, amount: int) -> void:
+	object.health += amount
+	self.queue_free()
 	
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if !is_instance_valid(powerup_instance):
 		self.queue_free()
 		return

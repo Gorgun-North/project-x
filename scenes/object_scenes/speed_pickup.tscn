@@ -7,7 +7,7 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_14dhj"]
 radius = 16.0
 
-[node name="speed_pickup" type="Node2D" node_paths=PackedStringArray("powerup_instance")]
+[node name="speed_pickup" type="Node2D" node_paths=PackedStringArray("powerup_instance") groups=["powerup"]]
 scale = Vector2(4, 4)
 script = ExtResource("1_jpykm")
 powerup_instance = NodePath("power_up")
