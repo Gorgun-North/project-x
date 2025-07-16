@@ -26,12 +26,15 @@ func reload_gun():
 		reload_bar.visible = false
 	
 	if player_reloads_bullet == true:
+		
 		reload_timer -= get_process_delta_time()
 		reload_bar.value = reload_timer
 		reload_bar.visible = true
 		
 		if reload_timer <= 0.0:
-			body.bullets_left += 1
+			body.bullets_left = body.max_bullets
+			
+			
 			reload_timer = reload_time
 			player_reloads_bullet = false
 			reload_bar.visible = false

@@ -18,113 +18,72 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_rrwef"]
 radius = 80.0
 
-[sub_resource type="Animation" id="Animation_8bicl"]
-resource_name = "melee_attack_windup"
-length = 0.75
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../../Sprite2D:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.75),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(0.726562, 0.671875), Vector2(0.9, 0.832)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../../enemy_hitbox:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.75),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(0.726562, 0.671875), Vector2(0.9, 0.832)]
-}
-
-[sub_resource type="Animation" id="Animation_glqcv"]
+[sub_resource type="Animation" id="Animation_etvhk"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../../Sprite2D:scale")
+tracks/0/path = NodePath("../../Sprite2D:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0.726562, 0.671875)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../../enemy_hitbox:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0.726562, 0.671875)]
+"values": [Color(1, 0.300051, 0.236805, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_jv880"]
-resource_name = "melee_attack_winddown"
-length = 1.2
+[sub_resource type="Animation" id="Animation_ele1n"]
+resource_name = "attack_winddown"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../../Sprite2D:scale")
+tracks/0/path = NodePath("../../Sprite2D:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1.2),
+"times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(0.9, 0.832), Vector2(0.726562, 0.671875)]
+"values": [Color(0.294637, 2.77955e-06, 1.57628e-06, 1), Color(1, 0.300051, 0.236805, 1)]
 }
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../../enemy_hitbox:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.02, 1.2),
+
+[sub_resource type="Animation" id="Animation_jv880"]
+resource_name = "attack_windup"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../../Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(0.9, 0.832), Vector2(0.726562, 0.671875)]
+"values": [Color(1, 0.300051, 0.236805, 1), Color(0.294118, 0, 0, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_etvhk"]
 _data = {
-&"RESET": SubResource("Animation_glqcv"),
-&"melee_attack_winddown": SubResource("Animation_jv880"),
-&"melee_attack_windup": SubResource("Animation_8bicl")
+&"RESET": SubResource("Animation_etvhk"),
+&"attack_winddown": SubResource("Animation_ele1n"),
+&"attack_windup": SubResource("Animation_jv880")
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8bicl"]
 radius = 251.127
 
 [node name="Enemy" type="CharacterBody2D"]
-safe_margin = 15.0
+safe_margin = 20.0
 script = ExtResource("1_8bhn2")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(1, 0.300051, 0.236805, 1)
 rotation = 1.5708
-scale = Vector2(0.726562, 0.671875)
 texture = ExtResource("1_rrwef")
 
 [node name="enemy_hitbox" type="CollisionShape2D" parent="."]
-position = Vector2(-0.5, 0.5)
 rotation = 1.5708
-scale = Vector2(0.726562, 0.671875)
 shape = SubResource("CircleShape2D_rrwef")
 debug_color = Color(0, 0.6, 0.701961, 0)
 
@@ -166,10 +125,11 @@ target_reached_distance = 150.0
 script = ExtResource("6_8bhn2")
 state_machine_controller_node = NodePath("..")
 enemy_to_player_ray = NodePath("../../enemy_to_player_ray")
+enemy_hitbox_size = 85.0
 go_to_shoot_state_timer = 0.5
 attack_windup_timer_duration = 0.01
 double_damage_time_duration = 10.0
-powerup_damage_rate_of_fire = 0.5
+powerup_damage_rate_of_fire = 0.45
 
 [node name="knockback" type="Node" parent="state_machine_controller" node_paths=PackedStringArray("entity_instance", "state_machine_controller_instance")]
 script = ExtResource("8_dkigd")
@@ -210,9 +170,10 @@ state_machine_controller_instance = NodePath("..")
 nav = NodePath("../../NavigationAgent2D")
 powerup_timer = NodePath("powerup_timer")
 go_pickup_powerup_random_chance = 0.5
+walk_to_powerup_movespeed = 1000.0
 
 [node name="powerup_timer" type="Timer" parent="state_machine_controller/Pickup_powerup"]
-wait_time = 2.5
+wait_time = 7.5
 autostart = true
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
@@ -238,6 +199,7 @@ enemy_to_player_ray = NodePath("../enemy_to_player_ray")
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="melee_attack_hitbox"]
+position = Vector2(0, -1)
 shape = SubResource("CircleShape2D_8bicl")
 
 [node name="reload" type="Node" parent="." node_paths=PackedStringArray("state_machine_controller_instance", "reload_bar", "body")]

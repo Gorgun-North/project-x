@@ -1,0 +1,5 @@
+set {is_paused} = true
+test_character: AYYYOOOOO!!!! WHAATTTUPPP
+test_character2: No way, this shit works, cus er seeing it?
+set {is_paused} = false
+[style]

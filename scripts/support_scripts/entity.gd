@@ -31,9 +31,9 @@ func take_damage(damage: int):
 		health -= damage
 
 func _process(_delta: float) -> void:
-	
-	#if self.name.begins_with("Enemy"):
-		#print(picked_up_powerup)
+	if self.name.begins_with("Enemy") and self.health <= 0:
+		Dialogic.start("test-timeline2")
+		
 	
 	if self.name.begins_with("Player") or self.name.begins_with("Enemy"):
 		if health > max_health:

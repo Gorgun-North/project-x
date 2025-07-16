@@ -69,11 +69,14 @@ func Physics_Update(delta) -> void:
 	if body is entity:
 		if body.picked_up_powerup == "double_damage":
 			is_doing_double_damage = true
+			
 			body.picked_up_powerup = ""
 			
 	if is_doing_double_damage == true:
 		double_damage_timer -= delta
 		shoot_state_timer = powerup_damage_rate_of_fire
+		body.bullets_left = body.max_bullets
+		print("oegaboegah")
 		if double_damage_timer <= 0.0:
 			double_damage_timer = double_damage_time_duration
 			is_doing_double_damage = false
@@ -94,6 +97,12 @@ func Physics_Update(delta) -> void:
 		bullet_instance.rotation = shoot_angle
 		
 		body.bullets_left -= 1
+		
+		var bullet_decal_object = preload("res://scenes/misc_scenes/bullet_decal.tscn").instantiate()
+		bullet_decal_object.global_position = body.global_position
+		bullet_decal_object.global_rotation = body.global_rotation
+		get_tree().root.add_child(bullet_decal_object)
+		
 		get_tree().root.add_child(bullet_instance)
 		
 		Transitioned.emit(self, "move")

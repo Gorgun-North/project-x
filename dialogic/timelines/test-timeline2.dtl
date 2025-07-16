@@ -1,0 +1,4 @@
+set {is_paused} = true
+test_character2: AAHHH YOU BEAT MEE!!!
+test_character: Looks like you are out till lunch
+set {is_paused} = false

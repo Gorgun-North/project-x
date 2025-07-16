@@ -24,10 +24,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	
-	if player_reload_instance.player_reloads_bullet == true:
-		return
-		
-	if body.bullets_left <= 0:
+	if Dialogic.VAR.is_paused == true:
 		return
 	
 	if body is entity:
@@ -36,6 +33,7 @@ func _process(delta: float) -> void:
 			body.picked_up_powerup = ""
 			
 	if is_doing_double_damage == true:
+		body.bullets_left = body.max_bullets
 		double_damage_timer -= delta
 		attack_cooldown_timer.wait_time = powerup_damage_rate_of_fire
 		if double_damage_timer <= 0.0:
@@ -43,6 +41,12 @@ func _process(delta: float) -> void:
 			is_doing_double_damage = false
 			attack_cooldown_timer.wait_time = rate_of_fire
 			
+	if player_reload_instance.player_reloads_bullet == true:
+		return
+		
+	if body.bullets_left <= 0:
+		return
+	
 	
 	if !attack_cooldown_timer.is_stopped():
 		return
@@ -65,7 +69,7 @@ func _process(delta: float) -> void:
 				var mouse_pos := body.get_global_mouse_position()
 				shoot_angle = (mouse_pos - body.global_position).angle()
 				#bullet_dir = (mouse_pos - body.global_position).normalized()
-			elif input_mode.mouse_look_mode == "controller":
+			elif input_mode.mouse_look_mode == "controller": 
 				shoot_angle = (aim_ray.get_collision_point()- body.global_position).angle()
 				#bullet_dir = (aim_ray.get_collision_point()- body.global_position).normalized()
 		
@@ -75,6 +79,10 @@ func _process(delta: float) -> void:
 			bullet_instance.rotation = shoot_angle
 			
 			body.bullets_left -= 1
+			var bullet_decal_object = preload("res://scenes/misc_scenes/bullet_decal.tscn").instantiate()
+			bullet_decal_object.global_position = body.global_position
+			bullet_decal_object.global_rotation = body.global_rotation
+			get_tree().root.add_child(bullet_decal_object)
 			get_tree().root.add_child(bullet_instance)
 			
 		else:

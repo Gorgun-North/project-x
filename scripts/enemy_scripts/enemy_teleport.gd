@@ -10,10 +10,25 @@ var track_health: int
 @export var teleport_distance: float =  1000.0
 @export var random_teleport_range: float = 0.75
 @export var check_teleport_pos_ray: RayCast2D 
+@export var teleport_windup_duration: float = 0.1
 
+var teleport_windup_timer: float
 var rng = RandomNumberGenerator.new()
 
+var teleport_pos: Vector2 = Vector2.ZERO
+
+func _physics_process(delta: float) -> void:
+	if teleport_pos != Vector2.ZERO:
+		teleport_windup_timer -= delta
+		
+		if teleport_windup_timer <= 0.0:
+			body.global_position = teleport_pos
+			teleport_pos = Vector2.ZERO
+			teleport_windup_timer = teleport_windup_duration
+		
+
 func _ready() -> void:
+	teleport_windup_timer = teleport_windup_duration
 	call_deferred("_ready_got_hit")
 	
 func _ready_got_hit() -> void:
@@ -63,9 +78,10 @@ func _on_got_hit(attacker: entity, hit_dir: Vector2, _knockback_force: float, _k
 	
 	print("I TELEPORT!")
 	if check_teleport_pos_ray.is_colliding():
-		body.global_position = check_teleport_pos_ray.get_collision_point()
+		teleport_pos = check_teleport_pos_ray.get_collision_point()
 	else:
-		body.global_position = position_behind_player
+		teleport_pos = position_behind_player
+			
 		
 	
 		

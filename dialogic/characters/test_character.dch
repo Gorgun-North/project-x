@@ -1,0 +1,40 @@
+{
+"@path": "res://addons/dialogic/Resources/character.gd",
+"@subpath": NodePath(""),
+&"_translation_id": "",
+&"color": Color(1, 1, 1, 1),
+&"custom_info": {
+"prefix": "",
+"sound_mood_default": "",
+"sound_moods": {},
+"style": "",
+"suffix": ""
+},
+&"default_portrait": "john",
+&"description": "",
+&"display_name": "test_character",
+&"mirror": false,
+&"nicknames": [""],
+&"offset": Vector2(0, 0),
+&"portraits": {
+"145": {
+"export_overrides": {
+"image": "\"res://assets/portraits/145.png\""
+},
+"mirror": false,
+"offset": Vector2(0, 0),
+"scale": 1,
+"scene": ""
+},
+"john": {
+"export_overrides": {
+"image": "\"res://assets/portraits/john.png\""
+},
+"mirror": false,
+"offset": Vector2(-75, 0),
+"scale": 1.0,
+"scene": ""
+}
+},
+&"scale": 1.0
+}

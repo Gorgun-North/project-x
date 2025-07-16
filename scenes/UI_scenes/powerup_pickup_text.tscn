@@ -1,0 +1,73 @@
+[gd_scene load_steps=5 format=3 uid="uid://vi4n1fhim1tw"]
+
+[ext_resource type="Script" uid="uid://cdddk1nv7w70i" path="res://scripts/ui_scripts/picked_up_powerup_text.gd" id="1_fghm3"]
+
+[sub_resource type="Animation" id="Animation_rxx0f"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-150, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_8kpll"]
+resource_name = "move_up"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-150, 0), Vector2(-150, -50)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ad5e6"]
+_data = {
+&"RESET": SubResource("Animation_rxx0f"),
+&"move_up": SubResource("Animation_8kpll")
+}
+
+[node name="Powerup_pickup_text" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+scale = Vector2(4, 4)
+script = ExtResource("1_fghm3")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_ad5e6")
+}
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -150.0
+offset_right = -150.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control"]
+layout_mode = 0
+offset_right = 300.0
+offset_bottom = 69.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control/HBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 3.55
+theme_override_font_sizes/normal_font_size = 16
+text = "This is textdwawadwadwadwadwadwa"
+fit_content = true
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

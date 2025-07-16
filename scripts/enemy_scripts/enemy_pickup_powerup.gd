@@ -10,8 +10,9 @@ const PICKUP_POWERUP_ABILITY_LEVEL_UNLOCK: int = 2
 @export var go_pickup_powerup_random_chance: float = 0.25
 @export var desired_distance_to_pickup_powerup: float = 50.0
 @export var pickup_powerup_allowed_distance: float = 52.5
-@export var walk_to_powerup_movespeed: float = 1000.0
+@export var walk_to_powerup_movespeed: float = 1300.0
 var is_powerup_picked_up: bool = true
+var health_on_entered: int
 
 var rng = RandomNumberGenerator.new() 
 var desired_powerup: Node2D
@@ -28,6 +29,8 @@ func Entered() -> void:
 		Transitioned.emit(self, "idle")
 		
 	var all_powerups_in_lvl = get_tree().get_nodes_in_group("powerup")
+	
+	health_on_entered = body.health
 	
 	#Set the closest powerup to an impossible distance so whatever powerup comes next is closer
 	var closest_powerup_distance: float = 10000.0
@@ -46,6 +49,10 @@ func Entered() -> void:
 		desired_powerup = chosen_powerup
 
 func Physics_Update(_delta) -> void:
+	if health_on_entered != body.health:
+		target_reached()
+		Transitioned.emit(self, "idle")
+	
 	if !desired_powerup:
 		target_reached()
 		Transitioned.emit(self, "idle")
@@ -61,7 +68,7 @@ func Physics_Update(_delta) -> void:
 	body.look_at(nav.get_next_path_position())
 	var dir: Vector2 = (steer_target - body.global_position).normalized()
 	
-	body.velocity = dir * body.speed
+	body.velocity = dir * walk_to_powerup_movespeed
 		
 	if body.global_position.distance_to(desired_powerup.global_position) < desired_distance_to_pickup_powerup:
 		target_reached()

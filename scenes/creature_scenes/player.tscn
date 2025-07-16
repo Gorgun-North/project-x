@@ -55,13 +55,13 @@ radius = 56.0892
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 collision_layer = 3
 collision_mask = 3
-safe_margin = 15.0
+safe_margin = 20.0
 script = ExtResource("1_j2f7r")
 health = 50
 
 [node name="Reload" type="Node" parent="." node_paths=PackedStringArray("body", "reload_bar")]
 script = ExtResource("10_btrno")
-reload_time = 0.75
+reload_time = 2.0
 body = NodePath("..")
 reload_bar = NodePath("../reload_ui_timer_placeholder/Control/VBoxContainer/ProgressBar")
 
@@ -88,7 +88,7 @@ body = NodePath("..")
 aim_ray = NodePath("../Aim_raycast")
 player_reload_instance = NodePath("../Reload")
 rate_of_fire = 0.5
-double_damage_time_duration = 10.0
+powerup_damage_rate_of_fire = 0.45
 attack_cooldown_timer = NodePath("Attack_cooldown_timer")
 input_mode = NodePath("../Mouse_look")
 

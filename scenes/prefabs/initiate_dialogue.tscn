@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dr7mikh10fk2j"]
+
+[ext_resource type="Script" uid="uid://mt6vv3hmkgav" path="res://scripts/dialogue_scripts/initiate_dialogue_script.gd" id="1_rhhna"]
+
+[node name="initiate_dialogue" type="Node2D"]
+process_mode = 3
+script = ExtResource("1_rhhna")
+get_dialogue = "test-timeline"

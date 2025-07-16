@@ -101,6 +101,7 @@ size = Vector2(26, 33.3333)
 scale = Vector2(2, 2)
 
 [node name="explosion_radius" type="Area2D" parent="." node_paths=PackedStringArray("root", "object", "animplayer", "colshape")]
+z_index = 1
 position = Vector2(-1, 0)
 collision_layer = 3
 collision_mask = 3
@@ -130,6 +131,7 @@ hframes = 6
 frame = 1
 
 [node name="Destructable_object" parent="." instance=ExtResource("2_s5uuy")]
+z_index = 1
 health = 10
 
 [node name="Sprite2D" parent="Destructable_object" index="0"]

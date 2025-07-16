@@ -46,6 +46,12 @@ func set_bullet_ui():
 			
 
 func _process(_delta: float) -> void:
+	
+	if Dialogic.VAR.is_paused == true:
+		$Control.visible = false
+	else:
+		$Control.visible = true
+	
 	if player:
 		set_bullet_ui()
 		

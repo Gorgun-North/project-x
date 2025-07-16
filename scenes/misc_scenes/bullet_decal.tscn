@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://darsby3adplgb"]
+
+[ext_resource type="Script" uid="uid://ba64adtfqnhan" path="res://scripts/object_scripts/bullet_decal.gd" id="1_gbaq4"]
+[ext_resource type="Texture2D" uid="uid://cybx6ec53bsyl" path="res://assets/test_assets/bullet_decal.png" id="2_ca1f7"]
+
+[node name="bullet_decal" type="Node2D"]
+z_index = -1
+scale = Vector2(2, 2)
+script = ExtResource("1_gbaq4")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_ca1f7")

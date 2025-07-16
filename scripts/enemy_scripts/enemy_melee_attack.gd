@@ -49,10 +49,11 @@ func Entered() -> void:
 	
 
 func windup() -> void:
+	animplayer.play("attack_windup")
+	
 	if current_melee_attack_state != melee_attack_states.WINDUP:
 		return
 		
-	animplayer.play("melee_attack_windup")
 	melee_attack_windup_timer -= get_process_delta_time()
 	body.velocity = Vector2.ZERO
 	
@@ -103,10 +104,10 @@ func attack() -> void:
 
 	
 func wind_down() -> void:
+	animplayer.play("attack_winddown")
 	if current_melee_attack_state != melee_attack_states.WIND_DOWN:
 		return
 	
-	animplayer.play("melee_attack_winddown")
 	body.velocity = Vector2.ZERO
 	melee_attack_hitbox_area2D.monitoring = false
 	melee_attack_wind_down_timer -= get_process_delta_time()
