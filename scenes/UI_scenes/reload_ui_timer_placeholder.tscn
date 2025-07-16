@@ -1,0 +1,37 @@
+[gd_scene load_steps=2 format=3 uid="uid://c3u8s1wg5qwb4"]
+
+[ext_resource type="Theme" uid="uid://bj51rklxf1svf" path="res://UI_themes/progressbar_placeholder.tres" id="1_baqo7"]
+
+[node name="reload_ui_timer_placeholder" type="Node2D"]
+
+[node name="Control" type="Control" parent="."]
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 0
+offset_left = -188.0
+offset_top = -113.0
+offset_right = 212.0
+offset_bottom = -93.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -2.0
+offset_bottom = 18.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ProgressBar" type="ProgressBar" parent="Control/VBoxContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(0, 21.14)
+layout_mode = 2
+size_flags_vertical = 1
+theme = ExtResource("1_baqo7")
+value = 38.55
+show_percentage = false

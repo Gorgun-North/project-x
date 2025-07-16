@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://bmsh5rofifk8w"]
+
+[ext_resource type="Script" uid="uid://nbuayja73nrl" path="res://scripts/ui_scripts/UI_bullet_script.gd" id="1_6ay85"]
+[ext_resource type="Texture2D" uid="uid://76g0cdpqa06k" path="res://assets/test_assets/bullets_left_UI_elements.png" id="1_hvb7q"]
+
+[node name="bullet_ui_element" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_6ay85")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(2, 2)
+texture = ExtResource("1_hvb7q")
+hframes = 2

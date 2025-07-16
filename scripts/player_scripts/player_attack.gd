@@ -2,6 +2,8 @@ extends Node
 
 @export var body: CharacterBody2D
 @export var aim_ray: RayCast2D
+@export var player_reload_instance: player_reload
+
 
 @export var player_hitbox_size: float = 70.0
 
@@ -21,6 +23,12 @@ func _ready() -> void:
 	attack_cooldown_timer.wait_time = rate_of_fire
 
 func _process(delta: float) -> void:
+	
+	if player_reload_instance.player_reloads_bullet == true:
+		return
+		
+	if body.bullets_left <= 0:
+		return
 	
 	if body is entity:
 		if body.picked_up_powerup == "double_damage":
@@ -66,6 +74,7 @@ func _process(delta: float) -> void:
 			bullet_instance.global_position = aim_ray.global_transform.origin
 			bullet_instance.rotation = shoot_angle
 			
+			body.bullets_left -= 1
 			get_tree().root.add_child(bullet_instance)
 			
 		else:

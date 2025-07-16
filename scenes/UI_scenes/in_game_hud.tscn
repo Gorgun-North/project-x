@@ -1,8 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://co3wyad1fl2fj"]
+[gd_scene load_steps=3 format=3 uid="uid://co3wyad1fl2fj"]
 
 [ext_resource type="Script" uid="uid://dyxygh0q8qmfu" path="res://scripts/ui_scripts/healthbar_script.gd" id="1_ff0op"]
+[ext_resource type="Theme" uid="uid://bj51rklxf1svf" path="res://UI_themes/progressbar_placeholder.tres" id="2_i16j5"]
 
-[node name="in_game_hud" type="Control" node_paths=PackedStringArray("player_healthbar", "enemy_healthbar")]
+[node name="in_game_hud" type="Control" node_paths=PackedStringArray("player_healthbar", "enemy_healthbar", "remaining_bullets_UI")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -13,6 +14,7 @@ grow_vertical = 2
 script = ExtResource("1_ff0op")
 player_healthbar = NodePath("Control/VBoxContainer/player_healthbar")
 enemy_healthbar = NodePath("Control/VBoxContainer2/enemy_healthbar")
+remaining_bullets_UI = NodePath("Control/VBoxContainer/Remaining_bullets_UI")
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 1
@@ -41,10 +43,18 @@ vertical_alignment = 1
 clip_contents = true
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
+theme = ExtResource("2_i16j5")
+theme_override_colors/font_color = Color(0.36482, 0.477417, 0.141373, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 step = 1.0
 value = 100.0
 rounded = true
 show_percentage = false
+
+[node name="Remaining_bullets_UI" type="HBoxContainer" parent="Control/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_constants/separation = 50
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="Control"]
 layout_mode = 1
@@ -69,6 +79,7 @@ vertical_alignment = 1
 clip_contents = true
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
+theme = ExtResource("2_i16j5")
 step = 1.0
 value = 100.0
 show_percentage = false

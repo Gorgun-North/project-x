@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://cg46yr3i2k4rs"]
+[gd_scene load_steps=6 format=3 uid="uid://cg46yr3i2k4rs"]
 
 [ext_resource type="Script" uid="uid://um55outo6yw3" path="res://scripts/object_scripts/power_up.gd" id="1_rblg1"]
+[ext_resource type="Texture2D" uid="uid://b4c4o1vnhbbpy" path="res://assets/test_assets/shadows.png" id="2_3lnxq"]
 
 [sub_resource type="Animation" id="Animation_dg134"]
 length = 0.001
@@ -53,3 +54,10 @@ script = ExtResource("1_rblg1")
 libraries = {
 &"": SubResource("AnimationLibrary_pbgh4")
 }
+
+[node name="shadow" type="Sprite2D" parent="."]
+z_index = -1
+texture_filter = 1
+position = Vector2(0, 12)
+texture = ExtResource("2_3lnxq")
+hframes = 2

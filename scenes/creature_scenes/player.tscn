@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://c8bibno0p31yd"]
+[gd_scene load_steps=16 format=3 uid="uid://c8bibno0p31yd"]
 
 [ext_resource type="Script" uid="uid://dr011ckt1s7li" path="res://scripts/support_scripts/entity.gd" id="1_j2f7r"]
 [ext_resource type="Texture2D" uid="uid://dnsew7nd2l33f" path="res://assets/test_assets/icon.svg" id="1_xjjvf"]
@@ -9,6 +9,8 @@
 [ext_resource type="Script" uid="uid://bbtb6daq4omy7" path="res://scripts/player_scripts/player_attack.gd" id="7_8iuoe"]
 [ext_resource type="Script" uid="uid://boqdar6ds0u3b" path="res://scripts/player_scripts/player_knockback.gd" id="7_tx6aq"]
 [ext_resource type="Script" uid="uid://h6a8qxbgfsrf" path="res://scripts/player_scripts/player_iframes.gd" id="9_tx6aq"]
+[ext_resource type="Script" uid="uid://dj766qjdjlpwf" path="res://scripts/player_scripts/player_reload.gd" id="10_btrno"]
+[ext_resource type="PackedScene" uid="uid://c3u8s1wg5qwb4" path="res://scenes/UI_scenes/reload_ui_timer_placeholder.tscn" id="11_8rvo6"]
 
 [sub_resource type="Animation" id="Animation_tx6aq"]
 resource_name = "Iframes"
@@ -57,6 +59,12 @@ safe_margin = 15.0
 script = ExtResource("1_j2f7r")
 health = 50
 
+[node name="Reload" type="Node" parent="." node_paths=PackedStringArray("body", "reload_bar")]
+script = ExtResource("10_btrno")
+reload_time = 0.75
+body = NodePath("..")
+reload_bar = NodePath("../reload_ui_timer_placeholder/Control/VBoxContainer/ProgressBar")
+
 [node name="Iframes" type="Node" parent="." node_paths=PackedStringArray("state_machine_controller_instance", "entity_instance", "knockback_instance", "animplayer", "player_sprite")]
 script = ExtResource("9_tx6aq")
 state_machine_controller_instance = NodePath("../State_controller")
@@ -74,10 +82,11 @@ libraries = {
 [node name="player_camera" type="Camera2D" parent="."]
 zoom = Vector2(0.25, 0.25)
 
-[node name="Attack" type="Node" parent="." node_paths=PackedStringArray("body", "aim_ray", "attack_cooldown_timer", "input_mode")]
+[node name="Attack" type="Node" parent="." node_paths=PackedStringArray("body", "aim_ray", "player_reload_instance", "attack_cooldown_timer", "input_mode")]
 script = ExtResource("7_8iuoe")
 body = NodePath("..")
 aim_ray = NodePath("../Aim_raycast")
+player_reload_instance = NodePath("../Reload")
 rate_of_fire = 0.5
 double_damage_time_duration = 10.0
 attack_cooldown_timer = NodePath("Attack_cooldown_timer")
@@ -131,4 +140,9 @@ script = ExtResource("7_tx6aq")
 entity_instance = NodePath("../..")
 state_machine_controller_instance = NodePath("..")
 
+[node name="reload_ui_timer_placeholder" parent="." instance=ExtResource("11_8rvo6")]
+process_mode = 3
+
 [connection signal="got_hit" from="." to="State_controller/Knockback" method="_on_player_got_hit"]
+
+[editable path="reload_ui_timer_placeholder"]

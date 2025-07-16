@@ -27,6 +27,9 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	var to_player_ray = enemy_to_player_ray.get_collider()
 	
+	if body.bullets_left <= 0:
+		return
+	
 	if state_machine_controller_node == null:
 		push_error("State machine_controller not initialized in enemy_attack_script")
 		return
@@ -51,6 +54,7 @@ func _physics_process(delta: float) -> void:
 		Transitioned.emit(state_machine_controller_node.current_state, "attack")
 		
 func Entered() -> void:
+	
 	var collider := enemy_to_player_ray.get_collider()
 	if collider and collider.name.begins_with("Player"):
 		target = collider.global_position
@@ -89,6 +93,7 @@ func Physics_Update(delta) -> void:
 		bullet_instance.global_position = body.global_position + bullet_dir * bullet_spawn_distance
 		bullet_instance.rotation = shoot_angle
 		
+		body.bullets_left -= 1
 		get_tree().root.add_child(bullet_instance)
 		
 		Transitioned.emit(self, "move")

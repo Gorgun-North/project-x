@@ -5,13 +5,16 @@ signal got_hit(attacker: entity, hit_direction: Vector2, knockback_force: float,
 
 @export var health: int = 100
 @export var navobstacle: NavigationObstacle2D
+@export var max_bullets: int = 6
 
 var invulnerable: bool = false
 var picked_up_powerup: String
 var max_health: int
+var bullets_left: int
 @export var speed: float = 700.0
 
 func _ready() -> void:
+	bullets_left = max_bullets
 	max_health = health
 
 func actions_before_death() -> void:

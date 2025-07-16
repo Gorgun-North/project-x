@@ -1,12 +1,13 @@
-[gd_scene load_steps=10 format=3 uid="uid://bt3ohyhrodcv7"]
+[gd_scene load_steps=11 format=3 uid="uid://bt3ohyhrodcv7"]
 
 [ext_resource type="Script" uid="uid://2wh2slyt8db8" path="res://scripts/object_scripts/exploding_barrel.gd" id="1_ukqj3"]
 [ext_resource type="Texture2D" uid="uid://rppu7wbng3lk" path="res://assets/test_assets/explosion.png" id="2_050fe"]
-[ext_resource type="Texture2D" uid="uid://d22dxy2s18wdl" path="res://assets/test_assets/exploding_barrel_concept.png" id="2_as2wr"]
 [ext_resource type="PackedScene" uid="uid://bd4u8oss8w614" path="res://scenes/prefabs/destructable_object.tscn" id="2_s5uuy"]
+[ext_resource type="Texture2D" uid="uid://d07hbl0ygqs57" path="res://assets/static_imports/crates_and_barrels.png" id="4_s5uuy"]
+[ext_resource type="Texture2D" uid="uid://b4c4o1vnhbbpy" path="res://assets/test_assets/shadows.png" id="5_050fe"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ukqj3"]
-radius = 417.005
+radius = 258.5
 
 [sub_resource type="Animation" id="Animation_050fe"]
 length = 0.001
@@ -94,9 +95,10 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_050fe"]
-size = Vector2(26, 49.5)
+size = Vector2(26, 33.3333)
 
 [node name="exploding_barrel" type="Node2D"]
+scale = Vector2(2, 2)
 
 [node name="explosion_radius" type="Area2D" parent="." node_paths=PackedStringArray("root", "object", "animplayer", "colshape")]
 position = Vector2(-1, 0)
@@ -133,14 +135,24 @@ health = 10
 [node name="Sprite2D" parent="Destructable_object" index="0"]
 texture_filter = 1
 scale = Vector2(3, 3)
-texture = ExtResource("2_as2wr")
+texture = ExtResource("4_s5uuy")
+hframes = 8
+frame = 2
 
 [node name="CollisionShape2D" parent="Destructable_object" index="1"]
-position = Vector2(0, 1.75002)
+position = Vector2(0, -1)
 scale = Vector2(3, 3)
 shape = SubResource("RectangleShape2D_050fe")
 
 [node name="NavigationObstacle2D" parent="Destructable_object" index="2"]
-vertices = PackedVector2Array(94.075, 119.015, 93.388, -129.958, -107.4, -130.133, -107.793, 119.414)
+vertices = PackedVector2Array(65.765, 77.475, 65.788, -98.078, -78.12, -97.868, -78.188, 77.754)
+
+[node name="Sprite2D2" type="Sprite2D" parent="Destructable_object"]
+z_index = -1
+texture_filter = 1
+position = Vector2(0, 40.09)
+scale = Vector2(4, 4)
+texture = ExtResource("5_050fe")
+hframes = 2
 
 [editable path="Destructable_object"]

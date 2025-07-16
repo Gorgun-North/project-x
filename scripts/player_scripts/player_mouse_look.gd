@@ -19,9 +19,11 @@ func _input(event: InputEvent) -> void:
 			
 			if stick.length() > deadzone:
 				body.look_at(body.global_position + stick.normalized() * 100)
+				$"../reload_ui_timer_placeholder".global_rotation = 0.0
 		elif event is InputEventMouseMotion:
 			mouse_look_mode = "mouse"
 			var mouse_pos = body.get_global_mouse_position()
 			body.look_at(mouse_pos)
+			$"../reload_ui_timer_placeholder".global_rotation = 0.0
 	else:
 		print("body is not selected, attach it to this node: ", self)
