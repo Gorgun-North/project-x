@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://dnak75am7us7s"]
+
+[ext_resource type="Shader" uid="uid://be2dw3q573t0h" path="res://shaders/rotating_planet.gdshader" id="1_5a3bu"]
+[ext_resource type="Texture2D" uid="uid://do20iydkvwev7" path="res://assets/backgrounds/planet_01.png" id="2_b2r7x"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5a3bu"]
+shader = ExtResource("1_5a3bu")
+shader_parameter/scroll_speed = 0.01
+shader_parameter/atmosphere_color = Color(0.560101, 0.41051, 0.30455, 1)
+shader_parameter/atmosphere_thickness = 0.205
+shader_parameter/pixel_steps = 5.985
+shader_parameter/planet_radius = 0.835
+shader_parameter/edge_pixelation = 53.2
+shader_parameter/cloud_speed = 0.01
+shader_parameter/cloud_scale = 33.605
+shader_parameter/cloud_strength = 1.045
+shader_parameter/cloud_color = Vector3(1, 1, 1)
+shader_parameter/cloud_threshold = 0.63
+shader_parameter/cloud_edge_softness = 0.71
+shader_parameter/cloud_pixel_size = -2.02
+shader_parameter/rim_glow_color = Vector3(-0.525, 0.01, 0.8)
+shader_parameter/shadow_speed = 0.05
+shader_parameter/shadow_darkness = 0.3
+shader_parameter/shadow_band_width = 1.2
+shader_parameter/shadow_edge_softness = 0.42
+shader_parameter/shadow_extra_padding = 0.3
+shader_parameter/planet_saturation = 0.575
+
+[node name="Planet" type="Sprite2D"]
+texture_filter = 1
+material = SubResource("ShaderMaterial_5a3bu")
+texture = ExtResource("2_b2r7x")

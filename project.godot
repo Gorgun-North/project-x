@@ -93,6 +93,8 @@ enabled=PackedStringArray("res://addons/dialogic/plugin.cfg")
 Player=""
 Enemy=""
 powerup=""
+bullet_decal=""
+basic_lamp=""
 
 [input]
 

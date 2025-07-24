@@ -21,6 +21,9 @@ func _ready() -> void:
 	if player is entity:
 		for i in player.max_bullets:
 			var bullet_UI_instance = bullet_UI_scene.instantiate()
+			bullet_UI_instance.use_parent_material = true   
+			bullet_UI_instance.light_mask = 2
+			bullet_UI_instance.visibility_layer = 2
 			remaining_bullets_UI.add_child(bullet_UI_instance)
 			bullet_UI_element_array.append(bullet_UI_instance)
 	

@@ -1,4 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://bbpvhvlitgexu"]
+[gd_scene load_steps=3 format=3 uid="uid://bbpvhvlitgexu"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_hh6xy"]
+light_mode = 1
 
 [sub_resource type="GDScript" id="GDScript_hh6xy"]
 script/source = "extends Control
@@ -36,6 +39,11 @@ func _on_resume_pressed() -> void:
 
 
 func _on_restart_pressed() -> void:
+	var bullet_decals = get_tree().get_nodes_in_group(\"bullet_decal\")
+	
+	for i in bullet_decals:
+		i.queue_free()
+	
 	resume()
 	get_tree().reload_current_scene()
 
@@ -46,6 +54,7 @@ func _on_quit_pressed() -> void:
 
 [node name="PauseGameHud" type="Control"]
 process_mode = 3
+material = SubResource("CanvasItemMaterial_hh6xy")
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

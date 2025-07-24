@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://vi4n1fhim1tw"]
 
-[ext_resource type="Script" uid="uid://cdddk1nv7w70i" path="res://scripts/ui_scripts/picked_up_powerup_text.gd" id="1_fghm3"]
+[ext_resource type="Script" uid="uid://cdddk1nv7w70i" path="res://scripts/ui_scripts/picked_up_powerup_text.gd" id="1_r3imv"]
 
 [sub_resource type="Animation" id="Animation_rxx0f"]
 length = 0.001
@@ -43,7 +43,7 @@ _data = {
 layout_mode = 3
 anchors_preset = 0
 scale = Vector2(4, 4)
-script = ExtResource("1_fghm3")
+script = ExtResource("1_r3imv")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

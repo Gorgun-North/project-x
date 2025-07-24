@@ -1,10 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://cvx33pw0eccp4"]
+[gd_scene load_steps=4 format=3 uid="uid://cvx33pw0eccp4"]
 
 [ext_resource type="Script" uid="uid://byqmjjofua1qm" path="res://scripts/ui_scripts/game_over_UI_script.gd" id="1_vglf5"]
 [ext_resource type="Script" uid="uid://cpmy62l7r8ql0" path="res://scripts/ui_scripts/initiate_game_over.gd" id="2_nskwx"]
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_nskwx"]
+light_mode = 1
+
 [node name="Gameover_hud" type="Control"]
 process_mode = 2
+material = SubResource("CanvasItemMaterial_nskwx")
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

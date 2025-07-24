@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://cwp85yg004rq3"]
+
+[ext_resource type="Shader" uid="uid://c5ep0nfjy1eyc" path="res://shaders/background_shader.gdshader" id="1_rjh7v"]
+[ext_resource type="Texture2D" uid="uid://bsixp5hxqnigg" path="res://assets/backgrounds/space_01.png" id="2_2g5gm"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cp4t7"]
+shader = ExtResource("1_rjh7v")
+
+[node name="Background" type="Sprite2D"]
+light_mask = 0
+visibility_layer = 2
+z_index = -20
+texture_filter = 1
+material = SubResource("ShaderMaterial_cp4t7")
+scale = Vector2(62.8793, 50.1172)
+texture = ExtResource("2_2g5gm")

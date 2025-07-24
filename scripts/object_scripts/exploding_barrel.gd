@@ -3,6 +3,7 @@ extends Area2D
 @export var object: entity
 @export var animplayer: AnimationPlayer
 @export var colshape  : CollisionShape2D
+@export var explosion_light: PointLight2D
 @export var damage: float = 30.0
 @export var knockback_force: float = 2000.0
 @export var knockback_duration: float = 0.3
@@ -25,7 +26,8 @@ func _physics_process(_delta: float) -> void:
 		for i in get_overlapping_areas():
 			if i is power_up:
 				i.queue_free()
-				
+		
+		#explosion_light.visible = true
 		animplayer.play("explode")
 		await animplayer.animation_finished
 		var explosion_remains = preload("res://scenes/misc_scenes/explosion_remains.tscn").instantiate()

@@ -14,6 +14,14 @@ func _ready() -> void:
 	reload_bar.value = reload_time
 	reload_bar.visible = false
 
+func reloaded() -> void:
+		body.bullets_left = body.max_bullets
+		
+		reload_timer = reload_time
+		player_reloads_bullet = false
+		reload_bar.visible = false
+		reload_bar.value = 0.0
+
 func reload_gun():
 	
 	if body.bullets_left >= body.max_bullets:
@@ -32,13 +40,10 @@ func reload_gun():
 		reload_bar.visible = true
 		
 		if reload_timer <= 0.0:
-			body.bullets_left = body.max_bullets
-			
-			
-			reload_timer = reload_time
-			player_reloads_bullet = false
-			reload_bar.visible = false
-			reload_bar.value = 0.0
+			reloaded()
 		
 func _process(_delta: float) -> void:
+	if body.picked_up_powerup == "double_damage":
+		reloaded()
+	
 	reload_gun()

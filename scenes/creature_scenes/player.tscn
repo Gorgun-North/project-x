@@ -1,10 +1,11 @@
-[gd_scene load_steps=16 format=3 uid="uid://c8bibno0p31yd"]
+[gd_scene load_steps=20 format=3 uid="uid://c8bibno0p31yd"]
 
 [ext_resource type="Script" uid="uid://dr011ckt1s7li" path="res://scripts/support_scripts/entity.gd" id="1_j2f7r"]
 [ext_resource type="Texture2D" uid="uid://dnsew7nd2l33f" path="res://assets/test_assets/icon.svg" id="1_xjjvf"]
 [ext_resource type="Script" uid="uid://wg4kyxho2lon" path="res://scripts/player_scripts/player_move.gd" id="2_gfahr"]
 [ext_resource type="Script" uid="uid://bxrfkv7bc6ydf" path="res://scripts/support_scripts/state_controller.gd" id="3_gfahr"]
 [ext_resource type="Script" uid="uid://db4to3nv4681q" path="res://scripts/player_scripts/player_idle.gd" id="4_7vqky"]
+[ext_resource type="Script" uid="uid://dioiy4leuxqy6" path="res://scripts/ui_scripts/screen_shake.gd" id="4_pw2sv"]
 [ext_resource type="Script" uid="uid://cne6cycqyygxn" path="res://scripts/player_scripts/player_mouse_look.gd" id="5_u2ccb"]
 [ext_resource type="Script" uid="uid://bbtb6daq4omy7" path="res://scripts/player_scripts/player_attack.gd" id="7_8iuoe"]
 [ext_resource type="Script" uid="uid://boqdar6ds0u3b" path="res://scripts/player_scripts/player_knockback.gd" id="7_tx6aq"]
@@ -52,6 +53,15 @@ _data = {
 [sub_resource type="CircleShape2D" id="CircleShape2D_u2ccb"]
 radius = 56.0892
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_pw2sv"]
+light_mode = 1
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_idup1"]
+light_mode = 1
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_pw2sv"]
+polygon = PackedVector2Array(59.1, -64, -59, -64, -63.8, -59, -64, 61, -60.3, 64, 59.6, 64, 63.9, 59, 64, -61.1)
+
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 collision_layer = 3
 collision_mask = 3
@@ -79,8 +89,11 @@ libraries = {
 &"": SubResource("AnimationLibrary_8xy1b")
 }
 
-[node name="player_camera" type="Camera2D" parent="."]
+[node name="player_camera" type="Camera2D" parent="." node_paths=PackedStringArray("entity_instance")]
 zoom = Vector2(0.25, 0.25)
+script = ExtResource("4_pw2sv")
+entity_instance = NodePath("..")
+shake_intensity_max = 99.0
 
 [node name="Attack" type="Node" parent="." node_paths=PackedStringArray("body", "aim_ray", "player_reload_instance", "attack_cooldown_timer", "input_mode")]
 script = ExtResource("7_8iuoe")
@@ -142,6 +155,18 @@ state_machine_controller_instance = NodePath("..")
 
 [node name="reload_ui_timer_placeholder" parent="." instance=ExtResource("11_8rvo6")]
 process_mode = 3
+material = SubResource("CanvasItemMaterial_pw2sv")
+
+[node name="ProgressBar" parent="reload_ui_timer_placeholder/Control/VBoxContainer" index="0"]
+material = SubResource("CanvasItemMaterial_idup1")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+visible = false
+position = Vector2(-3, 2)
+rotation = 1.5708
+scale = Vector2(0.726562, 0.671875)
+occluder = SubResource("OccluderPolygon2D_pw2sv")
+sdf_collision = false
 
 [connection signal="got_hit" from="." to="State_controller/Knockback" method="_on_player_got_hit"]
 

@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://ddyf0j0oqaq25"]
+
+[ext_resource type="Script" uid="uid://cdddk1nv7w70i" path="res://scripts/ui_scripts/picked_up_powerup_text.gd" id="1_xgrvv"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2e5bq"]
+
+[node name="popup_text" type="Marker2D"]
+scale = Vector2(3, 3)
+script = ExtResource("1_xgrvv")
+
+[node name="Label" type="Label" parent="."]
+texture_filter = 1
+material = SubResource("ShaderMaterial_2e5bq")
+offset_left = -93.0
+offset_right = 92.0
+offset_bottom = 23.0
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.551092, 0.0645295, 0.0430781, 1)
+text = "dwawdawadwadwaddw"

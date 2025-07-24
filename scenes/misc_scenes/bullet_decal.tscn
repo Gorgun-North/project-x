@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://ba64adtfqnhan" path="res://scripts/object_scripts/bullet_decal.gd" id="1_gbaq4"]
 [ext_resource type="Texture2D" uid="uid://cybx6ec53bsyl" path="res://assets/test_assets/bullet_decal.png" id="2_ca1f7"]
 
-[node name="bullet_decal" type="Node2D"]
+[node name="bullet_decal" type="Node2D" groups=["bullet_decal"]]
 z_index = -1
 scale = Vector2(2, 2)
 script = ExtResource("1_gbaq4")

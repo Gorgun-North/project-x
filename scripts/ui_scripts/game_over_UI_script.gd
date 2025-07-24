@@ -13,5 +13,10 @@ func _on_quit_pressed() -> void:
 
 
 func _on_restart_pressed() -> void:
+	var bullet_decals = get_tree().get_nodes_in_group("bullet_decal   ")
+	
+	for i in bullet_decals:
+		i.queue_free()
+	
 	resume()
 	get_tree().reload_current_scene()
