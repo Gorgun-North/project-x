@@ -26,7 +26,7 @@ shader_parameter/shadow_edge_softness = 0.42
 shader_parameter/shadow_extra_padding = 0.3
 shader_parameter/planet_saturation = 0.575
 
-[node name="Planet" type="Sprite2D"]
+[node name="Planet" type="TextureRect"]
 texture_filter = 1
 material = SubResource("ShaderMaterial_5a3bu")
 texture = ExtResource("2_b2r7x")

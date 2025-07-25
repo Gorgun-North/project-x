@@ -1,7 +1,17 @@
-[gd_scene load_steps=3 format=3 uid="uid://co3wyad1fl2fj"]
+[gd_scene load_steps=8 format=3 uid="uid://co3wyad1fl2fj"]
 
 [ext_resource type="Script" uid="uid://dyxygh0q8qmfu" path="res://scripts/ui_scripts/healthbar_script.gd" id="1_ff0op"]
-[ext_resource type="Theme" uid="uid://bj51rklxf1svf" path="res://UI_themes/progressbar_placeholder.tres" id="2_i16j5"]
+[ext_resource type="Texture2D" uid="uid://jnvekmfmtwv8" path="res://assets/ui_elements/healthbar_player_background.png" id="3_1qyae"]
+[ext_resource type="Texture2D" uid="uid://cyx00f741yplr" path="res://assets/ui_elements/healthbar_player_core.png" id="4_gniwq"]
+[ext_resource type="Texture2D" uid="uid://qf5848sse4yf" path="res://assets/ui_elements/healthbar_enemy_background.png" id="4_hws2t"]
+[ext_resource type="Texture2D" uid="uid://qgrsmp6t6whi" path="res://assets/ui_elements/healthbar_enemy_core.png" id="5_l2yb7"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1qyae"]
+bg_color = Color(1, 0.244039, 0.659609, 1)
+
+[sub_resource type="Theme" id="Theme_gniwq"]
+ProgressBar/styles/background = SubResource("StyleBoxFlat_1qyae")
+ProgressBar/styles/fill = null
 
 [node name="in_game_hud" type="Control" node_paths=PackedStringArray("player_healthbar", "enemy_healthbar", "remaining_bullets_UI")]
 process_mode = 3
@@ -34,7 +44,7 @@ visibility_layer = 2
 use_parent_material = true
 layout_mode = 0
 offset_right = 360.0
-offset_bottom = 61.0
+offset_bottom = 118.0
 
 [node name="text" type="RichTextLabel" parent="Control/VBoxContainer"]
 light_mask = 2
@@ -50,26 +60,25 @@ text = "Player
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="player_healthbar" type="ProgressBar" parent="Control/VBoxContainer"]
+[node name="player_healthbar" type="TextureProgressBar" parent="Control/VBoxContainer"]
 light_mask = 2
 visibility_layer = 2
-use_parent_material = true
+texture_filter = 1
 clip_contents = true
-custom_minimum_size = Vector2(0, 30)
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
-theme = ExtResource("2_i16j5")
-theme_override_colors/font_color = Color(0.36482, 0.477417, 0.141373, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-step = 1.0
+theme = SubResource("Theme_gniwq")
 value = 100.0
 rounded = true
-show_percentage = false
+nine_patch_stretch = true
+texture_under = ExtResource("3_1qyae")
+texture_progress = ExtResource("4_gniwq")
 
 [node name="Remaining_bullets_UI" type="HBoxContainer" parent="Control/VBoxContainer"]
 light_mask = 2
 visibility_layer = 2
 use_parent_material = true
-custom_minimum_size = Vector2(0, 50)
+custom_minimum_size = Vector2(2.04, 50)
 layout_mode = 2
 theme_override_constants/separation = 50
 
@@ -98,14 +107,16 @@ text = "Enemy"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="enemy_healthbar" type="ProgressBar" parent="Control/VBoxContainer2"]
+[node name="enemy_healthbar" type="TextureProgressBar" parent="Control/VBoxContainer2"]
 light_mask = 2
 visibility_layer = 2
-use_parent_material = true
+texture_filter = 1
 clip_contents = true
-custom_minimum_size = Vector2(0, 30)
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
-theme = ExtResource("2_i16j5")
-step = 1.0
+theme = SubResource("Theme_gniwq")
 value = 100.0
-show_percentage = false
+rounded = true
+nine_patch_stretch = true
+texture_under = ExtResource("4_hws2t")
+texture_progress = ExtResource("5_l2yb7")

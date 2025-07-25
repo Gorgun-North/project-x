@@ -3,7 +3,7 @@ render_mode unshaded;
 
 void fragment() {
     float speed = 0.001;            // Slow pan for a space feel
-    float zoom = 1.2;             // Slight zoom (almost 1.0)
+    float zoom = 1.0;             // Slight zoom (almost 1.0)
     float vertical_shift = 0.01;   // Small vertical drift
     float vertical_speed = 0.2;    // Slow vertical movement
 

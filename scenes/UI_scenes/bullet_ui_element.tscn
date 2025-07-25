@@ -1,17 +1,79 @@
-[gd_scene load_steps=3 format=3 uid="uid://bmsh5rofifk8w"]
+[gd_scene load_steps=7 format=3 uid="uid://bmsh5rofifk8w"]
 
 [ext_resource type="Script" uid="uid://nbuayja73nrl" path="res://scripts/ui_scripts/UI_bullet_script.gd" id="1_6ay85"]
-[ext_resource type="Texture2D" uid="uid://76g0cdpqa06k" path="res://assets/test_assets/bullets_left_UI_elements.png" id="1_hvb7q"]
+[ext_resource type="Texture2D" uid="uid://dlofu4npwwvxt" path="res://assets/ui_elements/bullet_ui_reload.png" id="2_6ay85"]
 
-[node name="bullet_ui_element" type="Control"]
+[sub_resource type="Animation" id="Animation_6ay85"]
+resource_name = "shoot_bullet"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.08, 0.16, 0.24, 0.32, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [4, 5, 7, 6, 8, 9]
+}
+
+[sub_resource type="Animation" id="Animation_sjulp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+
+[sub_resource type="Animation" id="Animation_t1t4g"]
+resource_name = "reload_bullet"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_t1t4g"]
+_data = {
+&"RESET": SubResource("Animation_sjulp"),
+&"reload_bullet": SubResource("Animation_t1t4g"),
+&"shoot_bullet": SubResource("Animation_6ay85")
+}
+
+[node name="bullet_ui_element" type="Control" node_paths=PackedStringArray("anim_player")]
 layout_mode = 3
 anchors_preset = 0
-size_flags_horizontal = 4
+size_flags_horizontal = 8
 size_flags_vertical = 4
 script = ExtResource("1_6ay85")
+anim_player = NodePath("AnimationPlayer")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
+position = Vector2(28, 0)
 scale = Vector2(2, 2)
-texture = ExtResource("1_hvb7q")
-hframes = 2
+texture = ExtResource("2_6ay85")
+hframes = 10
+frame = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_t1t4g")
+}

@@ -1,31 +1,52 @@
-[gd_scene load_steps=5 format=3 uid="uid://qle6sgps57g7"]
+[gd_scene load_steps=8 format=3 uid="uid://qle6sgps57g7"]
 
-[ext_resource type="PackedScene" uid="uid://cwp85yg004rq3" path="res://scenes/prefabs/background.tscn" id="1_pel4g"]
 [ext_resource type="PackedScene" uid="uid://dnak75am7us7s" path="res://scenes/prefabs/planet.tscn" id="2_kaec1"]
+[ext_resource type="Shader" uid="uid://c5ep0nfjy1eyc" path="res://shaders/background_shader.gdshader" id="2_r5w6f"]
 [ext_resource type="Texture2D" uid="uid://d2pyo78lo10wn" path="res://assets/test_assets/spire.png" id="3_6y1ht"]
+[ext_resource type="Shader" uid="uid://c5edw63ib2x7f" path="res://shaders/spire.gdshader" id="3_7r382"]
+[ext_resource type="Texture2D" uid="uid://bsixp5hxqnigg" path="res://assets/backgrounds/space_01.png" id="3_odxg4"]
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_kaec1"]
-light_mode = 1
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8qdl4"]
+shader = ExtResource("2_r5w6f")
 
-[node name="background scene" type="Node2D"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r5w6f"]
+shader = ExtResource("3_7r382")
+shader_parameter/shadow_speed = 0.05
+shader_parameter/shadow_darkness = 0.3
+shader_parameter/shadow_band_width = 0.5
+shader_parameter/shadow_edge_softness = 0.42
+shader_parameter/shadow_extra_padding = 0.3
+shader_parameter/shadow_origin = Vector2(0.5, 0.5)
+shader_parameter/shadow_scale = 1.0
 
-[node name="Background" parent="." instance=ExtResource("1_pel4g")]
-z_index = -18
-position = Vector2(63, 40)
+[node name="background scene" type="CanvasLayer"]
+layer = -128
+
+[node name="Background2" type="TextureRect" parent="."]
+z_index = -1
+texture_filter = 1
+material = SubResource("ShaderMaterial_8qdl4")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_odxg4")
 
 [node name="Planet" parent="." instance=ExtResource("2_kaec1")]
-z_index = -17
-position = Vector2(-869.6, -691.856)
-scale = Vector2(10.55, 10.798)
+z_index = 1
+offset_left = 458.0
+offset_top = 73.0
+offset_right = 714.0
+offset_bottom = 329.0
 
 [node name="for_spire_roration" type="Marker2D" parent="."]
-position = Vector2(-827.6, -758.856)
+position = Vector2(588, 198)
 
 [node name="spire" type="Sprite2D" parent="for_spire_roration"]
-z_index = -18
 texture_filter = 1
-material = SubResource("CanvasItemMaterial_kaec1")
-position = Vector2(1301, -215)
+material = SubResource("ShaderMaterial_r5w6f")
+position = Vector2(131, -35)
 rotation = 1.36927
-scale = Vector2(8.888, 19.97)
+scale = Vector2(1.131, 2.21)
 texture = ExtResource("3_6y1ht")

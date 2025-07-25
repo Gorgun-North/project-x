@@ -1,7 +1,7 @@
 shader_type canvas_item;
 render_mode unshaded;
 
-uniform float scroll_speed = 0.1;
+uniform float scroll_speed = 0.01;
 uniform vec4 atmosphere_color : source_color = vec4(0.4, 0.6, 1.0, 1.0);
 uniform float atmosphere_thickness = 0.2;
 uniform float pixel_steps = 8.0;
