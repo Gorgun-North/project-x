@@ -76,7 +76,6 @@ func Physics_Update(delta) -> void:
 		double_damage_timer -= delta
 		shoot_state_timer = powerup_damage_rate_of_fire
 		body.bullets_left = body.max_bullets
-		print("oegaboegah")
 		if double_damage_timer <= 0.0:
 			double_damage_timer = double_damage_time_duration
 			is_doing_double_damage = false

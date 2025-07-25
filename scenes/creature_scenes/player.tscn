@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://c8bibno0p31yd"]
+[gd_scene load_steps=22 format=3 uid="uid://c8bibno0p31yd"]
 
 [ext_resource type="Script" uid="uid://dr011ckt1s7li" path="res://scripts/support_scripts/entity.gd" id="1_j2f7r"]
 [ext_resource type="Texture2D" uid="uid://dnsew7nd2l33f" path="res://assets/test_assets/icon.svg" id="1_xjjvf"]
@@ -8,9 +8,12 @@
 [ext_resource type="Script" uid="uid://dioiy4leuxqy6" path="res://scripts/ui_scripts/screen_shake.gd" id="4_pw2sv"]
 [ext_resource type="Script" uid="uid://cne6cycqyygxn" path="res://scripts/player_scripts/player_mouse_look.gd" id="5_u2ccb"]
 [ext_resource type="Script" uid="uid://bbtb6daq4omy7" path="res://scripts/player_scripts/player_attack.gd" id="7_8iuoe"]
+[ext_resource type="Script" uid="uid://boqdar6ds0u3b" path="res://scripts/player_scripts/player_knockback.gd" id="7_tx6aq"]
 [ext_resource type="Script" uid="uid://h6a8qxbgfsrf" path="res://scripts/player_scripts/player_iframes.gd" id="9_tx6aq"]
 [ext_resource type="Script" uid="uid://dj766qjdjlpwf" path="res://scripts/player_scripts/player_reload.gd" id="10_btrno"]
 [ext_resource type="PackedScene" uid="uid://c3u8s1wg5qwb4" path="res://scenes/UI_scenes/reload_ui_timer_placeholder.tscn" id="11_8rvo6"]
+[ext_resource type="Script" uid="uid://7j3v1luiqlgd" path="res://scripts/player_scripts/player_death_knockback.gd" id="11_idup1"]
+[ext_resource type="Script" uid="uid://dxc70ocjpc63t" path="res://scripts/player_scripts/zoom_camera_when_paused.gd" id="12_pw2sv"]
 
 [sub_resource type="Animation" id="Animation_tx6aq"]
 resource_name = "Iframes"
@@ -143,11 +146,24 @@ speed_powerup_timer_duration = 5.0
 [node name="dodge_cooldown_timer" type="Timer" parent="State_controller/Dodge"]
 one_shot = true
 
-[node name="Idle" type="Node" parent="State_controller"]
+[node name="Idle" type="Node" parent="State_controller" node_paths=PackedStringArray("collision_box")]
 script = ExtResource("4_7vqky")
 decelaration = 6000.0
+collision_box = NodePath("../../player_hitbox")
 
-[node name="Knockback" type="Node" parent="State_controller"]
+[node name="Knockback" type="Node" parent="State_controller" node_paths=PackedStringArray("entity_instance", "state_machine_controller_instance")]
+script = ExtResource("7_tx6aq")
+entity_instance = NodePath("../..")
+state_machine_controller_instance = NodePath("..")
+
+[node name="death" type="Node" parent="State_controller" node_paths=PackedStringArray("entity_instance", "state_machine_controller_instance", "player_sprite", "camera", "collision_box")]
+script = ExtResource("11_idup1")
+entity_instance = NodePath("../..")
+state_machine_controller_instance = NodePath("..")
+force = 1000.0
+player_sprite = NodePath("../../Sprite2D")
+camera = NodePath("../../player_camera")
+collision_box = NodePath("../../player_hitbox")
 
 [node name="reload_ui_timer_placeholder" parent="." instance=ExtResource("11_8rvo6")]
 process_mode = 3
@@ -163,6 +179,12 @@ rotation = 1.5708
 scale = Vector2(0.726562, 0.671875)
 occluder = SubResource("OccluderPolygon2D_pw2sv")
 sdf_collision = false
+
+[node name="handle_pause_menu" type="Node" parent="." node_paths=PackedStringArray("camera", "entity_instance")]
+process_mode = 3
+script = ExtResource("12_pw2sv")
+camera = NodePath("../player_camera")
+entity_instance = NodePath("..")
 
 [connection signal="got_hit" from="." to="State_controller/Knockback" method="_on_player_got_hit"]
 

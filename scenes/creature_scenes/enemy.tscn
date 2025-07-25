@@ -92,8 +92,9 @@ script = ExtResource("2_21n3x")
 characterbody = NodePath("..")
 initial_state = NodePath("Idle")
 
-[node name="Idle" type="Node" parent="state_machine_controller"]
+[node name="Idle" type="Node" parent="state_machine_controller" node_paths=PackedStringArray("state_machine_controller_instance")]
 script = ExtResource("3_4wdx0")
+state_machine_controller_instance = NodePath("..")
 
 [node name="Move" type="Node" parent="state_machine_controller" node_paths=PackedStringArray("powerup_timer", "nav", "point_to_player_ray", "state_machine_controller_node")]
 script = ExtResource("4_rrwef")

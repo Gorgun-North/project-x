@@ -3,6 +3,7 @@ extends Camera2D
 
 @export var shake_intensity_max: float = 8.0
 @export var active_shake_time_duration: float = 0.5
+@export var reset_camera_zoom: float = 0.25
 var shake_intensity: float
 var active_shake_time: float
 
@@ -21,8 +22,13 @@ var last_player_health: int
 
 func _ready() -> void:
 	last_player_health = entity_instance.health
+	self.zoom.x = reset_camera_zoom
+	self.zoom.y = reset_camera_zoom
 
 func _process(_delta: float) -> void:
+	if entity_instance.health <= 0.0:
+		return
+	
 	if last_player_health > entity_instance.health:
 		screen_shake()
 	

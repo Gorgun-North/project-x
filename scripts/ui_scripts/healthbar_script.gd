@@ -45,7 +45,6 @@ func set_bullet_ui():
 		
 		for i in range(player.max_bullets):
 			if i >= player.bullets_left:
-				print("Oh nee")
 				if bullet_UI_element_array[i].is_bullet_loaded == true:
 					bullet_UI_element_array[i].play_bullet_ui_animation(true)
 					bullet_UI_element_array[i].set_bullet_frame(0)  # Empty
@@ -81,16 +80,18 @@ func _process(_delta: float) -> void:
 		$Control.visible = true
 	
 	if player:
+		
 		handle_player_reload()
 		set_bullet_ui()
 		
 		player_healthbar.value = player.health
-		if player.health <= 0.0:
-			self.hide()
 	if enemy:
 		enemy_healthbar.value = enemy.health
 	if get_tree().paused:
 		self.hide()
+	elif player.health <= 0.0:
+		self.hide()
 	else:
 		self.show()
+			
 	

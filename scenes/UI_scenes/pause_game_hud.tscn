@@ -1,4 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://bbpvhvlitgexu"]
+[gd_scene load_steps=12 format=3 uid="uid://bbpvhvlitgexu"]
+
+[ext_resource type="Texture2D" uid="uid://q28m6duwiwgk" path="res://assets/ui_elements/pause_menu_background.png" id="1_boc6r"]
+[ext_resource type="Texture2D" uid="uid://7lmor584egay" path="res://assets/ui_elements/button_sheet.png" id="2_j0fka"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_hh6xy"]
 light_mode = 1
@@ -7,17 +10,31 @@ light_mode = 1
 script/source = "extends Control
 class_name pausemenu
 
+@export var anim_player: AnimationPlayer
 var root: game_controller
+var is_in_pause_screen: bool = false
 
 func _process(_delta: float) -> void:
+	
+	if get_tree().get_first_node_in_group(\"death_menu\").is_in_death_screen == true:
+		return
 	
 	if Dialogic.VAR.is_paused == true:
 		return
 	
+	if is_in_pause_screen == true:
+		anim_player.play(\"when_paused\")
+	
 	if Input.is_action_just_pressed(\"ESC\"):
 		if get_tree().paused == false: 
 			pause()
+			anim_player.play(\"pause_game\")
+			await anim_player.animation_finished
+			is_in_pause_screen = true
 		elif get_tree().paused == true:
+			is_in_pause_screen = false
+			anim_player.play_backwards(\"pause_game\")
+			await anim_player.animation_finished
 			resume()
 
 func _ready() -> void:
@@ -31,10 +48,13 @@ func resume() -> void:
 func pause() -> void:
 	get_tree().paused = true
 	self.show()
-	$PanelContainer/VBoxContainer/Resume.grab_focus()
+	$Control/resume.grab_focus()
 	
 
 func _on_resume_pressed() -> void:
+	is_in_pause_screen = false
+	anim_player.play_backwards(\"pause_game\")
+	await anim_player.animation_finished
 	resume()
 
 
@@ -52,8 +72,422 @@ func _on_quit_pressed() -> void:
 	get_tree().quit()
 "
 
-[node name="PauseGameHud" type="Control"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vs5h8"]
+texture = ExtResource("2_j0fka")
+expand_margin_left = 20.0
+expand_margin_top = 5.0
+expand_margin_right = 20.0
+expand_margin_bottom = 5.0
+region_rect = Rect2(68, 8, 24, 14)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_eilt6"]
+texture = ExtResource("2_j0fka")
+expand_margin_left = 10.0
+expand_margin_top = 2.0
+expand_margin_right = 10.0
+expand_margin_bottom = 2.0
+region_rect = Rect2(4, 8, 24, 14)
+
+[sub_resource type="Theme" id="Theme_b5kpg"]
+Button/styles/focus = SubResource("StyleBoxTexture_vs5h8")
+Button/styles/hover = SubResource("StyleBoxTexture_vs5h8")
+Button/styles/normal = SubResource("StyleBoxTexture_eilt6")
+Button/styles/pressed = SubResource("StyleBoxTexture_vs5h8")
+
+[sub_resource type="Animation" id="Animation_njr68"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [42]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Control/Sprite2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 8.5)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Control/resume:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Control/restart:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Control/quit:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Control/resume:theme_override_font_sizes/font_size")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [16]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Control/restart:theme_override_font_sizes/font_size")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [16]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Control/quit:theme_override_font_sizes/font_size")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [16]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Control:scale")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(8, 8)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Control/resume:size")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(70, 31)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Control/restart:size")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(65, 31)]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("Control/quit:size")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(42, 31)]
+}
+
+[sub_resource type="Animation" id="Animation_cr2jk"]
+resource_name = "pause_game"
+length = 1.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.03, 0.06, 0.1, 0.133333, 0.166667, 0.2, 0.233333, 0.266667, 0.3, 0.333333, 0.366667, 0.4, 0.433333, 0.466667, 0.5, 0.533333, 0.566667, 0.6, 0.633333, 0.666667, 0.7, 0.733333, 0.766667, 0.8, 0.833333, 0.866667, 0.9, 0.933333, 0.966667, 1, 1.0333, 1.06, 1.1, 1.16667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [42, 41, 40, 39, 38, 37, 36, 35, 34, 33, 32, 31, 30, 29, 28, 27, 26, 25, 24, 23, 22, 21, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Control/resume:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.06, 1.23333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, false, true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Control/restart:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1.06, 1.23333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, false, true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Control/quit:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1.06, 1.23333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, false, true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Control/resume:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1.06, 1.23333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, true, false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Control/restart:disabled")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 1.06, 1.23333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, true, false]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Control/quit:disabled")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 1.06, 1.23333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, true, false]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Control/Sprite2D:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.433333, 1.23333),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 8.5), Vector2(0, 8.5), Vector2(0, 0), Vector2(0, 0)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Control:scale")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 1.24, 1.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(8, 8), Vector2(8, 8), Vector2(8.75, 8.75)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Control/resume:size")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0, 1.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(70, 31), Vector2(70, 31)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Control/restart:size")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0, 1.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(65, 31), Vector2(65, 31)]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("Control/quit:size")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0, 1.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(42, 31), Vector2(42, 31)]
+}
+
+[sub_resource type="Animation" id="Animation_cq7wr"]
+resource_name = "when_paused"
+length = 14.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.9, 3.9, 5.9, 7.94167, 9.94167, 12),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [7, 6, 5, 4, 3, 2, 1]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Control/resume:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Control/restart:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Control/quit:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Control/resume:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Control/restart:disabled")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Control/quit:disabled")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ev1vd"]
+_data = {
+&"RESET": SubResource("Animation_njr68"),
+&"pause_game": SubResource("Animation_cr2jk"),
+&"when_paused": SubResource("Animation_cq7wr")
+}
+
+[node name="PauseGameHud" type="Control" node_paths=PackedStringArray("anim_player") groups=["pause_menu"]]
 process_mode = 3
+visible = false
 material = SubResource("CanvasItemMaterial_hh6xy")
 layout_mode = 3
 anchors_preset = 15
@@ -62,41 +496,79 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = SubResource("GDScript_hh6xy")
+anim_player = NodePath("AnimationPlayer")
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="Control" type="Control" parent="."]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(8, 8)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
-clip_contents = true
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_constants/separation = 150
-alignment = 1
+[node name="Sprite2D" type="Sprite2D" parent="Control"]
+texture_filter = 1
+position = Vector2(0, 8.5)
+texture = ExtResource("1_boc6r")
+hframes = 43
+frame = 42
 
-[node name="Resume" type="Button" parent="PanelContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-focus_neighbor_top = NodePath("../Quit")
-focus_neighbor_bottom = NodePath("../Restart")
-text = "              Resume              "
+[node name="resume" type="Button" parent="Control"]
+visible = false
+texture_filter = 1
+layout_mode = 0
+offset_left = -42.5143
+offset_top = -13.2571
+offset_right = 27.4857
+offset_bottom = 17.7429
+scale = Vector2(0.25, 0.25)
+focus_neighbor_top = NodePath("../quit")
+focus_neighbor_bottom = NodePath("../restart")
+theme = SubResource("Theme_b5kpg")
+theme_override_font_sizes/font_size = 16
+disabled = true
+text = "Resume"
 
-[node name="Restart" type="Button" parent="PanelContainer/VBoxContainer"]
-layout_mode = 2
-focus_neighbor_top = NodePath("../Resume")
-focus_neighbor_bottom = NodePath("../Quit")
+[node name="restart" type="Button" parent="Control"]
+visible = false
+texture_filter = 1
+layout_mode = 0
+offset_left = -42.125
+offset_top = -2.86429
+offset_right = 22.875
+offset_bottom = 28.1357
+scale = Vector2(0.25, 0.25)
+focus_neighbor_top = NodePath("../resume")
+focus_neighbor_bottom = NodePath("../quit")
+theme = SubResource("Theme_b5kpg")
+theme_override_font_sizes/font_size = 16
+disabled = true
 text = "Restart"
 
-[node name="Quit" type="Button" parent="PanelContainer/VBoxContainer"]
-layout_mode = 2
-focus_neighbor_top = NodePath("../Restart")
-focus_neighbor_bottom = NodePath("../Resume")
+[node name="quit" type="Button" parent="Control"]
+visible = false
+texture_filter = 1
+layout_mode = 0
+offset_left = -39.125
+offset_top = 6.63571
+offset_right = 2.875
+offset_bottom = 37.6357
+scale = Vector2(0.25, 0.25)
+focus_neighbor_top = NodePath("../restart")
+focus_neighbor_bottom = NodePath("../resume")
+theme = SubResource("Theme_b5kpg")
+theme_override_font_sizes/font_size = 16
+disabled = true
 text = "Quit"
 
-[connection signal="pressed" from="PanelContainer/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
-[connection signal="pressed" from="PanelContainer/VBoxContainer/Restart" to="." method="_on_restart_pressed"]
-[connection signal="pressed" from="PanelContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_ev1vd")
+}
+
+[connection signal="pressed" from="Control/resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="Control/restart" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="Control/quit" to="." method="_on_quit_pressed"]

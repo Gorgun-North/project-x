@@ -24,6 +24,9 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	
+	if body.health <= 0.0:
+		return
+	
 	if Dialogic.VAR.is_paused == true:
 		return
 	

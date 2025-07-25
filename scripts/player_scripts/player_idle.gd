@@ -2,6 +2,10 @@ extends states
 class_name player_idle
 
 @export var decelaration: float
+@export var collision_box: CollisionShape2D
+
+func Entered() -> void:
+	collision_box.disabled = false
 
 func Physics_Update(_delta) -> void:
 	var input_vector : Vector2 = Vector2.ZERO

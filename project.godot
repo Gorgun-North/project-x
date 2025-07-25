@@ -95,6 +95,8 @@ Enemy=""
 powerup=""
 bullet_decal=""
 basic_lamp=""
+pause_menu=""
+death_menu=""
 
 [input]
 

@@ -207,7 +207,7 @@ position = Vector2(-7763, 76)
 scale = Vector2(0.995956, 1)
 
 [node name="Enemy" parent="moving_entities" groups=["Enemy"] instance=ExtResource("2_0h2vv")]
-position = Vector2(-302, 1895)
+position = Vector2(118, 3727)
 
 [node name="Lighting" type="Node" parent="."]
 
@@ -227,7 +227,7 @@ rotation = 1.5708
 scale = Vector2(3, 2.98787)
 
 [node name="basic_lamp4" parent="Lighting" instance=ExtResource("15_jvi2p")]
-position = Vector2(-7425, 483)
+position = Vector2(-7395, 483)
 rotation = 1.5708
 scale = Vector2(3, 2.98787)
 
@@ -306,7 +306,6 @@ scale = Vector2(3, 2.98787)
 unique_name_in_owner = true
 
 [node name="PauseGameHud" parent="in_game_UI" instance=ExtResource("5_56p8p")]
-visible = false
 light_mask = 2
 visibility_layer = 2
 z_index = 100
