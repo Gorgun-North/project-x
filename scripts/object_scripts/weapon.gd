@@ -1,4 +1,4 @@
-extends Marker2D
+extends Node2D
 class_name weapon
 
 @export var anim_player: AnimationPlayer
@@ -11,9 +11,9 @@ class_name weapon
 @export var marker_pos_right: Vector2
 
 @export var max_bullets: int = 6
+@export var weapon_damage: float = 10.0
 
 func _ready() -> void:
-	anim_player.anim
 	
 	var entity_attacks = get_tree().get_first_node_in_group("entity_attack")
 	entity_attacks.connect("is_attacking", _on_attack)
@@ -26,13 +26,12 @@ func _physics_process(_delta: float) -> void:
 	if mouse_dir.x < 0.0:
 		sprite2D.rotation = deg_to_rad(correct_gun_rotation_right)
 		sprite2D.flip_h = false
-		bullet_spawn_marker.global_position = to_global(marker_pos_right)
+		bullet_spawn_marker.global_position = to_global(marker_pos_left)
 	elif mouse_dir.x >= 0.0:
 		sprite2D.flip_h = true
 		sprite2D.rotation = deg_to_rad(correct_gun_rotation_left)
-		bullet_spawn_marker.global_position = to_global(marker_pos_left)
+		bullet_spawn_marker.global_position = to_global(marker_pos_right)
 	
-		
 		
 func _on_attack():
 	anim_player.stop()

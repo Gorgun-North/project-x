@@ -549,7 +549,7 @@ collision_mask = 3
 safe_margin = 20.0
 script = ExtResource("1_j2f7r")
 health = 50
-held_weapon = NodePath("gun_pivot/weapon_lever_action_shotgun")
+held_weapon = NodePath("gun_pivot/weapon_lever_action_shotgun/weapon_prefab")
 
 [node name="player_camera" type="Camera2D" parent="." node_paths=PackedStringArray("entity_instance")]
 zoom = Vector2(0.25, 0.25)
@@ -704,3 +704,5 @@ stream = ExtResource("18_r8tdj")
 [connection signal="got_hit" from="." to="State_controller/Knockback" method="_on_player_got_hit"]
 
 [editable path="reload_ui_timer_placeholder"]
+[editable path="gun_pivot/weapon_lever_action_shotgun"]
+[editable path="gun_pivot/weapon_lever_action_shotgun/weapon_prefab"]

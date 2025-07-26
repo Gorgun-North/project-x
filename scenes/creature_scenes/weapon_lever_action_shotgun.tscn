@@ -1,11 +1,22 @@
-[gd_scene load_steps=8 format=3 uid="uid://drnvtshchtr3l"]
+[gd_scene load_steps=7 format=3 uid="uid://drnvtshchtr3l"]
 
-[ext_resource type="Script" uid="uid://b7mc8jt5egh6t" path="res://scripts/object_scripts/weapon.gd" id="1_pxofo"]
 [ext_resource type="Texture2D" uid="uid://bad60isfb142g" path="res://assets/character_assets/Guns_animation-Sheet.png" id="2_6ojmw"]
 [ext_resource type="PackedScene" uid="uid://dirs1vs2tdvpp" path="res://scenes/object_scenes/weapon_prefab.tscn" id="3_6ojmw"]
 
 [sub_resource type="Animation" id="Animation_567ao"]
 length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("weapon_prefab/weapon_sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [9]
+}
 
 [sub_resource type="Animation" id="Animation_p04bi"]
 resource_name = "gun_fire"
@@ -13,7 +24,7 @@ length = 0.4
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("gun_sprite:frame")
+tracks/0/path = NodePath("weapon_prefab/weapon_sprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -30,7 +41,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("gun_sprite:frame")
+tracks/0/path = NodePath("weapon_prefab/weapon_sprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -47,30 +58,8 @@ _data = {
 &"gun_idle": SubResource("Animation_rtwq4")
 }
 
-[node name="weapon_lever_action_shotgun" type="Node2D" node_paths=PackedStringArray("anim_player", "sprite2D", "bullet_spawn_marker")]
+[node name="weapon_lever_action_shotgun" type="Node2D"]
 z_index = 1
-script = ExtResource("1_pxofo")
-anim_player = NodePath("gun_animations")
-sprite2D = NodePath("gun_sprite")
-bullet_spawn_marker = NodePath("gun_sprite/spawn_bullet_marker")
-marker_pos_left = Vector2(9.6013, -11.382)
-marker_pos_right = Vector2(-9.59573, -11.451)
-
-[node name="gun_sprite" type="Sprite2D" parent="."]
-texture_filter = 1
-position = Vector2(-3, -8)
-rotation = 2.37365
-scale = Vector2(7, 7)
-texture = ExtResource("2_6ojmw")
-flip_h = true
-hframes = 35
-frame = 8
-
-[node name="spawn_bullet_marker" type="Node2D" parent="gun_sprite"]
-position = Vector2(9.6013, -11.382)
-scale = Vector2(0.33, 0.33)
-
-[node name="gun_particles" type="GPUParticles2D" parent="gun_sprite/spawn_bullet_marker"]
 
 [node name="gun_animations" type="AnimationPlayer" parent="."]
 libraries = {
@@ -79,9 +68,16 @@ libraries = {
 
 [node name="weapon_prefab" parent="." node_paths=PackedStringArray("anim_player") instance=ExtResource("3_6ojmw")]
 anim_player = NodePath("../gun_animations")
+marker_pos_left = Vector2(-11, -12)
+marker_pos_right = Vector2(10.5, -12)
 
 [node name="weapon_sprite" parent="weapon_prefab" index="0"]
 texture = ExtResource("2_6ojmw")
+flip_h = true
 hframes = 35
+frame = 9
+
+[node name="bullet_spawn_point" parent="weapon_prefab/weapon_sprite" index="0"]
+position = Vector2(10.5714, -12)
 
 [editable path="weapon_prefab"]
