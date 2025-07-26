@@ -18,7 +18,7 @@ func _ready() -> void:
 	var bullet_UI_scene = preload("res://scenes/UI_scenes/bullet_ui_element.tscn")
 	
 	player = get_tree().get_first_node_in_group("Player")
-	player_reload_time = player.get_node("Reload").reload_time
+	player_reload_time = player.get_node("player_properties/Reload").reload_time
 	enemy = get_tree().get_first_node_in_group("Enemy")
 	
 	call_deferred("set_bullet_amount")
@@ -51,7 +51,7 @@ func set_bullet_ui():
 			
 
 func handle_player_reload() -> void:
-	is_player_reloading = player.get_node("Reload").player_reloads_bullet
+	is_player_reloading = player.get_node("player_properties/Reload").player_reloads_bullet
 	
 	if player is entity:
 		var empty_bullets = player.max_bullets - player.bullets_left

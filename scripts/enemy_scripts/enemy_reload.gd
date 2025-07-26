@@ -19,7 +19,7 @@ func _ready() -> void:
 	
 
 func _physics_process(_delta: float) -> void:
-	$"../reload_ui_timer_placeholder".global_rotation = 0.0
+	$"../../reload_ui_timer_placeholder".global_rotation = 0.0
 	
 	
 func _process(delta: float) -> void:

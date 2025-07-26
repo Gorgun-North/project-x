@@ -191,11 +191,6 @@ hit_from_inside = true
 modulate = Color(0.99226, 0, 0.364457, 1)
 top_level = true
 
-[node name="Look_at_player" type="Node" parent="." node_paths=PackedStringArray("body", "enemy_to_player_ray")]
-script = ExtResource("6_vssxo")
-body = NodePath("..")
-enemy_to_player_ray = NodePath("../enemy_to_player_ray")
-
 [node name="melee_attack_hitbox" type="Area2D" parent="."]
 monitorable = false
 
@@ -203,14 +198,21 @@ monitorable = false
 position = Vector2(0, -1)
 shape = SubResource("CircleShape2D_8bicl")
 
-[node name="reload" type="Node" parent="." node_paths=PackedStringArray("state_machine_controller_instance", "reload_bar", "body")]
+[node name="reload_ui_timer_placeholder" parent="." instance=ExtResource("14_jv880")]
+
+[node name="enemy_properties" type="Node" parent="."]
+
+[node name="reload" type="Node" parent="enemy_properties" node_paths=PackedStringArray("state_machine_controller_instance", "reload_bar", "body")]
 script = ExtResource("13_glqcv")
-state_machine_controller_instance = NodePath("../state_machine_controller")
-reload_bar = NodePath("../reload_ui_timer_placeholder/Control/VBoxContainer/ProgressBar")
-body = NodePath("..")
+state_machine_controller_instance = NodePath("../../state_machine_controller")
+reload_bar = NodePath("../../reload_ui_timer_placeholder/Control/VBoxContainer/ProgressBar")
+body = NodePath("../..")
 reload_time = 3.0
 
-[node name="reload_ui_timer_placeholder" parent="." instance=ExtResource("14_jv880")]
+[node name="Look_at_player" type="Node" parent="enemy_properties" node_paths=PackedStringArray("body", "enemy_to_player_ray")]
+script = ExtResource("6_vssxo")
+body = NodePath("../..")
+enemy_to_player_ray = NodePath("../../enemy_to_player_ray")
 
 [connection signal="got_hit" from="." to="state_machine_controller/knockback" method="_on_enemy_got_hit"]
 [connection signal="timeout" from="state_machine_controller/Pickup_powerup/powerup_timer" to="state_machine_controller/Pickup_powerup" method="_on_timer_timeout"]
