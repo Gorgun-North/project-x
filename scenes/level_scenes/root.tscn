@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=4 uid="uid://fm5rcpucimsy"]
+[gd_scene load_steps=27 format=4 uid="uid://fm5rcpucimsy"]
 
 [ext_resource type="Script" uid="uid://srym53hdohls" path="res://scripts/support_scripts/game_controller.gd" id="1_5nbfe"]
 [ext_resource type="PackedScene" uid="uid://c8bibno0p31yd" path="res://scenes/creature_scenes/player.tscn" id="1_xcykd"]
@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://dr7mikh10fk2j" path="res://scenes/prefabs/initiate_dialogue.tscn" id="14_3q7sl"]
 [ext_resource type="PackedScene" uid="uid://byt4o1x8a4dl6" path="res://scenes/object_scenes/basic_lamp.tscn" id="15_jvi2p"]
 [ext_resource type="PackedScene" uid="uid://qle6sgps57g7" path="res://scenes/prefabs/background_scene.tscn" id="15_ysdc2"]
+[ext_resource type="AudioStream" uid="uid://k4bk8oyfa1uv" path="res://audio/Main music/imagine all the things (master).wav" id="16_ysdc2"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_56p8p"]
 outlines = Array[PackedVector2Array]([PackedVector2Array(-9718.3, -2002, 1859.52, -1990, 1954.91, 3562, -9672.11, 3467)])
@@ -207,7 +208,7 @@ position = Vector2(-7763, 76)
 scale = Vector2(0.995956, 1)
 
 [node name="Enemy" parent="moving_entities" groups=["Enemy"] instance=ExtResource("2_0h2vv")]
-position = Vector2(118, 3727)
+position = Vector2(-185, 3617)
 
 [node name="Lighting" type="Node" parent="."]
 
@@ -335,3 +336,9 @@ transform = Transform2D(0.995956, 0, 0, 1, 0, 0)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="world_dependancies"]
 environment = SubResource("Environment_jvi2p")
+
+[node name="Audio" type="Node" parent="."]
+
+[node name="Music_player" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("16_ysdc2")
+volume_db = -25.0

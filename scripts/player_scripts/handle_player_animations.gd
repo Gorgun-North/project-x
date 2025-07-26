@@ -31,7 +31,6 @@ func handle_screen_dir(mouse_pos: Vector2, viewport_size: Vector2) -> String:
 
 
 func _process(_delta: float) -> void:
-	shadow_anim_player.play("shadow_move")
 	$"../../reload_ui_timer_placeholder".global_position = body.global_position
 	
 	var viewport_size: Vector2 = get_window().get_size()
@@ -39,11 +38,11 @@ func _process(_delta: float) -> void:
 	var get_looking_direction = handle_screen_dir(mouse_pos, viewport_size)
 	
 	if body.velocity == Vector2.ZERO:
+		shadow_anim_player.play("RESET")
 		match get_looking_direction:
 				 
 			"LEFT":
 				anim_player.play("Idle_left")
-				gun_anim_player.play("gun_up_left")
 			"RIGHT":
 				anim_player.play("Idle_right")
 			"BOTTOM":
@@ -51,6 +50,7 @@ func _process(_delta: float) -> void:
 			"TOP":
 				anim_player.play("Idle_back")
 	else:
+		shadow_anim_player.play("shadow_move")
 		match get_looking_direction:
 				 
 			"LEFT":

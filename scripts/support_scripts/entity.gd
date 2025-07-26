@@ -5,17 +5,22 @@ signal got_hit(attacker: entity, hit_direction: Vector2, knockback_force: float,
 
 @export var health: int = 100
 @export var navobstacle: NavigationObstacle2D
-@export var max_bullets: int = 6
+@export var held_weapon: weapon
 
 var invulnerable: bool = false
 var picked_up_powerup: String
 var max_health: int
+var max_bullets: int
 var bullets_left: int
 @export var speed: float = 700.0
 
 func _ready() -> void:
-	bullets_left = max_bullets
 	max_health = health
+	if held_weapon:
+		max_bullets = held_weapon.max_bullets
+		bullets_left = held_weapon.max_bullets
+
+
 
 func actions_before_death() -> void:
 	pass
@@ -31,6 +36,9 @@ func take_damage(damage: int):
 		health -= damage
 
 func _process(_delta: float) -> void:
+	if held_weapon:
+		max_bullets = held_weapon.max_bullets
+	
 	if self.name.begins_with("Enemy") and self.health <= 0:
 		Dialogic.start("test-timeline2")
 		

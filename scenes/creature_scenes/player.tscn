@@ -16,13 +16,11 @@
 [ext_resource type="Script" uid="uid://7j3v1luiqlgd" path="res://scripts/player_scripts/player_death_knockback.gd" id="11_idup1"]
 [ext_resource type="Script" uid="uid://dxc70ocjpc63t" path="res://scripts/player_scripts/zoom_camera_when_paused.gd" id="12_pw2sv"]
 [ext_resource type="Script" uid="uid://b55jrf1rdsg1e" path="res://scripts/player_scripts/handle_player_animations.gd" id="14_ujya7"]
-[ext_resource type="PackedScene" uid="uid://b3hgsvdmtu5wp" path="res://scenes/creature_scenes/player_gun.tscn" id="17_i1jkw"]
+[ext_resource type="PackedScene" uid="uid://drnvtshchtr3l" path="res://scenes/creature_scenes/weapon_lever_action_shotgun.tscn" id="17_r8tdj"]
+[ext_resource type="AudioStream" uid="uid://b2688je4gq8eh" path="res://audio/Gunshots/Single-shot-gun.wav" id="18_r8tdj"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_u2ccb"]
 radius = 56.0892
-
-[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_pw2sv"]
-polygon = PackedVector2Array(59.1, -64, -59, -64, -63.8, -59, -64, 61, -60.3, 64, 59.6, 64, 63.9, 59, 64, -61.1)
 
 [sub_resource type="Animation" id="Animation_tx6aq"]
 resource_name = "Iframes"
@@ -95,6 +93,30 @@ tracks/1/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("gun_pivot:z_index")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("gun_pivot:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-45, -33)]
+}
 
 [sub_resource type="Animation" id="Animation_i1jkw"]
 resource_name = "Walk_forwards"
@@ -123,6 +145,30 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("gun_pivot:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(37, -31)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("gun_pivot:z_index")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
 }
 
 [sub_resource type="Animation" id="Animation_oikon"]
@@ -159,14 +205,26 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("player_gun:position")
+tracks/2/path = NodePath("gun_pivot:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(-43, -36)]
+"values": [Vector2(-44, -36)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("gun_pivot:z_index")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
 }
 
 [sub_resource type="Animation" id="Animation_047hc"]
@@ -200,7 +258,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("player_gun:position")
+tracks/2/path = NodePath("gun_pivot:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -208,6 +266,18 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(36, -28)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("gun_pivot:z_index")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
 }
 
 [sub_resource type="Animation" id="Animation_r8tdj"]
@@ -238,6 +308,30 @@ tracks/1/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("gun_pivot:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(92, -36)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("gun_pivot:z_index")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
 
 [sub_resource type="Animation" id="Animation_idb4s"]
 resource_name = "Walk_left"
@@ -266,6 +360,30 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("gun_pivot:z_index")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("gun_pivot:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-93, -36)]
 }
 
 [sub_resource type="Animation" id="Animation_lwmkv"]
@@ -299,14 +417,26 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("player_gun:position")
+tracks/2/path = NodePath("gun_pivot:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(91, -36)]
+"values": [Vector2(92, -36)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("gun_pivot:z_index")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
 }
 
 [sub_resource type="Animation" id="Animation_ujya7"]
@@ -340,14 +470,26 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("player_gun:position")
+tracks/2/path = NodePath("gun_pivot:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(-91, -36)]
+"values": [Vector2(-93, -36)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("gun_pivot:z_index")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_lwmkv"]
@@ -401,12 +543,13 @@ _data = {
 &"shadow_move": SubResource("Animation_0i838")
 }
 
-[node name="Player" type="CharacterBody2D" groups=["Player"]]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("held_weapon") groups=["Player"]]
 collision_layer = 3
 collision_mask = 3
 safe_margin = 20.0
 script = ExtResource("1_j2f7r")
 health = 50
+held_weapon = NodePath("gun_pivot/weapon_lever_action_shotgun")
 
 [node name="player_camera" type="Camera2D" parent="." node_paths=PackedStringArray("entity_instance")]
 zoom = Vector2(0.25, 0.25)
@@ -425,8 +568,8 @@ top_level = true
 texture_filter = 1
 scale = Vector2(8, 8)
 texture = ExtResource("3_ysc73")
-flip_h = true
 hframes = 12
+frame = 6
 
 [node name="character_shadow" type="Sprite2D" parent="character_sprite"]
 position = Vector2(0, 16)
@@ -438,7 +581,7 @@ hframes = 4
 frame = 1
 
 [node name="Aim_raycast" type="RayCast2D" parent="."]
-modulate = Color(0.388787, 0.499436, 1.92523e-07, 1)
+modulate = Color(0.408739, 0.475535, 1, 1)
 position = Vector2(61, 0)
 target_position = Vector2(10000, 0)
 
@@ -476,14 +619,6 @@ player_sprite = NodePath("../../character_sprite")
 camera = NodePath("../../player_camera")
 collision_box = NodePath("../../player_hitbox")
 
-[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
-visible = false
-position = Vector2(-3, 2)
-rotation = 1.5708
-scale = Vector2(0.726562, 0.671875)
-occluder = SubResource("OccluderPolygon2D_pw2sv")
-sdf_collision = false
-
 [node name="player_properties" type="Node" parent="."]
 
 [node name="handle_pause_menu" type="Node" parent="player_properties" node_paths=PackedStringArray("camera", "entity_instance")]
@@ -497,7 +632,7 @@ script = ExtResource("5_u2ccb")
 body = NodePath("../..")
 sprite2D = NodePath("../../character_sprite")
 
-[node name="Attack" type="Node" parent="player_properties" node_paths=PackedStringArray("body", "aim_ray", "player_reload_instance", "attack_cooldown_timer", "input_mode")]
+[node name="Attack" type="Node" parent="player_properties" node_paths=PackedStringArray("body", "aim_ray", "player_reload_instance", "attack_cooldown_timer", "input_mode", "gunshot_sound") groups=["entity_attack"]]
 script = ExtResource("7_8iuoe")
 body = NodePath("../..")
 aim_ray = NodePath("../../Aim_raycast")
@@ -506,6 +641,7 @@ rate_of_fire = 0.5
 powerup_damage_rate_of_fire = 0.45
 attack_cooldown_timer = NodePath("Attack_cooldown_timer")
 input_mode = NodePath("../Mouse_look")
+gunshot_sound = NodePath("../../audio_controller/gunshot_soundeffect")
 
 [node name="Attack_cooldown_timer" type="Timer" parent="player_properties/Attack"]
 one_shot = true
@@ -530,11 +666,10 @@ reload_time = 2.4
 body = NodePath("../..")
 reload_bar = NodePath("../../reload_ui_timer_placeholder/Control/VBoxContainer/ProgressBar")
 
-[node name="handle_player_animations" type="Node" parent="player_properties" node_paths=PackedStringArray("anim_player", "shadow_anim_player", "gun_anim_player", "body", "sprite2D")]
+[node name="handle_player_animations" type="Node" parent="player_properties" node_paths=PackedStringArray("anim_player", "shadow_anim_player", "body", "sprite2D")]
 script = ExtResource("14_ujya7")
 anim_player = NodePath("../../character_animations")
 shadow_anim_player = NodePath("../../shadow_animations")
-gun_anim_player = NodePath("../../player_gun/gun_animations")
 body = NodePath("../..")
 sprite2D = NodePath("../../character_sprite")
 
@@ -556,18 +691,16 @@ libraries = {
 &"": SubResource("AnimationLibrary_sg32i")
 }
 
-[node name="player_gun" parent="." instance=ExtResource("17_i1jkw")]
-top_level = true
-z_index = 0
-position = Vector2(-91, -36)
+[node name="gun_pivot" type="Marker2D" parent="."]
+position = Vector2(-45, -33)
 
-[node name="gun_sprite" parent="player_gun/gun_hand_position" index="0"]
-frame = 8
+[node name="weapon_lever_action_shotgun" parent="gun_pivot" instance=ExtResource("17_r8tdj")]
 
-[node name="spawn_bullet_marker" parent="player_gun/gun_hand_position/gun_sprite" index="0"]
-position = Vector2(-10, -12)
+[node name="audio_controller" type="Node2D" parent="."]
+
+[node name="gunshot_soundeffect" type="AudioStreamPlayer2D" parent="audio_controller"]
+stream = ExtResource("18_r8tdj")
 
 [connection signal="got_hit" from="." to="State_controller/Knockback" method="_on_player_got_hit"]
 
 [editable path="reload_ui_timer_placeholder"]
-[editable path="player_gun"]

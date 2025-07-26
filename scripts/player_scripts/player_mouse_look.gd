@@ -10,7 +10,8 @@ var mouse_look_mode: String = "mouse"
 enum AimMode {MOUSE, CONTROLLER}
 
 func _physics_process(_delta: float) -> void:
-	sprite2D.global_position = body.global_position
+	if is_instance_valid(sprite2D):
+		sprite2D.global_position = body.global_position
 	
 
 func _input(event: InputEvent) -> void:
@@ -23,12 +24,12 @@ func _input(event: InputEvent) -> void:
 												  "RTstick_up", "RTstick_down")
 			
 			if stick.length() > deadzone:
-				body.look_at(body.global_position + stick.normalized() * 100)
+				#body.look_at(body.global_position + stick.normalized() * 100)
 				$"../../reload_ui_timer_placeholder".global_rotation = 0.0
 		elif event is InputEventMouseMotion:
 			mouse_look_mode = "mouse"
 			var mouse_pos = body.get_global_mouse_position()
-			body.look_at(mouse_pos)
+			#body.look_at(mouse_pos)
 			$"../../reload_ui_timer_placeholder".global_rotation = 0.0
 	else:
 		print("body is not selected, attach it to this node: ", self)

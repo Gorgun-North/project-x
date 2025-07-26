@@ -8,6 +8,10 @@
 
 config_version=5
 
+[animation]
+
+warnings/check_invalid_track_paths=false
+
 [application]
 
 config/name="project-x"
@@ -99,6 +103,7 @@ bullet_decal=""
 basic_lamp=""
 pause_menu=""
 death_menu=""
+entity_attack=""
 
 [input]
 

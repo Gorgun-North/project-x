@@ -14,15 +14,31 @@ var bullet_spawn_point_multiplier: float = 1.2
 @export var powerup_damage_rate_of_fire: float = 0.25
 @export var attack_cooldown_timer: Timer
 @export var input_mode: mouse_look
+@export var gunshot_sound: AudioStreamPlayer2D
 
 var double_damage_timer: float
 var is_doing_double_damage: bool = false
+
+signal is_attacking()
 
 func _ready() -> void:
 	double_damage_timer = double_damage_time_duration
 	attack_cooldown_timer.wait_time = rate_of_fire
 
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
+	
+	if !body.held_weapon:
+		push_error("Cant find suitable point to aim from, is a gun equipped?")
+		return
+	
+	var aim_point = body.held_weapon.bullet_spawn_marker
+	
+		
+	aim_ray.global_position = aim_point.global_position
+	
+	var mouse_dir = aim_ray.get_global_mouse_position() - aim_ray.global_position
+	aim_ray.rotation = mouse_dir.angle()
+	
 	
 	if body.health <= 0.0:
 		return
@@ -81,12 +97,17 @@ func _process(delta: float) -> void:
 			bullet_instance.global_position = aim_ray.global_transform.origin
 			bullet_instance.rotation = shoot_angle
 			
+		
+			
 			body.bullets_left -= 1
 			var bullet_decal_object = preload("res://scenes/misc_scenes/bullet_decal.tscn").instantiate()
 			bullet_decal_object.global_position = body.global_position
 			bullet_decal_object.global_rotation = body.global_rotation
 			get_tree().root.add_child(bullet_decal_object)
+			gunshot_sound.play(0.0)
 			get_tree().root.add_child(bullet_instance)
+			
+			is_attacking.emit()
 			
 		else:
 			print("body is not selected, attach it to this node: ", self)

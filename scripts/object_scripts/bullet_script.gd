@@ -27,10 +27,12 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	position += dir * bullet_speed * delta
 	
-	
 	if self.has_overlapping_bodies():
 		for i in self.get_overlapping_bodies():
 			if i is entity:
+				
+				if i == attacker:
+					return
 				targetbody = i
 				
 				targetbody.take_damage(bullet_damage)
