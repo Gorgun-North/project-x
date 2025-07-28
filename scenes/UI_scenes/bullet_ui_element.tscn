@@ -3,22 +3,6 @@
 [ext_resource type="Script" uid="uid://nbuayja73nrl" path="res://scripts/ui_scripts/UI_bullet_script.gd" id="1_6ay85"]
 [ext_resource type="Texture2D" uid="uid://dlofu4npwwvxt" path="res://assets/ui_elements/bullet_ui_reload.png" id="2_6ay85"]
 
-[sub_resource type="Animation" id="Animation_6ay85"]
-resource_name = "shoot_bullet"
-length = 0.4
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.08, 0.16, 0.24, 0.32, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [4, 5, 7, 6, 8, 9]
-}
-
 [sub_resource type="Animation" id="Animation_sjulp"]
 length = 0.001
 tracks/0/type = "value"
@@ -48,6 +32,22 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 2, 3, 4]
+}
+
+[sub_resource type="Animation" id="Animation_6ay85"]
+resource_name = "shoot_bullet"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.08, 0.16, 0.24, 0.32, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [4, 5, 7, 6, 8, 9]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_t1t4g"]

@@ -19,26 +19,10 @@ var bullet_spawn_point_multiplier: float = 1.2
 var double_damage_timer: float
 var is_doing_double_damage: bool = false
 
-signal is_attacking()
-
 func _ready() -> void:
 	double_damage_timer = double_damage_time_duration
-	attack_cooldown_timer.wait_time = rate_of_fire
 
 func _physics_process(delta: float) -> void:
-	
-	if !body.held_weapon:
-		push_error("Cant find suitable point to aim from, is a gun equipped?")
-		return
-	
-	var aim_point = body.held_weapon.bullet_spawn_marker
-	
-		
-	aim_ray.global_position = aim_point.global_position
-	
-	var mouse_dir = aim_ray.get_global_mouse_position() - aim_ray.global_position
-	aim_ray.rotation = mouse_dir.angle()
-	
 	
 	if body.health <= 0.0:
 		return
@@ -62,52 +46,14 @@ func _physics_process(delta: float) -> void:
 			
 	if player_reload_instance.player_reloads_bullet == true:
 		return
-		
-	if body.bullets_left <= 0:
-		return
-	
-	
-	if !attack_cooldown_timer.is_stopped():
-		return
 	
 	if Input.is_action_just_pressed("LMB"):
 		
 		if body is entity:
 			if body.invulnerable == true:
 				return
-		
-		if body:
-			if attack_cooldown_timer.is_stopped():
-				attack_cooldown_timer.start()
-			var bullet_instance = preload("res://scenes/object_scenes/bullet.tscn").instantiate()
-			var shoot_angle : float
-			#var bullet_dir  : Vector2
 			
-			
-			if input_mode.mouse_look_mode == "mouse":
-				var mouse_pos := body.get_global_mouse_position()
-				shoot_angle = (mouse_pos - body.global_position).angle()
-				#bullet_dir = (mouse_pos - body.global_position).normalized()
-			elif input_mode.mouse_look_mode == "controller": 
-				shoot_angle = (aim_ray.get_collision_point()- body.global_position).angle()
-				#bullet_dir = (aim_ray.get_collision_point()- body.global_position).normalized()
-		
-			if body is entity:
-				bullet_instance.setup(aim_ray.get_collision_point(), body)
-			bullet_instance.global_position = aim_ray.global_transform.origin
-			bullet_instance.rotation = shoot_angle
-			
-		
-			
-			body.bullets_left -= 1
-			var bullet_decal_object = preload("res://scenes/misc_scenes/bullet_decal.tscn").instantiate()
-			bullet_decal_object.global_position = body.global_position
-			bullet_decal_object.global_rotation = body.global_rotation
-			get_tree().root.add_child(bullet_decal_object)
-			gunshot_sound.play(0.0)
-			get_tree().root.add_child(bullet_instance)
-			
-			is_attacking.emit()
+			body.is_attacking.emit()
 			
 		else:
 			print("body is not selected, attach it to this node: ", self)

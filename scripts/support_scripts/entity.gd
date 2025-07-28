@@ -2,23 +2,21 @@ extends CharacterBody2D
 class_name entity
 
 signal got_hit(attacker: entity, hit_direction: Vector2, knockback_force: float, knockback_duration: float)
+signal is_attacking()
 
 @export var health: int = 100
 @export var navobstacle: NavigationObstacle2D
+var bullets_left = 6
+var max_bullets = 6
 @export var held_weapon: weapon
 
 var invulnerable: bool = false
 var picked_up_powerup: String
 var max_health: int
-var max_bullets: int
-var bullets_left: int
 @export var speed: float = 700.0
 
 func _ready() -> void:
 	max_health = health
-	if held_weapon:
-		max_bullets = held_weapon.max_bullets
-		bullets_left = held_weapon.max_bullets
 
 
 
@@ -36,8 +34,6 @@ func take_damage(damage: int):
 		health -= damage
 
 func _process(_delta: float) -> void:
-	if held_weapon:
-		max_bullets = held_weapon.max_bullets
 	
 	if self.name.begins_with("Enemy") and self.health <= 0:
 		Dialogic.start("test-timeline2")

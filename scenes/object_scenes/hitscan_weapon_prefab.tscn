@@ -1,9 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://dirs1vs2tdvpp"]
+[gd_scene load_steps=2 format=3 uid="uid://v6p6gvjts1os"]
 
-[ext_resource type="Script" uid="uid://b7mc8jt5egh6t" path="res://scripts/weapon_scripts/weapon.gd" id="1_b038u"]
+[ext_resource type="Script" uid="uid://b7mc8jt5egh6t" path="res://scripts/weapon_scripts/weapon.gd" id="1_r2ivi"]
 
 [node name="hitscan_weapon_prefab" type="Node2D" node_paths=PackedStringArray("sprite2D", "bullet_spawn_marker")]
-script = ExtResource("1_b038u")
+script = ExtResource("1_r2ivi")
 sprite2D = NodePath("weapon_sprite")
 bullet_spawn_marker = NodePath("weapon_sprite/RayCast2D")
 
@@ -17,5 +17,3 @@ target_position = Vector2(10000, 0)
 
 [node name="shoot_gun_particles" type="GPUParticles2D" parent="weapon_sprite/RayCast2D"]
 scale = Vector2(7, 7)
-
-[node name="gunsound" type="AudioStreamPlayer2D" parent="."]

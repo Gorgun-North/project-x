@@ -1,7 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://drnvtshchtr3l"]
+[gd_scene load_steps=10 format=3 uid="uid://drnvtshchtr3l"]
 
+[ext_resource type="Script" uid="uid://bbe7yey8k35cu" path="res://scripts/weapon_scripts/level_action_rifle.gd" id="1_6ojmw"]
 [ext_resource type="Texture2D" uid="uid://bad60isfb142g" path="res://assets/character_assets/Guns_animation-Sheet.png" id="2_6ojmw"]
 [ext_resource type="PackedScene" uid="uid://dirs1vs2tdvpp" path="res://scenes/object_scenes/weapon_prefab.tscn" id="3_6ojmw"]
+[ext_resource type="AudioStream" uid="uid://b2688je4gq8eh" path="res://audio/Gunshots/Single-shot-gun.wav" id="4_q3gq6"]
 
 [sub_resource type="Animation" id="Animation_567ao"]
 length = 0.001
@@ -51,15 +53,22 @@ tracks/0/keys = {
 "values": [8]
 }
 
+[sub_resource type="Animation" id="Animation_q3gq6"]
+resource_name = "gun_reload"
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_roa2s"]
 _data = {
 &"RESET": SubResource("Animation_567ao"),
 &"gun_fire": SubResource("Animation_p04bi"),
-&"gun_idle": SubResource("Animation_rtwq4")
+&"gun_idle": SubResource("Animation_rtwq4"),
+&"gun_reload": SubResource("Animation_q3gq6")
 }
 
-[node name="weapon_lever_action_shotgun" type="Node2D"]
+[node name="weapon_lever_action_shotgun" type="Node2D" node_paths=PackedStringArray("weapon_instance", "gun_soundplayer")]
 z_index = 1
+script = ExtResource("1_6ojmw")
+weapon_instance = NodePath("weapon_prefab")
+gun_soundplayer = NodePath("weapon_prefab/gunsound")
 
 [node name="gun_animations" type="AnimationPlayer" parent="."]
 libraries = {
@@ -68,8 +77,7 @@ libraries = {
 
 [node name="weapon_prefab" parent="." node_paths=PackedStringArray("anim_player") instance=ExtResource("3_6ojmw")]
 anim_player = NodePath("../gun_animations")
-marker_pos_left = Vector2(-11, -12)
-marker_pos_right = Vector2(10.5, -12)
+reload_time = 0.8
 
 [node name="weapon_sprite" parent="weapon_prefab" index="0"]
 texture = ExtResource("2_6ojmw")
@@ -77,7 +85,11 @@ flip_h = true
 hframes = 35
 frame = 9
 
-[node name="bullet_spawn_point" parent="weapon_prefab/weapon_sprite" index="0"]
-position = Vector2(10.5714, -12)
+[node name="RayCast2D" parent="weapon_prefab/weapon_sprite" index="0"]
+position = Vector2(-0.142857, 0)
+target_position = Vector2(0, -10000)
+
+[node name="gunsound" parent="weapon_prefab" index="1"]
+stream = ExtResource("4_q3gq6")
 
 [editable path="weapon_prefab"]
