@@ -1,7 +1,6 @@
 extends Node
 
 @export var body: CharacterBody2D
-@export var aim_ray: RayCast2D
 @export var player_reload_instance: player_reload
 
 
@@ -14,7 +13,6 @@ var bullet_spawn_point_multiplier: float = 1.2
 @export var powerup_damage_rate_of_fire: float = 0.25
 @export var attack_cooldown_timer: Timer
 @export var input_mode: mouse_look
-@export var gunshot_sound: AudioStreamPlayer2D
 
 var double_damage_timer: float
 var is_doing_double_damage: bool = false
@@ -22,7 +20,9 @@ var is_doing_double_damage: bool = false
 func _ready() -> void:
 	double_damage_timer = double_damage_time_duration
 
-func _physics_process(delta: float) -> void:
+func _process(delta: float) -> void:
+	
+	var equipped_weapon = body.held_weapon.weapon_instance
 	
 	if body.health <= 0.0:
 		return
@@ -46,6 +46,9 @@ func _physics_process(delta: float) -> void:
 			
 	if player_reload_instance.player_reloads_bullet == true:
 		return
+		
+	if equipped_weapon.get_weapon_states() == equipped_weapon.weapon_states.RESETTING:
+		return
 	
 	if Input.is_action_just_pressed("LMB"):
 		
@@ -53,7 +56,8 @@ func _physics_process(delta: float) -> void:
 			if body.invulnerable == true:
 				return
 			
-			body.is_attacking.emit()
+				
+			equipped_weapon.set_weapon_states(equipped_weapon.weapon_states.ATTACKING)
 			
 		else:
 			print("body is not selected, attach it to this node: ", self)

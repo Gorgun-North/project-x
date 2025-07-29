@@ -2,16 +2,11 @@
 
 [ext_resource type="Script" uid="uid://d634gyvrh4ox" path="res://scripts/object_scripts/destructable_object.gd" id="1_bjgya"]
 
-[node name="Destructable_object" type="CharacterBody2D" node_paths=PackedStringArray("navobstacle")]
+[node name="Destructable_object" type="CharacterBody2D"]
 motion_mode = 1
 safe_margin = 10.0
 script = ExtResource("1_bjgya")
-navobstacle = NodePath("NavigationObstacle2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-
-[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
-affect_navigation_mesh = true
-carve_navigation_mesh = true

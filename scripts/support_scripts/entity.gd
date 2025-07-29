@@ -2,13 +2,11 @@ extends CharacterBody2D
 class_name entity
 
 signal got_hit(attacker: entity, hit_direction: Vector2, knockback_force: float, knockback_duration: float)
-signal is_attacking()
+signal is_attacking
+signal weapon_changed(new_weapon: Node2D)
 
 @export var health: int = 100
-@export var navobstacle: NavigationObstacle2D
-var bullets_left = 6
-var max_bullets = 6
-@export var held_weapon: weapon
+@export var held_weapon: Node2D
 
 var invulnerable: bool = false
 var picked_up_powerup: String

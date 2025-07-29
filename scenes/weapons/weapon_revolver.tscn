@@ -1,0 +1,108 @@
+[gd_scene load_steps=10 format=3 uid="uid://b6sn5udgqfryw"]
+
+[ext_resource type="PackedScene" uid="uid://dirs1vs2tdvpp" path="res://scenes/weapons/weapon_prefab.tscn" id="1_m2bgp"]
+[ext_resource type="Script" uid="uid://bbe7yey8k35cu" path="res://scripts/weapon_scripts/level_action_rifle.gd" id="1_x4ibm"]
+[ext_resource type="Texture2D" uid="uid://bad60isfb142g" path="res://assets/character_assets/Guns_animation-Sheet.png" id="2_vwkfx"]
+[ext_resource type="AudioStream" uid="uid://b2688je4gq8eh" path="res://audio/Gunshots/Single-shot-gun.wav" id="4_x4ibm"]
+
+[sub_resource type="Animation" id="Animation_pdp2e"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_vwkfx"]
+resource_name = "gun_fire"
+length = 0.2
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("weapon_prefab/weapon_sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [20, 21]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("weapon_prefab/weapon_sprite:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 0.174533]
+}
+
+[sub_resource type="Animation" id="Animation_c3u1r"]
+resource_name = "gun_idle"
+length = 0.001
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("weapon_prefab/weapon_sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [20]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("weapon_prefab/weapon_sprite:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_x4ibm"]
+resource_name = "gun_reload"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pdp2e"]
+_data = {
+&"RESET": SubResource("Animation_pdp2e"),
+&"gun_fire": SubResource("Animation_vwkfx"),
+&"gun_idle": SubResource("Animation_c3u1r"),
+&"gun_reload": SubResource("Animation_x4ibm")
+}
+
+[node name="weapon_revolver" type="Node2D"]
+script = ExtResource("1_x4ibm")
+
+[node name="weapon_prefab" parent="." node_paths=PackedStringArray("anim_player") instance=ExtResource("1_m2bgp")]
+scale = Vector2(0.4, 0.4)
+anim_player = NodePath("../AnimationPlayer")
+flip_left_pos = Vector2(-60, -80)
+flip_right_pos = Vector2(60, -75)
+
+[node name="weapon_sprite" parent="weapon_prefab" index="0"]
+position = Vector2(-60, -80)
+texture = ExtResource("2_vwkfx")
+flip_h = true
+hframes = 35
+frame = 20
+
+[node name="RayCast2D" parent="weapon_prefab/weapon_sprite" index="0"]
+position = Vector2(11.7857, 0)
+
+[node name="gunsound" parent="weapon_prefab" index="1"]
+stream = ExtResource("4_x4ibm")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_pdp2e")
+}
+
+[editable path="weapon_prefab"]
+[editable path="weapon_prefab/reload_ui_timer_placeholder"]

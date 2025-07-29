@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bt3ohyhrodcv7"]
+[gd_scene load_steps=12 format=3 uid="uid://bt3ohyhrodcv7"]
 
 [ext_resource type="Script" uid="uid://2wh2slyt8db8" path="res://scripts/object_scripts/exploding_barrel.gd" id="1_ukqj3"]
 [ext_resource type="Texture2D" uid="uid://rppu7wbng3lk" path="res://assets/test_assets/explosion.png" id="2_050fe"]
@@ -97,14 +97,17 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_050fe"]
 size = Vector2(26, 33.3333)
 
-[node name="exploding_barrel" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bjpky"]
+size = Vector2(78, 100.5)
+
+[node name="exploding_barrel" type="StaticBody2D"]
 scale = Vector2(2, 2)
 
 [node name="explosion_radius" type="Area2D" parent="." node_paths=PackedStringArray("root", "object", "animplayer", "colshape")]
 light_mask = 3
 z_index = 1
-collision_layer = 3
-collision_mask = 3
+collision_layer = 7
+collision_mask = 7
 script = ExtResource("1_ukqj3")
 root = NodePath("..")
 object = NodePath("../Destructable_object")
@@ -130,8 +133,9 @@ texture = ExtResource("2_050fe")
 hframes = 6
 frame = 1
 
-[node name="Destructable_object" parent="." instance=ExtResource("2_s5uuy")]
+[node name="Destructable_object" parent="." node_paths=PackedStringArray("nav_collider") instance=ExtResource("2_s5uuy")]
 z_index = 1
+nav_collider = NodePath("../CollisionShape2D")
 health = 10
 
 [node name="Sprite2D" parent="Destructable_object" index="0"]
@@ -146,9 +150,6 @@ position = Vector2(0, -1)
 scale = Vector2(3, 3)
 shape = SubResource("RectangleShape2D_050fe")
 
-[node name="NavigationObstacle2D" parent="Destructable_object" index="2"]
-vertices = PackedVector2Array(65.765, 77.475, 65.788, -98.078, -78.12, -97.868, -78.188, 77.754)
-
 [node name="Sprite2D2" type="Sprite2D" parent="Destructable_object"]
 z_index = -1
 texture_filter = 1
@@ -156,5 +157,9 @@ position = Vector2(0, 40.09)
 scale = Vector2(4, 4)
 texture = ExtResource("5_050fe")
 hframes = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -0.75)
+shape = SubResource("RectangleShape2D_bjpky")
 
 [editable path="Destructable_object"]

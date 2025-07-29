@@ -1,6 +1,7 @@
 extends entity
 
 @export var mass: float
+@export var nav_collider: CollisionShape2D
 var knockback_duration_instance: float
 var actual_knockback: float 
 var hit_dir: Vector2
@@ -37,12 +38,15 @@ func _on_got_hit(_attacker: entity, hit_direction: Vector2, knockback_force: flo
 
 func _on_knockback_finished():
 	if health > 0.0:
+		if nav_collider:
+			nav_collider.global_position = self.global_position
+		
+		
 		rebake_on_movement()
 	
 func _exit_tree() -> void:
-	if navobstacle:
-		navobstacle.affect_navigation_mesh = false
-		navobstacle.carve_navigation_mesh = false
-		navobstacle.queue_free()
+	if nav_collider:
+		nav_collider.disabled = true
+		nav_collider.queue_free()
 	
 	rebake_on_movement()

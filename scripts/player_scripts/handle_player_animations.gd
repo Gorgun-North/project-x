@@ -31,7 +31,6 @@ func handle_screen_dir(mouse_pos: Vector2, viewport_size: Vector2) -> String:
 
 
 func _process(_delta: float) -> void:
-	$"../../reload_ui_timer_placeholder".global_position = body.global_position
 	
 	var viewport_size: Vector2 = get_window().get_size()
 	var mouse_pos: Vector2 = get_viewport().get_mouse_position()

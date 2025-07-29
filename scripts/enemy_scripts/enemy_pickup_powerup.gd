@@ -65,7 +65,7 @@ func Physics_Update(_delta) -> void:
 		nav.set_target_position(desired_powerup.global_position)
 	
 	var steer_target: Vector2 = nav.get_next_path_position()
-	body.look_at(nav.get_next_path_position())
+	#body.look_at(nav.get_next_path_position())
 	var dir: Vector2 = (steer_target - body.global_position).normalized()
 	
 	body.velocity = dir * walk_to_powerup_movespeed

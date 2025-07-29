@@ -1,5 +1,5 @@
 extends Area2D
-@export var root: Node2D
+@export var root: StaticBody2D
 @export var object: entity
 @export var animplayer: AnimationPlayer
 @export var colshape  : CollisionShape2D
@@ -14,7 +14,6 @@ func _physics_process(_delta: float) -> void:
 	if !is_instance_valid(object):
 		
 		for i in get_overlapping_bodies():
-			print(i)
 			if i is entity:
 				var dir = -(self.global_position - i.global_position)
 				i.take_damage(damage)

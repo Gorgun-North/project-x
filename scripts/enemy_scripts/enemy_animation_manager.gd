@@ -4,18 +4,24 @@ class_name enemy_animation_manager
 @export var state_machine_controller_instance: state_machine_controller
 @export var body: entity
 @export var anim_player: AnimationPlayer
+@export var gun_pivot: Marker2D
+@export var enemy_to_player_ray: RayCast2D
 
 func _physics_process(_delta: float) -> void:
+	
 	if state_machine_controller_instance.current_state == state_machine_controller_instance.states_dict.get("idle"):
 		anim_player.play("idle_right")
-	elif state_machine_controller_instance.current_state == state_machine_controller_instance.states_dict.get("move"):
-		if abs(body.velocity.x) > abs(body.velocity.y):
-			if body.velocity.x > 0:
+	elif state_machine_controller_instance.current_state == state_machine_controller_instance.states_dict.get("move") \
+		or state_machine_controller_instance.current_state == state_machine_controller_instance.states_dict.get("pickup_powerup"):
+		var direction := enemy_to_player_ray.target_position.normalized()
+		
+		if abs(direction.x) > abs(direction.y):
+			if direction.x > 0:
 				anim_player.play("walk_right")
 			else:
 				anim_player.play("walk_left")
 		else:
-			if body.velocity.y > 0:
+			if direction.y > 0:
 				anim_player.play("walk_front")
 			else:
 				anim_player.play("walk_back")
@@ -30,3 +36,17 @@ func _physics_process(_delta: float) -> void:
 				anim_player.play("dodge_front")
 			else:
 				anim_player.play("dodge_back")
+	elif state_machine_controller_instance.current_state == state_machine_controller_instance.states_dict.get("melee_attack"):
+		var direction := enemy_to_player_ray.target_position.normalized()
+		
+		if abs(direction.x) > abs(direction.y):
+			if direction.x > 0:
+				anim_player.play("melee_attack_walk_right")
+			else:
+				anim_player.play("melee_attack_walk_left")
+		else:
+			if direction.y > 0:
+				anim_player.play("melee_attack_walk_front")
+			else:
+				anim_player.play("melee_attack_walk_back")
+			

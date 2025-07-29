@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cos8u35tx6sc1"]
+[gd_scene load_steps=11 format=3 uid="uid://cos8u35tx6sc1"]
 
 [ext_resource type="PackedScene" uid="uid://bd4u8oss8w614" path="res://scenes/prefabs/destructable_object.tscn" id="1_ofxa7"]
 [ext_resource type="Script" uid="uid://b504u5dbdknq4" path="res://scripts/object_scripts/emit_destroy_object_particles.gd" id="1_uh8rs"]
@@ -41,17 +41,21 @@ damping_max = 408.52
 scale_min = 0.5
 scale_max = 1.5
 
-[node name="Crate" type="Node2D" node_paths=PackedStringArray("entity_instance", "particle_system")]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uh8rs"]
+size = Vector2(128, 129)
+
+[node name="Crate" type="StaticBody2D" node_paths=PackedStringArray("entity_instance", "particle_system")]
+collision_layer = 512
+collision_mask = 512
 script = ExtResource("1_uh8rs")
 entity_instance = NodePath("Destructable_object")
 particle_system = NodePath("GPUParticles2D")
 
-[node name="Destructable_object" parent="." instance=ExtResource("1_ofxa7")]
+[node name="Destructable_object" parent="." node_paths=PackedStringArray("nav_collider") instance=ExtResource("1_ofxa7")]
 scale = Vector2(4, 4)
-collision_layer = 5
-collision_mask = 5
 safe_margin = 5.0
 mass = 200.0
+nav_collider = NodePath("../CollisionShape2D")
 health = 20
 
 [node name="Sprite2D" parent="Destructable_object" index="0"]
@@ -63,11 +67,6 @@ frame = 5
 [node name="CollisionShape2D" parent="Destructable_object" index="1"]
 visible = false
 shape = SubResource("RectangleShape2D_2tos3")
-
-[node name="NavigationObstacle2D" parent="Destructable_object" index="2"]
-position = Vector2(0.25, 0)
-scale = Vector2(1.01891, 1.45)
-vertices = PackedVector2Array(32.3876, 20.8621, 32.3876, -20.8621, -28.7071, -20.6897, -28.7071, 20.8621)
 
 [node name="Sprite2D2" type="Sprite2D" parent="Destructable_object"]
 z_index = -1
@@ -88,5 +87,9 @@ lifetime = 600.0
 one_shot = true
 explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_2tos3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, -0.5)
+shape = SubResource("RectangleShape2D_uh8rs")
 
 [editable path="Destructable_object"]

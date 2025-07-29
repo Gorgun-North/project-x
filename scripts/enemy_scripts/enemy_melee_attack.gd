@@ -70,7 +70,7 @@ func attack() -> void:
 	nav.set_target_position(player.global_position)
 	
 	var steer_target: Vector2 = nav.get_next_path_position()
-	body.look_at(nav.get_next_path_position())
+	#body.look_at(nav.get_next_path_position())
 	var dir: Vector2 = (steer_target - body.global_position).normalized()
 
 	if !speed_powerup_timer.is_stopped():

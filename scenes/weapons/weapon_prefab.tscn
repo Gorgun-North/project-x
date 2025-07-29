@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=3 uid="uid://dirs1vs2tdvpp"]
+
+[ext_resource type="Script" uid="uid://b7mc8jt5egh6t" path="res://scripts/weapon_scripts/weapon.gd" id="1_equmw"]
+[ext_resource type="PackedScene" uid="uid://c3u8s1wg5qwb4" path="res://scenes/UI_scenes/reload_ui_timer_placeholder.tscn" id="2_6ekng"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_35uaa"]
+light_mode = 1
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_gbjcn"]
+light_mode = 1
+
+[node name="hitscan_weapon_prefab" type="Node2D"]
+script = ExtResource("1_equmw")
+
+[node name="weapon_sprite" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(7, 7)
+
+[node name="RayCast2D" type="RayCast2D" parent="weapon_sprite"]
+modulate = Color(0.964903, 0.000361751, 0.878608, 1)
+scale = Vector2(0.142857, 0.142857)
+target_position = Vector2(10000, 0)
+
+[node name="shoot_gun_particles" type="GPUParticles2D" parent="weapon_sprite/RayCast2D"]
+scale = Vector2(7, 7)
+
+[node name="gunsound" type="AudioStreamPlayer2D" parent="."]
+
+[node name="reload_ui_timer_placeholder" parent="." instance=ExtResource("2_6ekng")]
+process_mode = 3
+top_level = true
+material = SubResource("CanvasItemMaterial_35uaa")
+position = Vector2(0, -223.065)
+
+[node name="ProgressBar" parent="reload_ui_timer_placeholder/Control/VBoxContainer" index="0"]
+material = SubResource("CanvasItemMaterial_gbjcn")
+
+[editable path="reload_ui_timer_placeholder"]

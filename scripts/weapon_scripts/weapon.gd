@@ -1,101 +1,213 @@
 extends Node2D
 class_name weapon
 
+signal ui_bullet_fired(index: int)
+signal ui_bullet_reloaded(index: int)
+signal initiate_bullet_ui(clip_amount: int)
+
+@onready var weapon_sprite: Sprite2D = $weapon_sprite
+@onready var aim_raycast: RayCast2D = $weapon_sprite/RayCast2D
+@onready var reload_ui_interface: Node2D = $reload_ui_timer_placeholder
+@onready var reload_bar: ProgressBar = $reload_ui_timer_placeholder/Control/VBoxContainer/ProgressBar
+
 @export var anim_player: AnimationPlayer
-@export var sprite2D   : Sprite2D
-@export var bullet_spawn_marker: RayCast2D
-@export var gun_soundplayer: AudioStreamPlayer2D
-@export var wielder_of_weapon: entity
+var wielder_of_weapon: entity
 
-@export var correct_gun_rotation_left: float = 45
-@export var correct_gun_rotation_right: float = 135
+var is_ui_initiated_flag: bool = false
 
-@export var max_bullets: int = 6
-@export var weapon_damage: float = 10.0
-@export var rate_of_fire: float = 0.5
-@export var reload_time: float = 2.4
+@export var flip_left_pos: Vector2
+@export var flip_right_pos: Vector2
+
+var max_bullets: int
+var weapon_damage: float
+var rate_of_fire: float
+var reload_time: float
+
+var reload_ui_interface_pos: Vector2
 
 var bullets_left: int
 var rate_of_fire_timer: float
 var reload_timer: float
 
-var is_attacking_flag: bool = false
-var reset_aim_flag: bool 
-var is_reloading_flag: bool
+enum weapon_states {IDLE, ATTACKING, RELOADING, RESETTING}
+var current_state: weapon_states = weapon_states.IDLE
 
-var bullet_UI_elements: Array = []
-
-func initiate_bullet_UI(parent: Control) -> void:
-	var bullet_UI_scene = preload("res://scenes/UI_scenes/bullet_ui_element.tscn")
+func get_weapon_states() -> weapon_states:
+	return current_state
 	
-	if is_attacking_flag == true:
+func set_weapon_states(new_state: int) -> void:
+	current_state = new_state
+	
+func get_bullets_left() -> int:
+	return bullets_left
+	
+func set_bullets_left(new_amount) -> void:
+	bullets_left = new_amount
+
+func _setup(max_bullets_setup: int, weapon_damge_setup: float, rate_of_fire_setup: float, reload_time_setup: float, wielder_of_weapon_setup: entity) -> void:
+	max_bullets = max_bullets_setup
+	bullets_left = max_bullets_setup
+	weapon_damage = weapon_damge_setup
+	rate_of_fire = rate_of_fire_setup
+	reload_time = reload_time_setup
+	reload_timer = reload_time_setup
+	wielder_of_weapon = wielder_of_weapon_setup
+	reload_bar.max_value = reload_time
+	reload_bar.min_value = 0.0
+	reload_bar.value = reload_time
+
+func spawn_bullet(bullet_scene_path: String, decal_scene_path: String) -> void:
+	
+	var bullet_scene := load(bullet_scene_path)
+	if bullet_scene == null:
+		push_error("Could not load bullet scene: " + bullet_scene_path)
 		return
 	
-	for j in max_bullets:
-		var bullet_UI_instance = bullet_UI_scene.instantiate()
-		parent.add_child(bullet_UI_instance)
-		bullet_UI_elements.append(bullet_UI_instance)
+	var bullet_instance = bullet_scene.instantiate()
+	var shoot_angle: float
+
+	if wielder_of_weapon.name.begins_with("Player"):
+		var mouse_pos := self.get_global_mouse_position()
+		shoot_angle = (mouse_pos - aim_raycast.global_position).angle()
+	elif wielder_of_weapon.name.begins_with("Enemy"):
+		var player_node := get_tree().get_first_node_in_group("Player")
+		var player_pos: Vector2 = player_node.global_position
+		var target_pos: Vector2 = aim_raycast.to_global(aim_raycast.target_position)
+		shoot_angle = (player_pos - target_pos).angle() + PI
+
+	if wielder_of_weapon is entity:
+		bullet_instance.setup(aim_raycast.get_collision_point(), wielder_of_weapon)
+	
+	bullet_instance.global_position = aim_raycast.global_transform.origin
+	bullet_instance.rotation =  shoot_angle 
+	$gunsound.play(0.0)
+	if bullets_left > 0:
+		
+		if wielder_of_weapon.name.begins_with("Player"):
+			emit_signal("ui_bullet_fired", bullets_left - 1)
+			
+		bullets_left -= 1
+		spawn_bullet_decal(decal_scene_path)
+
+		get_tree().root.add_child(bullet_instance)
+
+func spawn_bullet_decal(decal_scene_path: String) -> void:
+	var scene_resource = load(decal_scene_path)
+	if scene_resource == null:
+		print("Error: Could not load decal scene at path:", decal_scene_path)
+		return
+	
+	var bullet_decal_object = scene_resource.instantiate()
+	bullet_decal_object.global_position = global_position
+	bullet_decal_object.global_rotation = global_rotation
+	get_tree().root.add_child(bullet_decal_object)
+
+func weapon_use_for_ai():
+	if !wielder_of_weapon:
+		return
+	if !wielder_of_weapon.name.begins_with("Enemy"):
+		return
+		
+		
+			
+	var player = get_tree().get_first_node_in_group("Player")
+	if !player:
+		return
+		
+	var player_pos = player.global_position
+	var direction = (player_pos - global_position).normalized()
+	var angle = direction.angle()
+
+	var aiming_left = direction.x < 0.0
+	weapon_sprite.flip_h = aiming_left
+
+	if aiming_left:
+		angle += PI
+		weapon_sprite.position = flip_left_pos
+		aim_raycast.target_position.x = -10000
+	else:
+		weapon_sprite.position = flip_right_pos
+		aim_raycast.target_position.x = 10000
+
+	self.rotation = angle
+	
+	
+
+func weapon_use_for_player() -> void:
+	if !wielder_of_weapon.name.begins_with("Player"):
+		return
+
+	var mouse_pos = get_global_mouse_position()
+	var direction = (mouse_pos - global_position).normalized()
+	var angle = direction.angle()
+	var gun_angle = direction.angle()
+
+	var aiming_left = direction.x < 0.0
+	weapon_sprite.flip_h = aiming_left
+
+	# Add PI (180°) to angle if aiming left to keep gun upright
+	if aiming_left:
+		angle += PI
+		weapon_sprite.position = flip_left_pos
+		aim_raycast.target_position.x = -10000
+	else:
+		weapon_sprite.position = flip_right_pos
+		aim_raycast.target_position.x = 10000
+	self.rotation = angle
 
 func check_rate_of_fire() -> void:
-	if reset_aim_flag == true:
+	if current_state == weapon_states.RESETTING:
 		
 		rate_of_fire_timer -= get_process_delta_time()
 		if rate_of_fire_timer <= 0.0:
 			rate_of_fire_timer = rate_of_fire
-			reset_aim_flag = false
+			current_state = weapon_states.IDLE
+		
+		
 
 func fire_gun() -> void:
-	#If the entity is not attacking, dont do anything
-	if is_attacking_flag == false:
-		return
-	is_attacking_flag = false
+	if bullets_left < 0:
+		return 
 	
-	#If the entity tries to attack while resetting aim (ROF), dont do anything
-	if reset_aim_flag == true:
+	#If the entity is not attacking, dont do anything
+	if current_state != weapon_states.ATTACKING:
 		return
-	reset_aim_flag = true
+	
+	rate_of_fire_timer = rate_of_fire
+	current_state = weapon_states.RESETTING
 	
 	anim_player.stop()
 	anim_player.play("gun_fire")
 	await anim_player.animation_finished
 	anim_player.play("gun_idle")
 
+
 func _ready() -> void:
-	bullets_left = max_bullets
-	rate_of_fire_timer = rate_of_fire
-	reload_timer = reload_time
-	
-	if wielder_of_weapon is entity:
-		wielder_of_weapon.connect("is_attacking", _on_attack)
 	anim_player.play("gun_idle")
+	reload_bar.visible = false
 
 func _process(_delta: float) -> void:
+	if !wielder_of_weapon:
+		return
+	
+	if is_ui_initiated_flag == false:
+		
+		if wielder_of_weapon.name.begins_with("Player"):
+			initiate_bullet_ui.emit(max_bullets)
+			is_ui_initiated_flag = true
+		
 	check_rate_of_fire()
 	fire_gun()
 
 func _physics_process(_delta: float) -> void:
-	var mouse_dir = get_global_mouse_position() - self.global_position
-	look_at(get_global_mouse_position())
-
-	if mouse_dir.x < 0.0:
-		sprite2D.rotation = deg_to_rad(correct_gun_rotation_right)
-		bullet_spawn_marker.rotation = deg_to_rad(-correct_gun_rotation_left)
-		sprite2D.flip_h = false
-	elif mouse_dir.x >= 0.0:
-		sprite2D.flip_h = true
-		sprite2D.rotation = deg_to_rad(correct_gun_rotation_left)
-		bullet_spawn_marker.rotation = deg_to_rad(correct_gun_rotation_left)
-	
-		
-func _on_attack():
-	if bullets_left <= 0:
-		return 
-		
-	if is_reloading_flag == true:
+	if !weapon_sprite:
 		return
 		
-	if reset_aim_flag == true:
+	if !wielder_of_weapon:
 		return
+		
+	reload_ui_interface.global_position = wielder_of_weapon.global_position + reload_ui_interface_pos
 	
-	is_attacking_flag = true
+	weapon_use_for_ai()
+	weapon_use_for_player()
 	

@@ -1,6 +1,8 @@
 extends states
 class_name enemy_move2
 
+#MISSCHIEN EEN GOED IDEE OM AVOIDANCE TOCH AAN TE ZETTEN!!!
+
 @export var move_speed: = 700.0
 @export var pause_seconds : float = 0.3
 @export var acceptable_distance_to_player: float = 1000.0
@@ -35,7 +37,6 @@ func Physics_Update(delta: float) -> void:
 
 	
 	var steer_target: Vector2 = nav.get_next_path_position()
-	body.look_at(nav.get_next_path_position())
 	var dir: Vector2 = (steer_target - body.global_position).normalized()
 	
 	body.velocity = dir * body.speed

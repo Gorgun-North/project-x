@@ -1,9 +1,9 @@
 [gd_scene load_steps=10 format=3 uid="uid://drnvtshchtr3l"]
 
-[ext_resource type="Script" uid="uid://bbe7yey8k35cu" path="res://scripts/weapon_scripts/level_action_rifle.gd" id="1_6ojmw"]
-[ext_resource type="Texture2D" uid="uid://bad60isfb142g" path="res://assets/character_assets/Guns_animation-Sheet.png" id="2_6ojmw"]
-[ext_resource type="PackedScene" uid="uid://dirs1vs2tdvpp" path="res://scenes/object_scenes/weapon_prefab.tscn" id="3_6ojmw"]
-[ext_resource type="AudioStream" uid="uid://b2688je4gq8eh" path="res://audio/Gunshots/Single-shot-gun.wav" id="4_q3gq6"]
+[ext_resource type="Script" uid="uid://bbe7yey8k35cu" path="res://scripts/weapon_scripts/level_action_rifle.gd" id="1_p5xvv"]
+[ext_resource type="PackedScene" uid="uid://dirs1vs2tdvpp" path="res://scenes/weapons/weapon_prefab.tscn" id="2_bti2v"]
+[ext_resource type="Texture2D" uid="uid://bad60isfb142g" path="res://assets/character_assets/Guns_animation-Sheet.png" id="3_6dmti"]
+[ext_resource type="AudioStream" uid="uid://b2688je4gq8eh" path="res://audio/Gunshots/Single-shot-gun.wav" id="4_nm0dy"]
 
 [sub_resource type="Animation" id="Animation_567ao"]
 length = 0.001
@@ -17,12 +17,13 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [9]
+"values": [0]
 }
 
 [sub_resource type="Animation" id="Animation_p04bi"]
 resource_name = "gun_fire"
 length = 0.4
+step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -33,7 +34,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [8, 9, 10, 11]
+"values": [0, 1, 2, 3]
 }
 
 [sub_resource type="Animation" id="Animation_rtwq4"]
@@ -50,7 +51,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [8]
+"values": [0]
 }
 
 [sub_resource type="Animation" id="Animation_q3gq6"]
@@ -64,32 +65,27 @@ _data = {
 &"gun_reload": SubResource("Animation_q3gq6")
 }
 
-[node name="weapon_lever_action_shotgun" type="Node2D" node_paths=PackedStringArray("weapon_instance", "gun_soundplayer")]
+[node name="weapon_lever_action_shotgun" type="Node2D"]
 z_index = 1
-script = ExtResource("1_6ojmw")
-weapon_instance = NodePath("weapon_prefab")
-gun_soundplayer = NodePath("weapon_prefab/gunsound")
+script = ExtResource("1_p5xvv")
 
 [node name="gun_animations" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_roa2s")
 }
 
-[node name="weapon_prefab" parent="." node_paths=PackedStringArray("anim_player") instance=ExtResource("3_6ojmw")]
+[node name="weapon_prefab" parent="." node_paths=PackedStringArray("anim_player") instance=ExtResource("2_bti2v")]
 anim_player = NodePath("../gun_animations")
-reload_time = 0.8
+flip_left_pos = Vector2(-70, -8)
+flip_right_pos = Vector2(79, -14)
 
 [node name="weapon_sprite" parent="weapon_prefab" index="0"]
-texture = ExtResource("2_6ojmw")
-flip_h = true
+position = Vector2(-70, -8)
+texture = ExtResource("3_6dmti")
 hframes = 35
-frame = 9
-
-[node name="RayCast2D" parent="weapon_prefab/weapon_sprite" index="0"]
-position = Vector2(-0.142857, 0)
-target_position = Vector2(0, -10000)
 
 [node name="gunsound" parent="weapon_prefab" index="1"]
-stream = ExtResource("4_q3gq6")
+stream = ExtResource("4_nm0dy")
 
 [editable path="weapon_prefab"]
+[editable path="weapon_prefab/reload_ui_timer_placeholder"]

@@ -50,18 +50,13 @@ func Physics_Update(_delta: float) -> void:
 		
 		var current_agent_pos = body.global_transform.origin
 		var next_path_pos = nav.get_next_path_position()
-		body.look_at(next_path_pos) #To look at the next movement position
-		var new_vel = current_agent_pos.direction_to(next_path_pos) * speed
 		
-		if nav.avoidance_enabled:
-			nav.set_velocity(new_vel)
-		elif !nav.avoidance_enabled:
-			_on_navigation_agent_2d_velocity_computed(new_vel)
+
+		var dir: Vector2 = (next_path_pos - body.global_position).normalized()
+
+		body.velocity = dir * speed
 			
 
-func _on_navigation_agent_2d_velocity_computed(safe_velocity: Vector2) -> void:
-	body.velocity = safe_velocity
-	
 func new_nav_destination():
 	if move_dest_ray == null:
 		push_error("No raycast initialized, code wont work!")
@@ -73,14 +68,17 @@ func new_nav_destination():
 	move_dest_ray.target_position = local_dir
 	move_dest_ray.force_raycast_update()
 	
-	
+	var desired_point: Vector2
 	if move_dest_ray.is_colliding():
-		target = move_dest_ray.get_collision_point()
-		move_dest_ray.target_position = move_dest_ray.to_local(target)
+		desired_point = move_dest_ray.get_collision_point()
 	else:
-		target = move_dest_ray.to_global(local_dir)
+		desired_point = move_dest_ray.to_global(local_dir)
 	
+	# Project desired point to nearest point on NavMesh
+	var nav_map_rid: RID = nav.get_navigation_map()
+	var closest_navmesh_point = NavigationServer2D.map_get_closest_point(nav_map_rid, desired_point)
 	
+	target = closest_navmesh_point
 	nav.target_position = target
 	
 func _physics_process(delta: float) -> void:

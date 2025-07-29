@@ -20,14 +20,26 @@ var attack_windup_timer: float
 var target    : Vector2
 var bullet_spawn_point_multiplier: float = 1.2
 
+
 func _ready() -> void:
+	call_deferred("_set_attack_timer")
+	
 	double_damage_timer = double_damage_time_duration
-	shoot_state_timer = go_to_shoot_state_timer
+
+func _set_attack_timer():
+	var equipped_weapon = body.held_weapon.weapon_instance
+	shoot_state_timer = equipped_weapon.rate_of_fire
+	
 
 func _physics_process(delta: float) -> void:
 	var to_player_ray = enemy_to_player_ray.get_collider()
 	
-	if body.bullets_left <= 0:
+	if !body or !body.held_weapon:
+		return
+	
+	var equipped_weapon = body.held_weapon.weapon_instance
+	
+	if equipped_weapon.get_bullets_left() <= 0:
 		return
 	
 	if state_machine_controller_node == null:
@@ -50,7 +62,7 @@ func _physics_process(delta: float) -> void:
 			return
 			
 		
-		shoot_state_timer = go_to_shoot_state_timer
+		shoot_state_timer = equipped_weapon.rate_of_fire
 		Transitioned.emit(state_machine_controller_node.current_state, "attack")
 		
 func Entered() -> void:
@@ -84,24 +96,13 @@ func Physics_Update(delta) -> void:
 	attack_windup_timer -= delta
 	
 	if attack_windup_timer <= 0.0:
-		var bullet_instance = preload("res://scenes/object_scenes/bullet.tscn").instantiate()
-		var bullet_dir  : Vector2 = (target - body.global_position).normalized()
-		var shoot_angle : float   = bullet_dir.angle()
-		
-		var bullet_spawn_distance : float = enemy_hitbox_size * bullet_spawn_point_multiplier
 		
 		if body is entity:
-			bullet_instance.setup(target, body)
-		bullet_instance.global_position = body.global_position + bullet_dir * bullet_spawn_distance
-		bullet_instance.rotation = shoot_angle
-		
-		body.bullets_left -= 1
-		
-		var bullet_decal_object = preload("res://scenes/misc_scenes/bullet_decal.tscn").instantiate()
-		bullet_decal_object.global_position = body.global_position
-		bullet_decal_object.global_rotation = body.global_rotation
-		get_tree().root.add_child(bullet_decal_object)
-		
-		get_tree().root.add_child(bullet_instance)
+			var equipped_weapon = body.held_weapon.weapon_instance
+			
+			if equipped_weapon.get_weapon_states() == equipped_weapon.weapon_states.RELOADING:
+				return
+			
+			equipped_weapon.set_weapon_states(equipped_weapon.weapon_states.ATTACKING)
 		
 		Transitioned.emit(self, "move")
