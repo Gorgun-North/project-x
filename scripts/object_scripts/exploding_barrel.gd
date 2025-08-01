@@ -7,6 +7,9 @@ extends Area2D
 @export var damage: float = 30.0
 @export var knockback_force: float = 2000.0
 @export var knockback_duration: float = 0.3
+@export var audio_player: AudioStreamPlayer2D
+	
+const AUDIO_STOP_TIME: float = 3.0
 	
 func _physics_process(_delta: float) -> void:
 	
@@ -27,10 +30,13 @@ func _physics_process(_delta: float) -> void:
 				i.queue_free()
 		
 		#explosion_light.visible = true
-		animplayer.play("explode")
-		await animplayer.animation_finished
+		if audio_player.playing == false:
+			audio_player.play(0.0)
+			animplayer.play("explode")
 		var explosion_remains = preload("res://scenes/misc_scenes/explosion_remains.tscn").instantiate()
 		explosion_remains.global_position = root.global_position
 		get_tree().current_scene.add_child(explosion_remains)
-		root.queue_free()
+		if audio_player.get_playback_position() > AUDIO_STOP_TIME:
+			print("dwawdwa")
+			root.queue_free()
 	

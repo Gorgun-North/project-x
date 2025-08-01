@@ -31,7 +31,5 @@ func reload_gun():
 		
 		
 func _process(_delta: float) -> void:
-	if body.picked_up_powerup == "double_damage":
-		pass
 	
 	reload_gun()

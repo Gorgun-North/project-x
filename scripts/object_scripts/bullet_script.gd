@@ -12,6 +12,8 @@ var attacker: entity
 var target: Vector2
 var targetbody: entity
 
+var hit_entity_flag: bool = false
+
 @export var bullet_damage: int = 10
 
 func setup(set_target: Vector2, set_attacker: entity) -> void:
@@ -33,14 +35,32 @@ func _physics_process(delta: float) -> void:
 				
 				if i == attacker:
 					return
+					
+				if hit_entity_flag == false:
+					hit_entity_flag = true
 				targetbody = i
 				
 				targetbody.take_damage(bullet_damage)
 				if targetbody.name.begins_with("Player"):
+					
 					targetbody.got_hit.emit(attacker, dir, knockback_force, knockback_duration_player)
 				elif targetbody.name.begins_with("Enemy"):
+					
 					targetbody.got_hit.emit(attacker, dir, knockback_force, knockback_duration_enemy)
 				else:
 					targetbody.got_hit.emit(attacker, dir, knockback_force, knockback_duration_player)
 					
+		
+
 		self.queue_free()
+
+func _on_tree_exiting() -> void:
+	if hit_entity_flag == true:
+		return
+	
+	var bullethole_instance = preload("res://scenes/misc_scenes/bullethole.tscn").instantiate()
+	bullethole_instance.rotation = -self.rotation
+	bullethole_instance.global_position = self.global_position
+	bullethole_instance.z_index = 1000
+	
+	get_tree().current_scene.add_child(bullethole_instance)

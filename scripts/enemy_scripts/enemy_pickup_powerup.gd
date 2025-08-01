@@ -120,6 +120,5 @@ func target_reached():
 	is_powerup_picked_up = true
 	print("THIS POWER IS NOW MINE!")
 	desired_powerup = null
-		
-	if body.picked_up_powerup == "speed":
-		Transitioned.emit(self, "Move")
+	
+	

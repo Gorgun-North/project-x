@@ -6,7 +6,6 @@ const MELEE_ATTACK_ABILITY_LEVEL_UNLOCK: int = 4
 @export var state_machine_controller_instance: state_machine_controller
 @export var melee_attack_hitbox_area2D: Area2D
 @export var nav: NavigationAgent2D
-@export var speed_powerup_timer: Timer
 @export var pickup_powerup_state: enemy_pickup_powerup
 @export var animplayer: AnimationPlayer
 
@@ -73,10 +72,8 @@ func attack() -> void:
 	#body.look_at(nav.get_next_path_position())
 	var dir: Vector2 = (steer_target - body.global_position).normalized()
 
-	if !speed_powerup_timer.is_stopped():
-		body.speed = speed_powerup_speed
-	else:
-		body.speed = melee_attack_walk_speed
+
+	body.speed = melee_attack_walk_speed
 	
 	body.velocity = dir * body.speed
 	

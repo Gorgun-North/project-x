@@ -42,7 +42,7 @@ func _physics_process(delta: float) -> void:
 			if get_tree().get_first_node_in_group("death_menu").just_died == false:
 				entity_instance.velocity = knockback_dir.normalized() * force
 				Engine.time_scale = 0.5
-				
+				body.held_weapon.visible = false
 			
 			if death_knockback_timer <= 0.0:
 				collision_box.disabled = true

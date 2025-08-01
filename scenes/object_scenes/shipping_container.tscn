@@ -1,0 +1,45 @@
+[gd_scene load_steps=6 format=3 uid="uid://wnbljvvlad3q"]
+
+[ext_resource type="PackedScene" uid="uid://bd4u8oss8w614" path="res://scenes/prefabs/destructable_object.tscn" id="1_4x4gw"]
+[ext_resource type="Texture2D" uid="uid://bupfbkx61377y" path="res://assets/static_imports/shipping_container.png" id="2_tm4sq"]
+[ext_resource type="Texture2D" uid="uid://b4c4o1vnhbbpy" path="res://assets/test_assets/shadows.png" id="3_tm4sq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jdspy"]
+size = Vector2(57, 36)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8ngkk"]
+size = Vector2(57, 36)
+
+[node name="shipping_container" type="StaticBody2D"]
+scale = Vector2(25, 25)
+collision_layer = 512
+collision_mask = 512
+
+[node name="Destructable_object" parent="." node_paths=PackedStringArray("nav_collider") instance=ExtResource("1_4x4gw")]
+mass = 400.0
+nav_collider = NodePath("../CollisionShape2D")
+health = 100000
+speed = 0.0
+
+[node name="Sprite2D" parent="Destructable_object" index="0"]
+texture_filter = 1
+texture = ExtResource("2_tm4sq")
+
+[node name="CollisionShape2D" parent="Destructable_object" index="1"]
+position = Vector2(-0.5, 1)
+shape = SubResource("RectangleShape2D_jdspy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 1)
+shape = SubResource("RectangleShape2D_8ngkk")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -1
+texture_filter = 1
+position = Vector2(-2.2, 10.36)
+scale = Vector2(2.4125, 1.415)
+texture = ExtResource("3_tm4sq")
+hframes = 2
+frame = 1
+
+[editable path="Destructable_object"]

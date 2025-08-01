@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://do6q3apbvcnf"]
+
+[ext_resource type="Texture2D" uid="uid://mfk7sh3dcomm" path="res://assets/test_assets/light_source_02.png" id="1_ftuks"]
+
+[node name="roof_lamp" type="PointLight2D"]
+texture_filter = 1
+color = Color(0.64674, 0.864823, 0.957203, 1)
+energy = 1.3
+blend_mode = 2
+shadow_enabled = true
+texture = ExtResource("1_ftuks")
+texture_scale = 32.0

@@ -1,8 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://bt3ohyhrodcv7"]
+[gd_scene load_steps=13 format=3 uid="uid://bt3ohyhrodcv7"]
 
 [ext_resource type="Script" uid="uid://2wh2slyt8db8" path="res://scripts/object_scripts/exploding_barrel.gd" id="1_ukqj3"]
 [ext_resource type="Texture2D" uid="uid://rppu7wbng3lk" path="res://assets/test_assets/explosion.png" id="2_050fe"]
 [ext_resource type="PackedScene" uid="uid://bd4u8oss8w614" path="res://scenes/prefabs/destructable_object.tscn" id="2_s5uuy"]
+[ext_resource type="AudioStream" uid="uid://dfjhwjnpntgqv" path="res://audio/explosive-barrel_Master.wav" id="3_bjpky"]
 [ext_resource type="Texture2D" uid="uid://d07hbl0ygqs57" path="res://assets/static_imports/crates_and_barrels.png" id="4_s5uuy"]
 [ext_resource type="Texture2D" uid="uid://b4c4o1vnhbbpy" path="res://assets/test_assets/shadows.png" id="5_050fe"]
 
@@ -103,7 +104,7 @@ size = Vector2(78, 100.5)
 [node name="exploding_barrel" type="StaticBody2D"]
 scale = Vector2(2, 2)
 
-[node name="explosion_radius" type="Area2D" parent="." node_paths=PackedStringArray("root", "object", "animplayer", "colshape")]
+[node name="explosion_radius" type="Area2D" parent="." node_paths=PackedStringArray("root", "object", "animplayer", "colshape", "audio_player")]
 light_mask = 3
 z_index = 1
 collision_layer = 7
@@ -113,6 +114,7 @@ root = NodePath("..")
 object = NodePath("../Destructable_object")
 animplayer = NodePath("AnimationPlayer")
 colshape = NodePath("CollisionShape2D")
+audio_player = NodePath("AudioStreamPlayer2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="explosion_radius"]
 position = Vector2(-3, -1)
@@ -132,6 +134,10 @@ scale = Vector2(11, 11)
 texture = ExtResource("2_050fe")
 hframes = 6
 frame = 1
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="explosion_radius"]
+stream = ExtResource("3_bjpky")
+pitch_scale = 3.0
 
 [node name="Destructable_object" parent="." node_paths=PackedStringArray("nav_collider") instance=ExtResource("2_s5uuy")]
 z_index = 1

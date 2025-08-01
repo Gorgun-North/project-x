@@ -58,6 +58,6 @@ libraries = {
 [node name="shadow" type="Sprite2D" parent="."]
 z_index = -1
 texture_filter = 1
-position = Vector2(0, 12)
+position = Vector2(0, 21)
 texture = ExtResource("2_3lnxq")
 hframes = 2

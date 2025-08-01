@@ -31,6 +31,8 @@ func _physics_process(delta: float) -> void:
 	characterbody.move_and_slide()
 
 func _process(delta: float) -> void:
+	#if characterbody.name.begins_with("Enemy"):
+		#print(current_state)
 	
 	if Dialogic.VAR.is_paused == true:
 		return

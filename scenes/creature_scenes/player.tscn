@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://c8bibno0p31yd"]
+[gd_scene load_steps=36 format=3 uid="uid://c8bibno0p31yd"]
 
 [ext_resource type="Script" uid="uid://dr011ckt1s7li" path="res://scripts/support_scripts/entity.gd" id="1_j2f7r"]
 [ext_resource type="Script" uid="uid://wg4kyxho2lon" path="res://scripts/player_scripts/player_move.gd" id="2_gfahr"]
@@ -10,11 +10,13 @@
 [ext_resource type="Script" uid="uid://cne6cycqyygxn" path="res://scripts/player_scripts/player_mouse_look.gd" id="5_u2ccb"]
 [ext_resource type="Script" uid="uid://bbtb6daq4omy7" path="res://scripts/player_scripts/player_attack.gd" id="7_8iuoe"]
 [ext_resource type="Script" uid="uid://boqdar6ds0u3b" path="res://scripts/player_scripts/player_knockback.gd" id="7_tx6aq"]
+[ext_resource type="AudioStream" uid="uid://bxx2jyfip7w56" path="res://audio/11L-player_character_get-1753457488529.mp3" id="9_r8tdj"]
 [ext_resource type="Script" uid="uid://h6a8qxbgfsrf" path="res://scripts/player_scripts/player_iframes.gd" id="9_tx6aq"]
 [ext_resource type="Script" uid="uid://dj766qjdjlpwf" path="res://scripts/player_scripts/player_reload.gd" id="10_btrno"]
 [ext_resource type="Script" uid="uid://7j3v1luiqlgd" path="res://scripts/player_scripts/player_death_knockback.gd" id="11_idup1"]
 [ext_resource type="Script" uid="uid://dxc70ocjpc63t" path="res://scripts/player_scripts/zoom_camera_when_paused.gd" id="12_pw2sv"]
 [ext_resource type="Script" uid="uid://b55jrf1rdsg1e" path="res://scripts/player_scripts/handle_player_animations.gd" id="14_ujya7"]
+[ext_resource type="Script" uid="uid://bgl8nxd322fm" path="res://scripts/player_scripts/player_powerup_controller.gd" id="16_i1jkw"]
 [ext_resource type="PackedScene" uid="uid://drnvtshchtr3l" path="res://scenes/weapons/weapon_lever_action_shotgun.tscn" id="17_r8tdj"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wskmq"]
@@ -541,7 +543,7 @@ collision_layer = 3
 collision_mask = 3
 safe_margin = 20.0
 script = ExtResource("1_j2f7r")
-health = 5000
+health = 10
 held_weapon = NodePath("gun_pivot/weapon_lever_action_shotgun")
 
 [node name="player_camera" type="Camera2D" parent="." node_paths=PackedStringArray("entity_instance")]
@@ -576,10 +578,9 @@ script = ExtResource("3_gfahr")
 characterbody = NodePath("..")
 initial_state = NodePath("Idle")
 
-[node name="Move" type="Node" parent="State_controller"]
+[node name="Move" type="Node" parent="State_controller" node_paths=PackedStringArray("powerup_handler")]
 script = ExtResource("2_gfahr")
-powerup_speed = 1800.0
-speed_powerup_timer_duration = 5.0
+powerup_handler = NodePath("../../player_properties/powerup_controller")
 
 [node name="Dodge" type="Node" parent="State_controller"]
 
@@ -591,10 +592,16 @@ script = ExtResource("4_7vqky")
 decelaration = 6000.0
 collision_box = NodePath("../../player_hitbox")
 
-[node name="Knockback" type="Node" parent="State_controller" node_paths=PackedStringArray("entity_instance", "state_machine_controller_instance")]
+[node name="Knockback" type="Node" parent="State_controller" node_paths=PackedStringArray("entity_instance", "state_machine_controller_instance", "audio_player")]
 script = ExtResource("7_tx6aq")
 entity_instance = NodePath("../..")
 state_machine_controller_instance = NodePath("..")
+audio_player = NodePath("AudioStreamPlayer2D")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="State_controller/Knockback"]
+stream = ExtResource("9_r8tdj")
+volume_db = -15.0
+max_distance = 10000.0
 
 [node name="death" type="Node" parent="State_controller" node_paths=PackedStringArray("entity_instance", "state_machine_controller_instance", "player_sprite", "camera", "collision_box")]
 script = ExtResource("11_idup1")
@@ -623,7 +630,6 @@ script = ExtResource("7_8iuoe")
 body = NodePath("../..")
 player_reload_instance = NodePath("../Reload")
 rate_of_fire = 0.5
-powerup_damage_rate_of_fire = 0.45
 input_mode = NodePath("../Mouse_look")
 
 [node name="Iframes" type="Node" parent="player_properties" node_paths=PackedStringArray("state_machine_controller_instance", "entity_instance", "knockback_instance", "animplayer", "player_sprite")]
@@ -650,6 +656,10 @@ anim_player = NodePath("../../character_animations")
 shadow_anim_player = NodePath("../../shadow_animations")
 body = NodePath("../..")
 sprite2D = NodePath("../../character_sprite")
+
+[node name="powerup_controller" type="Node" parent="player_properties" node_paths=PackedStringArray("body")]
+script = ExtResource("16_i1jkw")
+body = NodePath("../..")
 
 [node name="character_animations" type="AnimationPlayer" parent="."]
 libraries = {

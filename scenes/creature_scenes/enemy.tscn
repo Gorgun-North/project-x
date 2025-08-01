@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://oa3qkjuqwrp0"]
+[gd_scene load_steps=48 format=3 uid="uid://oa3qkjuqwrp0"]
 
 [ext_resource type="Script" uid="uid://dr011ckt1s7li" path="res://scripts/support_scripts/entity.gd" id="1_8bhn2"]
 [ext_resource type="Script" uid="uid://bxrfkv7bc6ydf" path="res://scripts/support_scripts/state_controller.gd" id="2_21n3x"]
@@ -8,6 +8,8 @@
 [ext_resource type="Script" uid="uid://ck872vrb6hyd8" path="res://scripts/enemy_scripts/enemy_attack.gd" id="6_8bhn2"]
 [ext_resource type="Script" uid="uid://be7w5hi4ld6f7" path="res://scripts/enemy_scripts/enemy_look_at_player.gd" id="6_vssxo"]
 [ext_resource type="Script" uid="uid://boqdar6ds0u3b" path="res://scripts/player_scripts/player_knockback.gd" id="8_dkigd"]
+[ext_resource type="AudioStream" uid="uid://wn7bp08lrjv4" path="res://audio/11L-enemy_character_get-1753457495933.mp3" id="8_hr36t"]
+[ext_resource type="AudioStream" uid="uid://djeg7mxu26ayg" path="res://audio/glitch-fx_Master.wav" id="9_57msh"]
 [ext_resource type="Script" uid="uid://ctji1uhflb465" path="res://scripts/enemy_scripts/enemy_teleport.gd" id="9_60dcw"]
 [ext_resource type="Script" uid="uid://b5a336e5s4x8w" path="res://scripts/enemy_scripts/enemy_pickup_powerup.gd" id="10_6ndrt"]
 [ext_resource type="Script" uid="uid://cry5obc276ur8" path="res://scripts/enemy_scripts/enemy_melee_attack.gd" id="10_8bicl"]
@@ -16,6 +18,7 @@
 [ext_resource type="Texture2D" uid="uid://dsq577b5bivu0" path="res://assets/character_assets/Antagonist_animations-Sheet.png" id="14_etvhk"]
 [ext_resource type="Script" uid="uid://cqnq3s1re5o16" path="res://scripts/enemy_scripts/enemy_animation_manager.gd" id="15_7yltj"]
 [ext_resource type="Texture2D" uid="uid://gosqpxex5ivm" path="res://assets/character_assets/moving_entity_shadow.png" id="15_etvhk"]
+[ext_resource type="Script" uid="uid://bgl8nxd322fm" path="res://scripts/player_scripts/player_powerup_controller.gd" id="15_jhr2h"]
 [ext_resource type="PackedScene" uid="uid://b6sn5udgqfryw" path="res://scenes/weapons/weapon_revolver.tscn" id="17_7yltj"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7yltj"]
@@ -973,7 +976,7 @@ _data = {
 &"shadow_move": SubResource("Animation_0i838")
 }
 
-[node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("held_weapon")]
+[node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("held_weapon") groups=["Enemy"]]
 collision_layer = 6
 collision_mask = 6
 safe_margin = 20.0
@@ -993,10 +996,9 @@ initial_state = NodePath("Idle")
 script = ExtResource("3_4wdx0")
 state_machine_controller_instance = NodePath("..")
 
-[node name="Move" type="Node" parent="state_machine_controller" node_paths=PackedStringArray("powerup_timer", "nav", "point_to_player_ray", "state_machine_controller_node")]
+[node name="Move" type="Node" parent="state_machine_controller" node_paths=PackedStringArray("nav", "point_to_player_ray", "state_machine_controller_node")]
 script = ExtResource("4_rrwef")
 pause_seconds = 0.2
-powerup_timer = NodePath("speed_powerup_timer")
 nav = NodePath("../../NavigationAgent2D")
 point_to_player_ray = NodePath("random_point_to_player_ray")
 state_machine_controller_node = NodePath("..")
@@ -1004,11 +1006,6 @@ state_machine_controller_node = NodePath("..")
 [node name="random_point_to_player_ray" type="RayCast2D" parent="state_machine_controller/Move"]
 modulate = Color(0, 0.594996, 0.613567, 1)
 top_level = true
-
-[node name="speed_powerup_timer" type="Timer" parent="state_machine_controller/Move"]
-process_callback = 0
-wait_time = 5.0
-one_shot = true
 
 [node name="Dodge" type="Node" parent="state_machine_controller" node_paths=PackedStringArray("enemy_to_player_ray", "nav", "move_dest_ray", "state_machine_controller_instance")]
 script = ExtResource("5_4wdx0")
@@ -1026,34 +1023,42 @@ enemy_to_player_ray = NodePath("../../enemy_to_player_ray")
 enemy_hitbox_size = 85.0
 go_to_shoot_state_timer = 0.5
 attack_windup_timer_duration = 0.01
-double_damage_time_duration = 10.0
-powerup_damage_rate_of_fire = 0.45
 
-[node name="knockback" type="Node" parent="state_machine_controller" node_paths=PackedStringArray("entity_instance", "state_machine_controller_instance")]
+[node name="knockback" type="Node" parent="state_machine_controller" node_paths=PackedStringArray("entity_instance", "state_machine_controller_instance", "audio_player")]
 script = ExtResource("8_dkigd")
 entity_instance = NodePath("../..")
 state_machine_controller_instance = NodePath("..")
+audio_player = NodePath("AudioStreamPlayer2D")
 
-[node name="Teleport" type="Node" parent="state_machine_controller" node_paths=PackedStringArray("state_machine_controller_instance", "pickup_powerup_instance", "check_teleport_pos_ray")]
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="state_machine_controller/knockback"]
+stream = ExtResource("8_hr36t")
+volume_db = -15.0
+max_distance = 4000.0
+
+[node name="Teleport" type="Node" parent="state_machine_controller" node_paths=PackedStringArray("state_machine_controller_instance", "pickup_powerup_instance", "teleport_audio", "check_teleport_pos_ray")]
 script = ExtResource("9_60dcw")
 state_machine_controller_instance = NodePath("..")
 pickup_powerup_instance = NodePath("../Pickup_powerup")
+teleport_audio = NodePath("Teleport sound")
 check_teleport_pos_ray = NodePath("check_teleport_position")
 
 [node name="check_teleport_position" type="RayCast2D" parent="state_machine_controller/Teleport"]
 modulate = Color(0, 0.643185, 0.243595, 1)
 self_modulate = Color(2.81565e-06, 0.508903, 0.182553, 1)
+collision_mask = 8
 
-[node name="melee_attack" type="Node" parent="state_machine_controller" node_paths=PackedStringArray("state_machine_controller_instance", "melee_attack_hitbox_area2D", "nav", "speed_powerup_timer", "pickup_powerup_state", "animplayer")]
+[node name="Teleport sound" type="AudioStreamPlayer2D" parent="state_machine_controller/Teleport"]
+stream = ExtResource("9_57msh")
+max_distance = 10000.0
+
+[node name="melee_attack" type="Node" parent="state_machine_controller" node_paths=PackedStringArray("state_machine_controller_instance", "melee_attack_hitbox_area2D", "nav", "pickup_powerup_state", "animplayer")]
 script = ExtResource("10_8bicl")
 state_machine_controller_instance = NodePath("..")
 melee_attack_hitbox_area2D = NodePath("../../melee_attack_hitbox")
 nav = NodePath("../../NavigationAgent2D")
-speed_powerup_timer = NodePath("../Move/speed_powerup_timer")
 pickup_powerup_state = NodePath("../Pickup_powerup")
 animplayer = NodePath("AnimationPlayer")
 melee_attack_cooldown_timer_duration = 8.0
-melee_attack_windup_duration = 0.75
 melee_attack_wind_down_duration = 1.2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="state_machine_controller/melee_attack"]
@@ -1065,15 +1070,16 @@ libraries = {
 script = ExtResource("10_6ndrt")
 state_machine_controller_instance = NodePath("..")
 nav = NodePath("../../NavigationAgent2D")
-powerup_timer = NodePath("powerup_timer")
+powerup_timer = NodePath("Timer")
 go_pickup_powerup_random_chance = 0.5
 walk_to_powerup_movespeed = 1000.0
 
-[node name="powerup_timer" type="Timer" parent="state_machine_controller/Pickup_powerup"]
-wait_time = 7.5
+[node name="Timer" type="Timer" parent="state_machine_controller/Pickup_powerup"]
+wait_time = 5.0
 autostart = true
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+target_desired_distance = 40.0
 debug_use_custom = true
 debug_path_custom_color = Color(0.577629, 0.459409, 0, 1)
 
@@ -1119,6 +1125,11 @@ anim_player = NodePath("../../character_animations")
 gun_pivot = NodePath("../../gun_pivot")
 enemy_to_player_ray = NodePath("../../enemy_to_player_ray")
 
+[node name="player_powerup_controller" type="Node" parent="enemy_properties" node_paths=PackedStringArray("body")]
+script = ExtResource("15_jhr2h")
+body = NodePath("../..")
+metadata/_custom_type_script = "uid://bgl8nxd322fm"
+
 [node name="character_sprite" type="Sprite2D" parent="."]
 top_level = true
 texture_filter = 1
@@ -1157,5 +1168,5 @@ wielder_of_weapon = NodePath("../..")
 reload_amount = 6
 
 [connection signal="got_hit" from="." to="state_machine_controller/knockback" method="_on_enemy_got_hit"]
-[connection signal="timeout" from="state_machine_controller/Pickup_powerup/powerup_timer" to="state_machine_controller/Pickup_powerup" method="_on_timer_timeout"]
+[connection signal="timeout" from="state_machine_controller/Pickup_powerup/Timer" to="state_machine_controller/Pickup_powerup" method="_on_timer_timeout"]
 [connection signal="velocity_computed" from="NavigationAgent2D" to="state_machine_controller/Move" method="_on_navigation_agent_2d_velocity_computed"]

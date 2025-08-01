@@ -6,9 +6,6 @@ class_name enemy_move2
 @export var move_speed: = 700.0
 @export var pause_seconds : float = 0.3
 @export var acceptable_distance_to_player: float = 1000.0
-@export var powerup_speed_duration: float = 5.0
-@export var powerup_speed : float = 1800.0
-@export var powerup_timer: Timer
 
 var _pause_timer : float = 0.0
 var rng = RandomNumberGenerator.new()
@@ -35,7 +32,6 @@ func Physics_Update(delta: float) -> void:
 			nav.set_target_position(_pick_new_destination(max_navmesh_set_dest_attempts))
 		return
 
-	
 	var steer_target: Vector2 = nav.get_next_path_position()
 	var dir: Vector2 = (steer_target - body.global_position).normalized()
 	
@@ -87,40 +83,5 @@ func _pick_new_destination(attempts: int) -> Vector2:
 
 
 func _ready() -> void:
-	powerup_timer.wait_time = powerup_speed_duration
-	
-	powerup_timer.timeout.connect(_on_powerup_timeout)
-	
 	player = get_tree().get_first_node_in_group("Player")
-	
-	call_deferred("_set_move_speed")
-	
-	
-func _set_move_speed():
-	if body is entity:
-		body.speed = move_speed
 		
-func _physics_process(_delta: float) -> void:
-	#if !powerup_timer.is_stopped():
-		#print(powerup_timer.time_left)
-	
-	if state_machine_controller_node == null:
-		push_error("State machine_controller not initialized in enemy_move_script")
-		return
-		
-	if body.picked_up_powerup == "speed":
-		if powerup_timer.is_stopped():
-			powerup_timer.start()
-			body.speed = powerup_speed
-	
-	if state_machine_controller_node.current_state == state_machine_controller_node.states_dict.get("move") \
-	or state_machine_controller_node.current_state == state_machine_controller_node.states_dict.get("pickup_powerup"):
-		if powerup_timer.paused == true and body.speed == powerup_speed:
-			powerup_timer.paused = false
-	else:
-		if powerup_timer.paused == false and body.speed == powerup_speed:
-			powerup_timer.paused = true
-
-func _on_powerup_timeout():
-	body.speed = move_speed
-	body.picked_up_powerup = ""

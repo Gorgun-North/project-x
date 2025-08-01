@@ -21,9 +21,8 @@ func activate_powerup(powerup_name: String) -> void:
 	
 	var popup = preload("res://scenes/UI_scenes/popup_text.tscn").instantiate()
 	
-	if player is entity or enemy is entity:
+	if player is entity and enemy is entity:
 		var overlapping_entity = check_for_item_pickup()
-		
 		if overlapping_entity == null:
 			return
 		elif overlapping_entity == enemy:

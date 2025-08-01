@@ -6,6 +6,7 @@ var track_health: int
 
 @export var state_machine_controller_instance: state_machine_controller
 @export var pickup_powerup_instance: enemy_pickup_powerup
+@export var teleport_audio: AudioStreamPlayer2D
 
 @export var teleport_distance: float =  1000.0
 @export var random_teleport_range: float = 0.75
@@ -77,6 +78,12 @@ func _on_got_hit(attacker: entity, hit_dir: Vector2, _knockback_force: float, _k
 	check_teleport_pos_ray.force_raycast_update()
 	
 	print("I TELEPORT!")
+	if teleport_audio.get_playback_position() > 3.12:
+		teleport_audio.stop()
+	
+	teleport_audio.play(2.0)
+
+	
 	if check_teleport_pos_ray.is_colliding():
 		teleport_pos = check_teleport_pos_ray.get_collision_point()
 	else:

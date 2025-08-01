@@ -10,10 +10,6 @@ class_name enemy_attack
 var shoot_state_timer: float
 
 @export var attack_windup_timer_duration: float = 0.5
-@export var double_damage_time_duration: float = 5.0
-@export var powerup_damage_rate_of_fire: float = 0.25
-var double_damage_timer: float
-var is_doing_double_damage: bool = false
 
 var attack_windup_timer: float
 
@@ -23,8 +19,6 @@ var bullet_spawn_point_multiplier: float = 1.2
 
 func _ready() -> void:
 	call_deferred("_set_attack_timer")
-	
-	double_damage_timer = double_damage_time_duration
 
 func _set_attack_timer():
 	var equipped_weapon = body.held_weapon.weapon_instance
@@ -77,21 +71,6 @@ func Entered() -> void:
 	attack_windup_timer = attack_windup_timer_duration
 	
 func Physics_Update(delta) -> void:
-	
-	if body is entity:
-		if body.picked_up_powerup == "double_damage":
-			is_doing_double_damage = true
-			
-			body.picked_up_powerup = ""
-			
-	if is_doing_double_damage == true:
-		double_damage_timer -= delta
-		shoot_state_timer = powerup_damage_rate_of_fire
-		body.bullets_left = body.max_bullets
-		if double_damage_timer <= 0.0:
-			double_damage_timer = double_damage_time_duration
-			is_doing_double_damage = false
-			shoot_state_timer = go_to_shoot_state_timer
 	
 	attack_windup_timer -= delta
 	

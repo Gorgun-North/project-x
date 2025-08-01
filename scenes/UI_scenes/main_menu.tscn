@@ -1,0 +1,92 @@
+[gd_scene load_steps=10 format=3 uid="uid://rf5tmpxwex3y"]
+
+[ext_resource type="Script" uid="uid://bsxw6ua5wymvc" path="res://scripts/ui_scripts/main_menu_script.gd" id="1_47p4h"]
+[ext_resource type="PackedScene" uid="uid://qle6sgps57g7" path="res://scenes/prefabs/background_scene.tscn" id="2_7li4i"]
+[ext_resource type="Texture2D" uid="uid://bdfwjegdl2ccy" path="res://assets/ui_elements/main_menu_button.png" id="3_dr7jl"]
+[ext_resource type="AudioStream" uid="uid://cyms5okem1oso" path="res://audio/main-menu_Master.wav" id="4_7li4i"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6mo7p"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xjmed"]
+texture = ExtResource("3_dr7jl")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+region_rect = Rect2(4, 8, 24, 14)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qh15u"]
+texture = ExtResource("3_dr7jl")
+region_rect = Rect2(4, 8, 24, 14)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_f84ha"]
+
+[sub_resource type="Theme" id="Theme_0ljcc"]
+Button/styles/focus = SubResource("StyleBoxTexture_6mo7p")
+Button/styles/hover = SubResource("StyleBoxTexture_xjmed")
+Button/styles/normal = SubResource("StyleBoxTexture_qh15u")
+Button/styles/pressed = SubResource("StyleBoxTexture_f84ha")
+
+[node name="Main_menu" type="Control" node_paths=PackedStringArray("audio")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_47p4h")
+audio = NodePath("AudioStreamPlayer")
+
+[node name="background scene" parent="." instance=ExtResource("2_7li4i")]
+scale = Vector2(0.995956, 1)
+transform = Transform2D(0.995956, 0, 0, 1, 0, 0)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(4.83, 2.565)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -161.0
+offset_right = 8.0
+offset_bottom = -32.0
+scale = Vector2(4, 4)
+pivot_offset = Vector2(20, 20)
+theme_override_constants/separation = 15
+alignment = 1
+
+[node name="Start_game" type="Button" parent="VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+focus_neighbor_top = NodePath("../quit_game")
+focus_neighbor_bottom = NodePath("../options")
+theme = SubResource("Theme_0ljcc")
+text = "Start"
+
+[node name="options" type="Button" parent="VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+focus_neighbor_top = NodePath("../Start_game")
+focus_neighbor_bottom = NodePath("../quit_game")
+theme = SubResource("Theme_0ljcc")
+text = "Options"
+
+[node name="quit_game" type="Button" parent="VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+focus_neighbor_top = NodePath("../options")
+focus_neighbor_bottom = NodePath(".")
+theme = SubResource("Theme_0ljcc")
+text = "Quit"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_7li4i")
+volume_db = -10.0
+
+[connection signal="pressed" from="VBoxContainer/Start_game" to="." method="_on_start_game_pressed"]
+[connection signal="pressed" from="VBoxContainer/options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="VBoxContainer/quit_game" to="." method="_on_quit_game_pressed"]
+[connection signal="finished" from="AudioStreamPlayer" to="." method="_on_audio_stream_player_finished"]

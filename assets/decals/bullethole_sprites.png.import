@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c5jder42yjuei"
-path="res://.godot/imported/Wall_and_Floor_tiles-Sheet.png-a099bf459564d0f3ea55db88eee84f0e.ctex"
+uid="uid://nwqgih3lndex"
+path="res://.godot/imported/bullethole_sprites.png-551272b0fec03ad8402862bfbef3e609.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/static_imports/Wall_and_Floor_tiles-Sheet.png"
-dest_files=["res://.godot/imported/Wall_and_Floor_tiles-Sheet.png-a099bf459564d0f3ea55db88eee84f0e.ctex"]
+source_file="res://assets/decals/bullethole_sprites.png"
+dest_files=["res://.godot/imported/bullethole_sprites.png-551272b0fec03ad8402862bfbef3e609.ctex"]
 
 [params]
 

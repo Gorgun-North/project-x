@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://byt4o1x8a4dl6"]
 
 [ext_resource type="Texture2D" uid="uid://i6nhlqhgxdu" path="res://assets/test_assets/lamp_and_light.png" id="1_npv0m"]
-[ext_resource type="Texture2D" uid="uid://mfk7sh3dcomm" path="res://assets/test_assets/light_source_02.png" id="3_gxsr1"]
+[ext_resource type="PackedScene" uid="uid://do6q3apbvcnf" path="res://scenes/object_scenes/roof_lamp.tscn" id="2_cg5g4"]
 
 [node name="basic_lamp" type="Node2D"]
 scale = Vector2(3, 3)
@@ -11,10 +11,4 @@ texture_filter = 1
 texture = ExtResource("1_npv0m")
 hframes = 2
 
-[node name="PointLight2D" type="PointLight2D" parent="."]
-texture_filter = 1
-color = Color(0.64674, 0.864823, 0.957203, 1)
-energy = 1.3
-blend_mode = 2
-texture = ExtResource("3_gxsr1")
-texture_scale = 32.0
+[node name="PointLight2D" parent="." instance=ExtResource("2_cg5g4")]

@@ -16,3 +16,5 @@ texture = ExtResource("1_gx4ld")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 polygon = PackedVector2Array(-8, 4, 9, 1, 9, -1, -8, -5)
+
+[connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]

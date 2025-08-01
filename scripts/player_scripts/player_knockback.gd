@@ -3,6 +3,7 @@ class_name player_knockback
 
 @export var entity_instance: entity
 @export var state_machine_controller_instance: state_machine_controller
+@export var audio_player: AudioStreamPlayer2D
 
 var knockback_duration_instance: float
 var knockback_finished: bool = true
@@ -11,6 +12,10 @@ var force: float
 var knockback_dir: Vector2
 
 var knockback_timer: float = 0.0
+
+func _process(delta: float) -> void:
+	if audio_player:
+		audio_player.global_position = body.global_position
 
 func _ready() -> void:
 	if entity_instance:
@@ -21,7 +26,7 @@ func _ready() -> void:
 		entity_instance.got_hit.connect(_on_player_got_hit)
 		
 func Entered() -> void:
-
+	audio_player.play(0.0)
 	knockback_timer = knockback_duration_instance
 		
 func Physics_Update(delta) -> void:

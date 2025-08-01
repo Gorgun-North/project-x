@@ -4,7 +4,7 @@ extends Node
 
 func _process(_delta: float) -> void:
 	if is_instance_valid(powerup_instance):
-		powerup_instance.activate_powerup("double_damage")
+		powerup_instance.activate_powerup("rapid fire")
 	else:
 		self.queue_free()
 		

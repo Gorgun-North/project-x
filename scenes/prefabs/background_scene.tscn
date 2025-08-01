@@ -1,10 +1,12 @@
-[gd_scene load_steps=8 format=3 uid="uid://qle6sgps57g7"]
+[gd_scene load_steps=11 format=3 uid="uid://qle6sgps57g7"]
 
 [ext_resource type="PackedScene" uid="uid://dnak75am7us7s" path="res://scenes/prefabs/planet.tscn" id="2_kaec1"]
 [ext_resource type="Shader" uid="uid://c5ep0nfjy1eyc" path="res://shaders/background_shader.gdshader" id="2_r5w6f"]
 [ext_resource type="Texture2D" uid="uid://d2pyo78lo10wn" path="res://assets/test_assets/spire.png" id="3_6y1ht"]
 [ext_resource type="Shader" uid="uid://c5edw63ib2x7f" path="res://shaders/spire.gdshader" id="3_7r382"]
 [ext_resource type="Texture2D" uid="uid://bsixp5hxqnigg" path="res://assets/backgrounds/space_01.png" id="3_odxg4"]
+[ext_resource type="Texture2D" uid="uid://dtrfdnto1tf84" path="res://assets/decals/space_particles.png" id="6_odxg4"]
+[ext_resource type="Script" uid="uid://bwr2j0bh0xnq0" path="res://scripts/ui_scripts/space_particles.gd" id="7_8qdl4"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8qdl4"]
 shader = ExtResource("2_r5w6f")
@@ -18,6 +20,20 @@ shader_parameter/shadow_edge_softness = 0.42
 shader_parameter/shadow_extra_padding = 0.3
 shader_parameter/shadow_origin = Vector2(0.5, 0.5)
 shader_parameter/shadow_scale = 1.0
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_hhaxk"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(0, 720, 1)
+angle_min = -554.6
+angle_max = 360.0
+spread = 0.0
+initial_velocity_min = -100.0
+initial_velocity_max = -100.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.1
+scale_max = 0.15
+color = Color(0.768099, 0.742583, 0.749014, 1)
 
 [node name="background scene" type="CanvasLayer"]
 layer = -128
@@ -50,3 +66,24 @@ position = Vector2(131, -35)
 rotation = 1.36927
 scale = Vector2(1.131, 2.21)
 texture = ExtResource("3_6y1ht")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+grow_horizontal = 0
+grow_vertical = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Control"]
+z_index = 2
+amount = 200
+texture = ExtResource("6_odxg4")
+lifetime = 50.0
+preprocess = 10.0
+process_material = SubResource("ParticleProcessMaterial_hhaxk")
+script = ExtResource("7_8qdl4")

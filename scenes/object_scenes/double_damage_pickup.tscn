@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dnkmfrwuv82vb" path="res://scripts/object_scripts/double_damage_pickup.gd" id="1_omykj"]
 [ext_resource type="PackedScene" uid="uid://cg46yr3i2k4rs" path="res://scenes/prefabs/power_up.tscn" id="2_u2uj6"]
-[ext_resource type="Texture2D" uid="uid://bl0wgete7n013" path="res://assets/test_assets/double_damage.png" id="3_iy0ke"]
+[ext_resource type="Texture2D" uid="uid://pdwvstenbc4o" path="res://assets/static_imports/Power_ups-Sheet.png" id="3_omykj"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0874r"]
 radius = 12.0
@@ -20,6 +20,8 @@ shape = SubResource("CircleShape2D_0874r")
 
 [node name="Sprite2D" parent="power_up" index="1"]
 texture_filter = 1
-texture = ExtResource("3_iy0ke")
+texture = ExtResource("3_omykj")
+hframes = 3
+frame = 2
 
 [editable path="power_up"]

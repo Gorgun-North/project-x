@@ -111,19 +111,19 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Control/Sprite2D:position")
+tracks/1/path = NodePath("Control/resume:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 8.5)]
+"update": 1,
+"values": [false]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Control/resume:visible")
+tracks/2/path = NodePath("Control/restart:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -135,7 +135,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Control/restart:visible")
+tracks/3/path = NodePath("Control/quit:visible")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -147,19 +147,19 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Control/quit:visible")
+tracks/4/path = NodePath("Control/resume:theme_override_font_sizes/font_size")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
+"update": 0,
+"values": [16]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("Control/resume:theme_override_font_sizes/font_size")
+tracks/5/path = NodePath("Control/restart:theme_override_font_sizes/font_size")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -171,7 +171,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("Control/restart:theme_override_font_sizes/font_size")
+tracks/6/path = NodePath("Control/quit:theme_override_font_sizes/font_size")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -183,62 +183,62 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("Control/quit:theme_override_font_sizes/font_size")
+tracks/7/path = NodePath("Control:scale")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [16]
+"values": [Vector2(8, 8)]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("Control:scale")
+tracks/8/path = NodePath("Control/resume:size")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(8, 8)]
+"values": [Vector2(70, 31)]
 }
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("Control/resume:size")
+tracks/9/path = NodePath("Control/restart:size")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(70, 31)]
+"values": [Vector2(65, 31)]
 }
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("Control/restart:size")
+tracks/10/path = NodePath("Control/quit:size")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(65, 31)]
+"values": [Vector2(42, 31)]
 }
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("Control/quit:size")
+tracks/11/path = NodePath("Control:position")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(42, 31)]
+"values": [Vector2(640, 992)]
 }
 
 [sub_resource type="Animation" id="Animation_cr2jk"]
@@ -251,10 +251,10 @@ tracks/0/path = NodePath("Control/Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.03, 0.06, 0.1, 0.133333, 0.166667, 0.2, 0.233333, 0.266667, 0.3, 0.333333, 0.366667, 0.4, 0.433333, 0.466667, 0.5, 0.533333, 0.566667, 0.6, 0.633333, 0.666667, 0.7, 0.733333, 0.766667, 0.8, 0.833333, 0.866667, 0.9, 0.933333, 0.966667, 1, 1.0333, 1.06, 1.1, 1.16667),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.433333, 0.466667, 0.5, 0.533333, 0.566667, 0.6, 0.633333, 0.666667, 0.7, 0.733333, 0.766667, 0.8, 0.833333, 0.866667, 0.9, 0.933333, 0.966667, 1, 1.0333, 1.06, 1.1, 1.16667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [42, 41, 40, 39, 38, 37, 36, 35, 34, 33, 32, 31, 30, 29, 28, 27, 26, 25, 24, 23, 22, 21, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8]
+"values": [29, 29, 28, 27, 26, 25, 24, 23, 22, 21, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -331,62 +331,62 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("Control/Sprite2D:position")
+tracks/7/path = NodePath("Control:scale")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
-"times": PackedFloat32Array(0, 0.4, 0.433333, 1.23333),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Vector2(0, 8.5), Vector2(0, 8.5), Vector2(0, 0), Vector2(0, 0)]
-}
-tracks/8/type = "value"
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/path = NodePath("Control:scale")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/keys = {
 "times": PackedFloat32Array(0, 1.24, 1.3),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector2(8, 8), Vector2(8, 8), Vector2(8.75, 8.75)]
 }
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Control/resume:size")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 1.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(70, 31), Vector2(70, 31)]
+}
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("Control/resume:size")
+tracks/9/path = NodePath("Control/restart:size")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
 "times": PackedFloat32Array(0, 1.3),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(70, 31), Vector2(70, 31)]
+"values": [Vector2(65, 31), Vector2(65, 31)]
 }
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("Control/restart:size")
+tracks/10/path = NodePath("Control/quit:size")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
 "times": PackedFloat32Array(0, 1.3),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(65, 31), Vector2(65, 31)]
+"values": [Vector2(42, 31), Vector2(42, 31)]
 }
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("Control/quit:size")
+tracks/11/path = NodePath("Control:position")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/keys = {
-"times": PackedFloat32Array(0, 1.3),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.453508, 1.3),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector2(42, 31), Vector2(42, 31)]
+"values": [Vector2(640, 992), Vector2(640, 365), Vector2(640, 365)]
 }
 
 [sub_resource type="Animation" id="Animation_cq7wr"]
@@ -487,7 +487,6 @@ _data = {
 
 [node name="PauseGameHud" type="Control" node_paths=PackedStringArray("anim_player") groups=["pause_menu"]]
 process_mode = 3
-visible = false
 material = SubResource("CanvasItemMaterial_hh6xy")
 layout_mode = 3
 anchors_preset = 15
@@ -505,13 +504,14 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
+offset_top = 632.0
+offset_bottom = 632.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(8, 8)
 
 [node name="Sprite2D" type="Sprite2D" parent="Control"]
 texture_filter = 1
-position = Vector2(0, 8.5)
 texture = ExtResource("1_boc6r")
 hframes = 43
 frame = 42
@@ -529,7 +529,6 @@ focus_neighbor_top = NodePath("../quit")
 focus_neighbor_bottom = NodePath("../restart")
 theme = SubResource("Theme_b5kpg")
 theme_override_font_sizes/font_size = 16
-disabled = true
 text = "Resume"
 
 [node name="restart" type="Button" parent="Control"]
@@ -545,7 +544,6 @@ focus_neighbor_top = NodePath("../resume")
 focus_neighbor_bottom = NodePath("../quit")
 theme = SubResource("Theme_b5kpg")
 theme_override_font_sizes/font_size = 16
-disabled = true
 text = "Restart"
 
 [node name="quit" type="Button" parent="Control"]
@@ -561,7 +559,6 @@ focus_neighbor_top = NodePath("../restart")
 focus_neighbor_bottom = NodePath("../resume")
 theme = SubResource("Theme_b5kpg")
 theme_override_font_sizes/font_size = 16
-disabled = true
 text = "Quit"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

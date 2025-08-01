@@ -80,8 +80,9 @@ func spawn_bullet(bullet_scene_path: String, decal_scene_path: String) -> void:
 	
 	bullet_instance.global_position = aim_raycast.global_transform.origin
 	bullet_instance.rotation =  shoot_angle 
-	$gunsound.play(0.0)
-	if bullets_left > 0:
+	if bullets_left > 0 and get_tree().paused == false and wielder_of_weapon.health > 0.0:
+		
+		$gunsound.play(0.0)
 		
 		if wielder_of_weapon.name.begins_with("Player"):
 			emit_signal("ui_bullet_fired", bullets_left - 1)
