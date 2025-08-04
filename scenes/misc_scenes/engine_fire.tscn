@@ -32,5 +32,6 @@ interp_to_end = 0.011
 speed_scale = 4.52
 explosiveness = 0.25
 randomness = 0.42
+visibility_rect = Rect2(-500, -500, 1000, 1000)
 trail_lifetime = 0.9
 process_material = SubResource("ParticleProcessMaterial_2gugy")
