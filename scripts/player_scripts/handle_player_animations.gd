@@ -11,7 +11,7 @@ func handle_screen_dir(mouse_pos: Vector2, viewport_size: Vector2) -> String:
 	var screen_center: Vector2 = viewport_size / 2.0
 	var direction: Vector2 = (mouse_pos - screen_center).normalized()
 	var angle_degrees: float = rad_to_deg(atan2(direction.y, direction.x))
-
+	
 	const RIGHT_MIN = -45.0
 	const RIGHT_MAX =  45.0
 	const BOTTOM_MIN =  45.0
@@ -32,7 +32,7 @@ func handle_screen_dir(mouse_pos: Vector2, viewport_size: Vector2) -> String:
 
 func _process(_delta: float) -> void:
 	
-	var viewport_size: Vector2 = get_window().get_size()
+	var viewport_size: Vector2 = get_viewport().get_visible_rect().size
 	var mouse_pos: Vector2 = get_viewport().get_mouse_position()
 	var get_looking_direction = handle_screen_dir(mouse_pos, viewport_size)
 	

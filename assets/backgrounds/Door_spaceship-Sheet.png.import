@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bnamqcpntvqgb"
-path="res://.godot/imported/spaceship_backround.png-e046be0bf75845e1146426fe9606854c.ctex"
+uid="uid://c4tq3mun0gthw"
+path="res://.godot/imported/Door_spaceship-Sheet.png-87a270c2a42a1edf215a1820f00311e3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/backgrounds/spaceship_backround.png"
-dest_files=["res://.godot/imported/spaceship_backround.png-e046be0bf75845e1146426fe9606854c.ctex"]
+source_file="res://assets/backgrounds/Door_spaceship-Sheet.png"
+dest_files=["res://.godot/imported/Door_spaceship-Sheet.png-87a270c2a42a1edf215a1820f00311e3.ctex"]
 
 [params]
 

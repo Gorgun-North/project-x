@@ -16,6 +16,7 @@ collision_layer = 512
 collision_mask = 512
 
 [node name="Destructable_object" parent="." node_paths=PackedStringArray("nav_collider") instance=ExtResource("1_4x4gw")]
+motion_mode = 0
 mass = 400.0
 nav_collider = NodePath("../CollisionShape2D")
 health = 100000

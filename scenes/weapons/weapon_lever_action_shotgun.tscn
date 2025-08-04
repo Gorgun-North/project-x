@@ -87,5 +87,12 @@ hframes = 35
 [node name="gunsound" parent="weapon_prefab" index="1"]
 stream = ExtResource("4_nm0dy")
 
+[node name="reload_ui_timer_placeholder" parent="weapon_prefab" index="2"]
+position = Vector2(0, 0)
+
+[node name="ProgressBar" parent="weapon_prefab/reload_ui_timer_placeholder/Control/VBoxContainer" index="0"]
+value = 35.91
+tint_under = Color(0.675566, 0.446163, 0.127277, 1)
+
 [editable path="weapon_prefab"]
 [editable path="weapon_prefab/reload_ui_timer_placeholder"]

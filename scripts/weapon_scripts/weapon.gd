@@ -8,7 +8,7 @@ signal initiate_bullet_ui(clip_amount: int)
 @onready var weapon_sprite: Sprite2D = $weapon_sprite
 @onready var aim_raycast: RayCast2D = $weapon_sprite/RayCast2D
 @onready var reload_ui_interface: Node2D = $reload_ui_timer_placeholder
-@onready var reload_bar: ProgressBar = $reload_ui_timer_placeholder/Control/VBoxContainer/ProgressBar
+@onready var reload_bar: TextureProgressBar = $reload_ui_timer_placeholder/Control/VBoxContainer/ProgressBar
 
 @export var anim_player: AnimationPlayer
 var wielder_of_weapon: entity
@@ -89,7 +89,7 @@ func spawn_bullet(bullet_scene_path: String, decal_scene_path: String) -> void:
 			
 		bullets_left -= 1
 		spawn_bullet_decal(decal_scene_path)
-
+		bullet_instance.name = "Bullet_decal_instance"  # or any naming logic you like
 		get_tree().root.add_child(bullet_instance)
 
 func spawn_bullet_decal(decal_scene_path: String) -> void:

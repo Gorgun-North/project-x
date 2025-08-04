@@ -1,37 +1,41 @@
-[gd_scene load_steps=2 format=3 uid="uid://c3u8s1wg5qwb4"]
+[gd_scene load_steps=4 format=3 uid="uid://c3u8s1wg5qwb4"]
 
 [ext_resource type="Theme" uid="uid://bj51rklxf1svf" path="res://UI_themes/progressbar_placeholder.tres" id="1_baqo7"]
+[ext_resource type="Texture2D" uid="uid://bx8y3tb507mhq" path="res://assets/ui_elements/progressbar_under.png" id="2_t6cu8"]
+[ext_resource type="Texture2D" uid="uid://clje7siupvf2j" path="res://assets/ui_elements/progressbar_progress.png" id="3_ix3be"]
 
 [node name="reload_ui_timer_placeholder" type="Node2D"]
 
 [node name="Control" type="Control" parent="."]
 texture_filter = 1
 layout_mode = 3
-anchors_preset = 0
-offset_left = -188.0
-offset_top = -200.0
-offset_right = 212.0
-offset_bottom = -180.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -215.0
+offset_top = -256.0
+offset_right = -215.0
+offset_bottom = -256.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(7, 7)
 size_flags_horizontal = 4
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control"]
 layout_mode = 1
-anchors_preset = 14
-anchor_top = 0.5
+anchors_preset = 15
 anchor_right = 1.0
-anchor_bottom = 0.5
-offset_top = -2.0
-offset_bottom = 18.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ProgressBar" type="ProgressBar" parent="Control/VBoxContainer"]
+[node name="ProgressBar" type="TextureProgressBar" parent="Control/VBoxContainer"]
 texture_filter = 1
 custom_minimum_size = Vector2(0, 21.14)
 layout_mode = 2
-size_flags_vertical = 1
 theme = ExtResource("1_baqo7")
-value = 38.55
-show_percentage = false
+step = 0.01
+value = 15.16
+fill_mode = 5
+texture_under = ExtResource("2_t6cu8")
+texture_progress = ExtResource("3_ix3be")

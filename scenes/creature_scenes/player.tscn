@@ -25,7 +25,7 @@ height = 280.0
 
 [sub_resource type="Animation" id="Animation_tx6aq"]
 resource_name = "Iframes"
-length = 0.5
+length = 1.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -33,7 +33,7 @@ tracks/0/path = NodePath("character_sprite:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.233333, 0.366667, 0.5, 0.633333, 0.766667, 0.933333, 1.1, 1.26667, 1.5),
+"times": PackedFloat32Array(0, 0.1, 0.233333, 0.366667, 0.5, 0.633333, 0.7667, 0.933333, 1.1, 1.26667, 1.5),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 0,
 "values": [true, false, true, false, true, false, true, false, true, false, true]
@@ -543,11 +543,10 @@ collision_layer = 3
 collision_mask = 3
 safe_margin = 20.0
 script = ExtResource("1_j2f7r")
-health = 10
+health = 50
 held_weapon = NodePath("gun_pivot/weapon_lever_action_shotgun")
 
 [node name="player_camera" type="Camera2D" parent="." node_paths=PackedStringArray("entity_instance")]
-zoom = Vector2(0.25, 0.25)
 script = ExtResource("4_pw2sv")
 entity_instance = NodePath("..")
 shake_intensity_max = 99.0

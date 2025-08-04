@@ -99,6 +99,9 @@ position = Vector2(11.7857, 0)
 [node name="gunsound" parent="weapon_prefab" index="1"]
 stream = ExtResource("4_x4ibm")
 
+[node name="reload_ui_timer_placeholder" parent="weapon_prefab" index="2"]
+position = Vector2(-169, -310)
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_pdp2e")

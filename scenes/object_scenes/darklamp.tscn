@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://dlmtdov7wsy6o"]
+
+[ext_resource type="Texture2D" uid="uid://mfk7sh3dcomm" path="res://assets/test_assets/light_source_02.png" id="1_h7837"]
+
+[node name="darklamp" type="PointLight2D"]
+position = Vector2(0.500001, -4)
+energy = 3.0
+blend_mode = 1
+texture = ExtResource("1_h7837")

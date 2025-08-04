@@ -54,6 +54,7 @@ func _update_reload_timers() -> void:
 	else:
 		reload_anim_timer -= get_process_delta_time()
 	
+	
 	weapon_instance.reload_bar.visible = true
 	weapon_instance.reload_timer -= get_process_delta_time()
 	weapon_instance.reload_bar.value = weapon_instance.reload_timer

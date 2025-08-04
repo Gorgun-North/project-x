@@ -11,3 +11,5 @@ script = ExtResource("1_gbaq4")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
 texture = ExtResource("2_ca1f7")
+
+[connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]
