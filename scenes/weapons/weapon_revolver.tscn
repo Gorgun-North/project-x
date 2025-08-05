@@ -79,6 +79,7 @@ _data = {
 
 [node name="weapon_revolver" type="Node2D"]
 script = ExtResource("1_x4ibm")
+gun_reload_sound_pitch_scale = 1.0
 
 [node name="weapon_prefab" parent="." node_paths=PackedStringArray("anim_player") instance=ExtResource("1_m2bgp")]
 scale = Vector2(0.4, 0.4)
@@ -101,6 +102,9 @@ stream = ExtResource("4_x4ibm")
 
 [node name="reload_ui_timer_placeholder" parent="weapon_prefab" index="2"]
 position = Vector2(-169, -310)
+
+[node name="AudioStreamPlayer2D" parent="weapon_prefab/reload_ui_timer_placeholder" index="1"]
+max_distance = 100000.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

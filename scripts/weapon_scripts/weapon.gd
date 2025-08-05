@@ -9,6 +9,7 @@ signal initiate_bullet_ui(clip_amount: int)
 @onready var aim_raycast: RayCast2D = $weapon_sprite/RayCast2D
 @onready var reload_ui_interface: Node2D = $reload_ui_timer_placeholder
 @onready var reload_bar: TextureProgressBar = $reload_ui_timer_placeholder/Control/VBoxContainer/ProgressBar
+@onready var gun_reload_sound: AudioStreamPlayer2D = $reload_ui_timer_placeholder/AudioStreamPlayer2D
 
 @export var anim_player: AnimationPlayer
 var wielder_of_weapon: entity

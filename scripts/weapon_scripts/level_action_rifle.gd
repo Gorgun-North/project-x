@@ -13,6 +13,7 @@ signal initiate_bullet_ui(clip_amount: int)
 @export var reload_time: float = 0.8
 @export var wielder_of_weapon: entity
 @export var reload_amount: int = 1
+@export var gun_reload_sound_pitch_scale = 2.0
 
 const BULLET_DECAL_SCENE_PATH: String = "res://scenes/misc_scenes/bullet_decal.tscn"
 const BULLET_SCENE_PATH: String = "res://scenes/object_scenes/bullet.tscn"
@@ -45,6 +46,8 @@ func _start_reload_animation(reload_amount: int) -> void:
 
 	reload_anim_timer = reload_anim_duration * bullets_to_reload
 	emit_signal("ui_bullet_reloaded", weapon_instance.bullets_left - 1, bullets_to_reload)
+	weapon_instance.gun_reload_sound.pitch_scale = gun_reload_sound_pitch_scale
+	weapon_instance.gun_reload_sound.play(0.0)
 	
 	sent_reload_request_flag = true
 

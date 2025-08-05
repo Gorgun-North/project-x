@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=4 uid="uid://fm5rcpucimsy"]
+[gd_scene load_steps=35 format=4 uid="uid://fm5rcpucimsy"]
 
 [ext_resource type="Script" uid="uid://srym53hdohls" path="res://scripts/support_scripts/game_controller.gd" id="1_5nbfe"]
 [ext_resource type="PackedScene" uid="uid://c8bibno0p31yd" path="res://scenes/creature_scenes/player.tscn" id="1_xcykd"]
@@ -20,6 +20,7 @@
 [ext_resource type="PackedScene" uid="uid://qle6sgps57g7" path="res://scenes/prefabs/background_scene.tscn" id="15_ysdc2"]
 [ext_resource type="AudioStream" uid="uid://k4bk8oyfa1uv" path="res://audio/Main music/imagine all the things (master).wav" id="16_ysdc2"]
 [ext_resource type="Script" uid="uid://bsqr1v5syiovc" path="res://scripts/ui_scripts/handle_mouse_cursor.gd" id="18_ouyel"]
+[ext_resource type="PackedScene" uid="uid://oa3qkjuqwrp0" path="res://scenes/creature_scenes/enemy.tscn" id="21_kgy1s"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_56p8p"]
 vertices = PackedVector2Array(1802.26, 3409.66, -2128.54, 3350, 1750, 3350, 1750, 367.477, -4021.18, 2330, -1935.95, 2426, -2491.95, 2426, -1440.23, 2051.85, 52.0938, 2150, -503.906, 2150, 52.0938, 2708, 809.203, 2890, -1935.95, 2890, -503.906, 2708, -4780.45, 1643, -4021.18, 1829, -4477.18, 1829, 839.289, 2228.66, 1265.2, 2482, 809.203, 2482, -3660.92, -173, -3213.26, -701.227, -3234.21, 498.594, -3660.92, -731, -7.77344, 756.008, 839.289, 1799.66, 411.289, 1799.66, 1290, -1450, 496.891, -828, 496.891, -1386, -2370.7, -1450, -59.1094, -1386, -332.273, 1897, -332.273, 1396, -435.773, 756.008, -788.273, 1396, -1482.75, -671.031, -110.523, -883, -110.523, -382, -1503.68, 528.789, 411.289, 2228.66, -3169.95, 2112.26, -3211.85, 912.992, -788.273, 1897, -1482.11, 852.594, -4202.92, 725, -4780.45, 1085, -4658.92, 725, -4216.92, -731, -4843.7, -676, -4843.7, -1234, -4216.92, -173, -2370.7, -995, -59.1094, -883, -2926.7, -995, 345.477, -382, 345.477, -828, 1290, 2890, 1265.2, 2890, -2491.95, 2890, -5770, 2890, -4477.18, 2330, -5770, -1450, -2926.7, -1450, -5336.45, 1085, -5336.45, 1643, -4658.92, 224, -7.77344, 327.008, -435.773, 327.008, -4202.92, 224, -5399.7, -676, -5399.7, -1234)
@@ -172,13 +173,9 @@ background_mode = 3
 background_energy_multiplier = 6.84
 tonemap_mode = 4
 glow_enabled = true
-glow_levels/1 = 1.95
-glow_levels/2 = 1.21
-glow_levels/3 = 2.4
-glow_levels/4 = 5.77
-glow_levels/5 = 0.93
-glow_levels/7 = 1.86
-glow_normalized = true
+glow_levels/3 = 0.0
+glow_levels/4 = 6.0
+glow_levels/5 = 0.0
 glow_bloom = 0.02
 glow_blend_mode = 0
 glow_hdr_threshold = 0.9
@@ -282,6 +279,10 @@ position = Vector2(-2971.01, -2884)
 
 [node name="Player" parent="moving_entities" instance=ExtResource("1_xcykd")]
 position = Vector2(-4656, -970)
+scale = Vector2(0.995956, 1)
+
+[node name="Enemy" parent="moving_entities" instance=ExtResource("21_kgy1s")]
+position = Vector2(-705, -563)
 scale = Vector2(0.995956, 1)
 
 [node name="Lighting" type="Node" parent="."]
